@@ -32,7 +32,7 @@ public class PhotoActivity  extends BaseActivity {
 
     @Override
     public void initView() {
-        tvTitle.setText("Photo");
+        tvTitle.setText("Photo测试");
         ivSend.setVisibility(View.GONE);
 
     }
