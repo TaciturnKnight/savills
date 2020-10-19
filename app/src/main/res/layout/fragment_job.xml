@@ -135,7 +135,7 @@
                     android:id="@+id/tv_title_on_hold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="On Hold 100"
+                    android:text="Submitted 100"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelectUn"
                     android:layout_weight="1"/>
