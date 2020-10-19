@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_item_part_a_type2_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1a. Type of Building/Land Use"
+        android:textSize="12sp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/spot_weight"
+        android:layout_marginTop="20dp"/>
+    <EditText
+        android:id="@+id/et_item_part_a_type2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="@dimen/spot_weight"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_item_type2"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:hint="Please state"
+        android:gravity="top|left"
+        android:textSize="12sp"/>
+
+</LinearLayout>

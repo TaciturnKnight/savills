@@ -1,0 +1,17 @@
+{
+  "client_id" : "8f38d0a3-3a4c-424d-bb61-a6868b4572a0",
+  "authorization_user_agent" : "DEFAULT",
+  "redirect_uri" : "msauth://com.bamboo.savills/lLdX%2B0wwJ3t7DlZiZnVKapVxJTc%3D",
+  "account_mode" : "SINGLE",
+  "broker_redirect_uri_registered": true,
+  "authorities" : [
+    {
+      "type": "AAD",
+      "authority_url": "https://login.microsoftonline.com/d567c8c4-d4c5-4acd-8ed1-d1995c710ff5",
+      "audience": {
+        "type": "AzureADandPersonalMicrosoftAccount"
+      },
+      "default": true
+    }
+  ]
+}

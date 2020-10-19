@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorf7">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bg_item_type2">
+        <ImageView
+            android:id="@+id/iv_item_floor_plan"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:src="@drawable/img_floor_plan"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/tv_item_floor_plan_name"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorBlack"
+        android:text="Floor Plan A"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:background="@color/colorWhite"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        />
+    <TextView
+        android:id="@+id/tv_item_floor_plan_mark"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Mark Inspection Spot"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/colorYellow"
+        android:gravity="center"
+        android:textColor="#02306e"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

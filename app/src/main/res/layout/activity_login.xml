@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".activity.LoginActivity">
+    <LinearLayout
+        android:id="@+id/ll_login_first"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/colorBlack"/>
+        <RelativeLayout
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@color/colorYellow"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/savills"
+                android:textSize="20sp"
+                android:textColor="#c80c0f"
+                android:gravity="center_horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="3dp"
+                />
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="24dp"
+            android:text="Smart Inspection System"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/colorYellow"
+            android:layout_marginTop="30dp"
+            android:text="Login"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/login"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_login_sec"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:weightSum="10"
+            >
+
+            <Button
+                android:id="@+id/login2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="Sign In"/>
+
+            <Button
+                android:id="@+id/clearCache"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="Sign Out"
+                android:enabled="false"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/callGraphInteractive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Get Graph Data Interactively"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/callGraphSilent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Get Graph Data Silently"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <TextView
+
+            android:text="Getting Graph Data..."
+            android:textColor="#3f3f3f"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/graphData"
+            />
+
+        <TextView
+
+            android:id="@+id/current_user"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.8"
+            android:text="Account info goes here..." />
+
+        <TextView
+
+            android:id="@+id/txt_log"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.8"
+            android:text="Output goes here..." />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

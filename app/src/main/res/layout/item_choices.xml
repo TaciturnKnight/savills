@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_choice_un_select_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorEA"
+        android:layout_marginRight="18dp"
+        android:orientation="vertical"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp">
+        <TextView
+            android:id="@+id/tv_choice_un_select_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Residential"
+            android:gravity="center_vertical"
+            android:textSize="13sp"
+            android:textColor="@color/colorChoiceUnSelect"
+            android:layout_marginLeft="60dp"
+
+            />
+        <EditText
+            android:id="@+id/et_choice_un_select"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@color/colorWhite"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Please state"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_choice_select_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorYellow"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ok"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"/>
+            <TextView
+                android:id="@+id/tv_choice_select_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Residential"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_choice_select"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@color/colorWhite"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Please state"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

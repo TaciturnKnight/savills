@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+    <LinearLayout
+        android:id="@+id/ll_item_part_b_content_out"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_item_part_b_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ok"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/tv_item_part_b_content_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="BedRoom1"
+            android:layout_marginLeft="8dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/go_next"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorE7"
+        android:layout_below="@+id/ll_item_part_b_content_out"/>
+
+
+
+</RelativeLayout>

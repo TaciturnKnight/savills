@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorYellow">#FEDA0E</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorTextSelect">#002f6d</color>
+    <color name="colorTextSelectUn">#99a7b6</color>
+    <color name="colorf7">#f7f7f7</color>
+    <color name="colorRed">#c80c0f</color>
+    <color name="colorTextBlack">#252839</color>
+    <color name="colorE7">#e7e7e7</color>
+    <color name="colorEA">#EAEAEA</color>
+    <color name="colorChoiceUnSelect">#7a828a</color>
+    <color name="save_only">#1C1D2B</color>
+    <color name="completed">#02306e</color>
+</resources>

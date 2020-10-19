@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorf7">
+    <include
+        layout="@layout/title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="Hello! John Chan"
+            android:textSize="15sp"
+            android:textColor="@color/colorTextSelect"
+            
+            />
+        <EditText
+            android:id="@+id/et_search_job"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/colorWhite"
+            android:hint="Search Inspection"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="80dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlack"
+            android:gravity="left|center_vertical"
+           android:padding="5dp"
+            android:layout_below="@+id/tv_welcome"
+            android:layout_marginTop="7dp"
+            />
+
+        <TextView
+            android:layout_marginRight="15dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorYellow"
+            android:text="@string/savills"
+            android:textSize="15sp"
+            android:textColor="@color/colorRed"
+            android:gravity="bottom|center_horizontal"
+            android:layout_marginTop="29dp"/>
+    </RelativeLayout>
+    <HorizontalScrollView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/ll_unassigned"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title_unassigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unassigned 20"
+                    android:textSize="11sp"
+                    android:textColor="@color/colorTextSelect"
+                    android:layout_weight="1"/>
+                <View
+                    android:id="@+id/v_title_unassigned"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorTextSelect"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_assigned"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title_assigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Assigned 23"
+                    android:textSize="11sp"
+                    android:textColor="@color/colorTextSelectUn"
+                    android:layout_weight="1"/>
+                <View
+                    android:id="@+id/v_title_assigned"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorTextSelect"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_assign_to_me"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title_assign_to_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Assigned to me 4"
+                    android:textSize="11sp"
+                    android:textColor="@color/colorTextSelectUn"
+                    android:layout_weight="1"/>
+                <View
+                    android:id="@+id/v_title_assign_to_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorTextSelect"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_on_hold"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title_on_hold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On Hold 100"
+                    android:textSize="11sp"
+                    android:textColor="@color/colorTextSelectUn"
+                    android:layout_weight="1"/>
+                <View
+                    android:id="@+id/v_title_on_hold"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorTextSelect"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_job"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_job"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+</LinearLayout>

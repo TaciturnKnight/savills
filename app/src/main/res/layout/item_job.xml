@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_item_job"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Job No.:"
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2020/20390/BOC"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Company Code: "
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="BOC"
+                android:textColor="@color/colorBlack"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Assigned Inspector:"
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="David Chow"
+                android:textColor="@color/colorBlack"
+                android:layout_marginRight="5dp"/>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_item_jib_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="S9 Florissa Park Giffard Mansion"
+            android:textSize="12sp"
+            android:textColor="#252839"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Exp Completion Date: "
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="020-01-18"
+                android:textColor="@color/colorBlack"
+                android:layout_marginRight="5dp"/>
+
+
+        </LinearLayout>
+       <FrameLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="15dp"
+           android:layout_marginBottom="5dp">
+           <TextView
+               android:id="@+id/tv_item_job_accept"
+               android:layout_width="100dp"
+               android:layout_height="28dp"
+               android:background="@color/colorYellow"
+               android:layout_gravity="right"
+               android:layout_marginRight="5dp"
+               android:layout_marginBottom="5dp"
+               android:text="Accept"
+               android:textSize="13sp"
+               android:textColor="@color/colorTextBlack"
+               android:gravity="center"
+               android:visibility="gone"
+               />
+           <LinearLayout
+               android:id="@+id/ll_item_job_assign_to_me"
+               android:layout_width="wrap_content"
+               android:layout_height="28dp"
+               android:orientation="horizontal"
+               android:layout_gravity="right">
+               <TextView
+                   android:id="@+id/tv_item_job_assign_to_me_start"
+                   android:layout_width="wrap_content"
+                   android:layout_height="28dp"
+                   android:background="@color/colorYellow"
+                   android:layout_marginRight="5dp"
+                   android:layout_marginBottom="5dp"
+                   android:text="Start Inspection"
+                   android:textSize="13sp"
+                   android:textColor="@color/colorTextBlack"
+                   android:gravity="center"
+                   android:paddingLeft="15dp"
+                   android:paddingRight="15dp"
+                   />
+               <TextView
+                   android:id="@+id/tv_item_job_assign_to_me_un"
+                   android:layout_width="wrap_content"
+                   android:layout_height="28dp"
+                   android:background="@color/colorBlack"
+                   android:layout_marginLeft="8dp"
+                   android:layout_marginRight="5dp"
+                   android:layout_marginBottom="5dp"
+                   android:text="Unassign"
+                   android:textSize="13sp"
+                   android:textColor="@color/colorWhite"
+                   android:gravity="center"
+                   android:paddingLeft="15dp"
+                   android:paddingRight="15dp"
+                   />
+
+           </LinearLayout>
+
+       </FrameLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

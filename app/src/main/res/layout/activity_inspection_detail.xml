@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.InspectionDetailActivity"
+    android:orientation="vertical">
+    <include
+        layout="@layout/title_left_right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/rl_part_a_out"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_part_a_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/iv_part_a"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/icon_q_a" />
+
+                <ImageView
+                    android:id="@+id/iv_part_a_ok"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/ok" />
+
+            </LinearLayout>
+            <View
+                android:id="@+id/v_part_a"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorTextSelect"
+                android:layout_below="@+id/ll_part_a_out"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_floor_plan_out"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/iv_floor_plan"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/floor_plan_select_un"
+                />
+            <View
+                android:id="@+id/v_floor_plan"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorTextSelect"
+                android:layout_below="@+id/iv_floor_plan"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_part_b_out"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_part_b_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/iv_part_b"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/icon_q_b_grey" />
+
+                <ImageView
+                    android:id="@+id/iv_part_b_ok"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/ok"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+            <View
+                android:id="@+id/v_part_b"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorTextSelect"
+                android:layout_below="@+id/ll_part_b_out"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorE7"/>
+    <FrameLayout
+        android:id="@+id/inspection_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

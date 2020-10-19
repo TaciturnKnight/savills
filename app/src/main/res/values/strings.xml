@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Savills</string>
+    <string name="string_null">--</string>
+    <string name="loading">loading...</string>
+    <string name="savills">savills</string>
+    <string name="title_part_a">Job Report - Part A</string>
+    <string name="title_floor_plan">Floor Plan</string>
+    <string name="title_part_b">Job Report - Part B</string>
+</resources>

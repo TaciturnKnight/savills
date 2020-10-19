@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PartBQuestionActivity">
+    <include
+        android:id="@+id/title_part_b"
+        layout="@layout/title_left_right"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/title_part_b"
+        android:id="@+id/rv_part_b_question"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <LinearLayout
+        android:id="@+id/ll_location_out_part_b"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="180dp"/>
+
+</RelativeLayout>
