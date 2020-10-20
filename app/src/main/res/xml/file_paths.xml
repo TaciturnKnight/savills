@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <paths>
+        <external-path
+            name="external_files"
+            path="." />
+        <files-path
+            name="savills_image"
+            path="savills" />
         <root-path
-            path=""
-            name="camera_photos" />
+            name="camera_photos"
+            path="" />
     </paths>
 </resources>
