@@ -8,9 +8,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bamboo.savills.R;
 import com.bamboo.savills.base.view.BaseActivity;
@@ -73,7 +75,7 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    startActivity(new Intent(mContext, EditPicDrawActivity.class));
+                    startActivityForResult(new Intent(mContext, DoodleActivity.class), 101);
                 }
             }
         });
@@ -83,6 +85,26 @@ public class MarkActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101) {
+            //编辑图片完成
+            if (data == null) {
+                return;
+            }
+            if (resultCode == cn.hzw.doodle.DoodleActivity.RESULT_OK) {
+                String path = data.getStringExtra(cn.hzw.doodle.DoodleActivity.KEY_IMAGE_PATH);
+                if (TextUtils.isEmpty(path)) {
+                    return;
+                }
+                Glide.with(this).load(new File(path)).into(pic);
+            } else if (resultCode == cn.hzw.doodle.DoodleActivity.RESULT_ERROR) {
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void initPic() {

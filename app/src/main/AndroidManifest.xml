@@ -43,6 +43,7 @@
         <activity android:name=".activity.MarkActivity" />
         <activity android:name=".activity.PartBQuestionActivity" />
         <activity android:name=".activity.EditPicDrawActivity" />
+        <activity android:name=".activity.DoodleActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

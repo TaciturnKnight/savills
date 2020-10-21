@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.InjectView;
+import cn.hzw.doodle.DoodleView;
+import cn.hzw.doodle.core.IDoodle;
 
 /**
  * Created by tong on 2020/10/20.
@@ -32,6 +34,8 @@ public abstract class EditPicCommonActivity extends BaseActivity {
     public SeekBar seekBar;
     @InjectView(R.id.editpic_color_recycler)
     public RecyclerView colorRecyclerView;
+    private IDoodle mDoodle;
+    private DoodleView mDoodleView;
 
     @Override
     public void initView() {
@@ -65,6 +69,11 @@ public abstract class EditPicCommonActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     public abstract void onProgressChange(int progress);
