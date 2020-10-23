@@ -68,14 +68,16 @@ public class MarkActivity extends BaseActivity {
         toText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (editPicHelper.bitmap != null) {
+                    startActivityForResult(new Intent(mContext, EditPicTextActivity.class), 101);
+                }
             }
         });
         toDraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    startActivityForResult(new Intent(mContext, DoodleActivity.class), 101);
+                    startActivityForResult(new Intent(mContext, EditPicDrawActivity.class), 101);
                 }
             }
         });
@@ -96,11 +98,15 @@ public class MarkActivity extends BaseActivity {
                 return;
             }
             if (resultCode == cn.hzw.doodle.DoodleActivity.RESULT_OK) {
+                //得到编辑后的图片路径
                 String path = data.getStringExtra(cn.hzw.doodle.DoodleActivity.KEY_IMAGE_PATH);
+                //更新图片状态
+                File picFile = new File(path);
+                editPicHelper.setImage(picFile);
                 if (TextUtils.isEmpty(path)) {
                     return;
                 }
-                Glide.with(this).load(new File(path)).into(pic);
+                Glide.with(this).load(picFile).into(pic);
             } else if (resultCode == cn.hzw.doodle.DoodleActivity.RESULT_ERROR) {
                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
             }

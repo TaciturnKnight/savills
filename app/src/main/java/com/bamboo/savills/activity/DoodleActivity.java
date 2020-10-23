@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,7 +13,6 @@ import android.os.Environment;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -27,20 +25,27 @@ import android.widget.Toast;
 
 import com.bamboo.savills.R;
 import com.bamboo.savills.adapter.EditPicColorAdapter;
+import com.bamboo.savills.adapter.EditpicTextPageAdapter;
+import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.EditPicHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.material.tabs.TabLayout;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import cn.forward.androids.utils.ImageUtils;
 import cn.forward.androids.utils.LogUtil;
 import cn.forward.androids.utils.StatusBarUtil;
@@ -64,7 +69,6 @@ import cn.hzw.doodle.core.IDoodlePen;
 import cn.hzw.doodle.core.IDoodleSelectableItem;
 import cn.hzw.doodle.core.IDoodleShape;
 import cn.hzw.doodle.core.IDoodleTouchDetector;
-import cn.hzw.doodle.dialog.ColorPickerDialog;
 import cn.hzw.doodle.dialog.DialogController;
 import cn.hzw.doodle.imagepicker.ImageSelectorView;
 
@@ -73,7 +77,7 @@ import cn.hzw.doodle.imagepicker.ImageSelectorView;
  * （这边代码和ui比较粗糙，主要目的是告诉大家DoodleView的接口具体能实现什么功能，实际需求中的ui和交互需另提别论）
  * Created by huangziwei(154330138@qq.com) on 2016/9/3.
  */
-public class DoodleActivity extends Activity {
+public abstract class DoodleActivity extends Activity {
 
     public static final String TAG = "Doodle";
     public final static int DEFAULT_MOSAIC_SIZE = 20; // 默认马赛克大小
@@ -82,6 +86,9 @@ public class DoodleActivity extends Activity {
     public final static int DEFAULT_BITMAP_SIZE = 80; // 默认贴图大小
 
     public static final int RESULT_ERROR = -111; // 出现错误
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
+
 
     /**
      * 启动涂鸦界面
@@ -128,34 +135,34 @@ public class DoodleActivity extends Activity {
     public static final String KEY_PARAMS = "key_doodle_params";
     public static final String KEY_IMAGE_PATH = "key_image_path";
 
-    private String mImagePath;
+    public String mImagePath;
 
-    private FrameLayout mFrameLayout;
-    private IDoodle mDoodle;
-    private DoodleView mDoodleView;
+    public FrameLayout mFrameLayout;
+    public IDoodle mDoodle;
+    public DoodleView mDoodleView;
 
-    private TextView mPaintSizeView;
+    public TextView mPaintSizeView;
 
-    private View mSettingsPanel;
-    private View mBtnColor, mColorContainer;
-    private SeekBar mEditSizeSeekBar;
-    private View mPenContainer, mSizeContainer;
-    private View mBtnUndo;
-    private View mRedoBtn;
+    public View mSettingsPanel;
+    public View mBtnColor, mColorContainer;
+    public SeekBar mEditSizeSeekBar;
+    public View mPenContainer, mSizeContainer;
+    public View mBtnUndo;
+    public View mRedoBtn;
 
-    private AlphaAnimation mViewShowAnimation, mViewHideAnimation; // view隐藏和显示时用到的渐变动画
+    public AlphaAnimation mViewShowAnimation, mViewHideAnimation; // view隐藏和显示时用到的渐变动画
 
-    private DoodleParams mDoodleParams;
+    public DoodleParams mDoodleParams;
 
     // 触摸屏幕超过一定时间才判断为需要隐藏设置面板
-    private Runnable mHideDelayRunnable;
+    public Runnable mHideDelayRunnable;
     // 触摸屏幕超过一定时间才判断为需要显示设置面板
-    private Runnable mShowDelayRunnable;
+    public Runnable mShowDelayRunnable;
 
-    private DoodleOnTouchGestureListener mTouchGestureListener;
-    private Map<IDoodlePen, Float> mPenSizeMap = new HashMap<>(); //保存每个画笔对应的最新大小
+    public DoodleOnTouchGestureListener mTouchGestureListener;
+    public Map<IDoodlePen, Float> mPenSizeMap = new HashMap<>(); //保存每个画笔对应的最新大小
 
-    private int mMosaicLevel = -1;
+    public int mMosaicLevel = -1;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -367,7 +374,7 @@ public class DoodleActivity extends Activity {
         initView();
     }
 
-    private boolean canChangeColor(IDoodlePen pen) {
+    public boolean canChangeColor(IDoodlePen pen) {
         return pen != DoodlePen.ERASER
                 && pen != DoodlePen.BITMAP
                 && pen != DoodlePen.COPY
@@ -375,7 +382,7 @@ public class DoodleActivity extends Activity {
     }
 
     // 添加文字
-    private void createDoodleText(final DoodleText doodleText, final float x, final float y) {
+    public void createDoodleText(final DoodleText doodleText, final float x, final float y) {
         if (isFinishing()) {
             return;
         }
@@ -403,7 +410,7 @@ public class DoodleActivity extends Activity {
     }
 
     // 添加贴图
-    private void createDoodleBitmap(final DoodleBitmap doodleBitmap, final float x, final float y) {
+    public void createDoodleBitmap(final DoodleBitmap doodleBitmap, final float x, final float y) {
         DialogController.showSelectImageDialog(this, new ImageSelectorView.ImageSelectorListener() {
             @Override
             public void onCancel() {
@@ -426,20 +433,63 @@ public class DoodleActivity extends Activity {
     }
 
     //++++++++++++++++++以下为一些初始化操作和点击监听+++++++++++++++++++++++++++++++++++++++++
-    private RecyclerView colorRecyclerView;
-    private EditPicColorAdapter colorAdapter;
+    public RecyclerView colorRecyclerView;
+    public EditPicColorAdapter colorAdapter;
 
     //
-    private void initView() {
+    public void initView() {
+        tabLayout = findViewById(R.id.editpic_tablayout);
+        viewPager = findViewById(R.id.editpic_viewpager);
+        tabLayout.setupWithViewPager(viewPager);
+//        tabLayout.addTab(tabLayout.newTab().setText("Residential"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Office"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Industrial"));
+//        tabLayout.addTab(tabLayout.newTab().setText("House"));
+        EditpicTextPageAdapter textPageAdapter = new EditpicTextPageAdapter(this, new EditpicTextPageAdapter.OnTextClickListener() {
+            @Override
+            public void onTextClick(String text) {
+                //添加文字
+                if (TextUtils.isEmpty(text)) {
+                    return;
+                }
+                IDoodleSelectableItem item = new DoodleText(mDoodle, text, 100, mDoodle.getColor().copy(), EditPicHelper.getInstance().bitmap.getWidth() / 2, EditPicHelper.getInstance().bitmap.getHeight() / 2);
+                mDoodle.addItem(item);
+                mTouchGestureListener.setSelectedItem(item);
+                mDoodle.refresh();
+            }
+        });
+        viewPager.setAdapter(textPageAdapter);
+        List<List<String>> textDatas = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            List<String> texts = new ArrayList<>();
+            texts.add("L/D");
+            texts.add("BR");
+            texts.add("Bath");
+            texts.add("Kit");
+            texts.add("SerR");
+            texts.add("BaL");
+            texts.add("Serlav");
+            texts.add("Lav");
+            texts.add("RF");
+            texts.add("FR");
+            texts.add("VR");
+            texts.add("No Inspection");
+            textDatas.add(texts);
+        }
+        textPageAdapter.setDatas(textDatas);
+        tabLayout.getTabAt(0).setText("Residential");
+        tabLayout.getTabAt(1).setText("Office");
+        tabLayout.getTabAt(2).setText("Industrial");
+        tabLayout.getTabAt(3).setText("House");
         colorRecyclerView = findViewById(R.id.editpic_color_recycler);
-        colorRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        colorRecyclerView.setLayoutManager(new GridLayoutManager(this, EditPicHelper.getInstance().colors.size(), LinearLayoutManager.VERTICAL, false));
         colorAdapter = new EditPicColorAdapter();
         colorRecyclerView.setAdapter(colorAdapter);
-        colorAdapter.setDiffNewData(EditPicHelper.getInstance().colors);
+        colorAdapter.setNewData(EditPicHelper.getInstance().colors);
         colorAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                mDoodle.setColor(new DoodleColor(Color.parseColor(EditPicHelper.getInstance().colors.get(position))));
+                onSelectColor(EditPicHelper.getInstance().colors.get(position));
             }
         });
         mBtnUndo = findViewById(R.id.btn_undo);
@@ -483,7 +533,7 @@ public class DoodleActivity extends Activity {
                 if ((int) mDoodle.getSize() == progress) {
                     return;
                 }
-                mDoodle.setSize(progress);
+                onSizeChange(progress);
                 if (mTouchGestureListener.getSelectedItem() != null) {
                     mTouchGestureListener.getSelectedItem().setSize(progress);
                 }
@@ -544,7 +594,11 @@ public class DoodleActivity extends Activity {
         };
     }
 
-    private ValueAnimator mRotateAnimator;
+    public ValueAnimator mRotateAnimator;
+
+    public abstract void onSelectColor(String color);
+
+    public abstract void onSizeChange(int size);
 
     public void onClick(final View v) {
         if (v.getId() == R.id.btn_pen_hand) {
@@ -658,7 +712,7 @@ public class DoodleActivity extends Activity {
         findViewById(R.id.doodle_btn_back).performClick();
     }
 
-    private void showView(View view) {
+    public void showView(View view) {
         if (view.getVisibility() == View.VISIBLE) {
             return;
         }
@@ -668,7 +722,7 @@ public class DoodleActivity extends Activity {
         view.setVisibility(View.VISIBLE);
     }
 
-    private void hideView(View view) {
+    public void hideView(View view) {
         if (view.getVisibility() != View.VISIBLE) {
             return;
         }
@@ -680,13 +734,13 @@ public class DoodleActivity extends Activity {
     /**
      * 包裹DoodleView，监听相应的设置接口，以改变UI状态
      */
-    private class DoodleViewWrapper extends DoodleView {
+    public class DoodleViewWrapper extends DoodleView {
 
         public DoodleViewWrapper(Context context, Bitmap bitmap, boolean optimizeDrawing, IDoodleListener listener) {
             super(context, bitmap, optimizeDrawing, listener);
         }
 
-        private Map<IDoodlePen, Integer> mBtnPenIds = new HashMap<>();
+        public Map<IDoodlePen, Integer> mBtnPenIds = new HashMap<>();
 
         {
             mBtnPenIds.put(DoodlePen.BRUSH, R.id.btn_pen_hand);
@@ -697,7 +751,6 @@ public class DoodleActivity extends Activity {
         public void setPen(IDoodlePen pen) {
             IDoodlePen oldPen = getPen();
             super.setPen(pen);
-
             if (pen == DoodlePen.BITMAP || pen == DoodlePen.TEXT) {
                 if (pen == DoodlePen.BITMAP) {
                     mColorContainer.setVisibility(GONE);
@@ -728,40 +781,9 @@ public class DoodleActivity extends Activity {
                 return;
             }
 
-            if (pen == DoodlePen.BRUSH) {
-                Drawable colorBg = mBtnColor.getBackground();
-                if (colorBg instanceof ColorDrawable) {
-                    mDoodle.setColor(new DoodleColor(((ColorDrawable) colorBg).getColor()));
-                } else {
-                    mDoodle.setColor(new DoodleColor(((BitmapDrawable) colorBg).getBitmap()));
-                }
-            } else if (pen == DoodlePen.MOSAIC) {
-                if (mMosaicLevel <= 0) {
-                } else {
-                    mDoodle.setColor(DoodlePath.getMosaicColor(mDoodle, mMosaicLevel));
-                }
-            } else if (pen == DoodlePen.COPY) {
-
-            } else if (pen == DoodlePen.ERASER) {
-
-            } else if (pen == DoodlePen.TEXT) {
-                Drawable colorBg = mBtnColor.getBackground();
-                if (colorBg instanceof ColorDrawable) {
-                    mDoodle.setColor(new DoodleColor(((ColorDrawable) colorBg).getColor()));
-                } else {
-                    mDoodle.setColor(new DoodleColor(((BitmapDrawable) colorBg).getBitmap()));
-                }
-            } else if (pen == DoodlePen.BITMAP) {
-                Drawable colorBg = mBtnColor.getBackground();
-                if (colorBg instanceof ColorDrawable) {
-                    mDoodle.setColor(new DoodleColor(((ColorDrawable) colorBg).getColor()));
-                } else {
-                    mDoodle.setColor(new DoodleColor(((BitmapDrawable) colorBg).getBitmap()));
-                }
-            }
         }
 
-        private Map<IDoodleShape, Integer> mBtnShapeIds = new HashMap<>();
+        public Map<IDoodleShape, Integer> mBtnShapeIds = new HashMap<>();
 
         @Override
         public void setShape(IDoodleShape shape) {
@@ -773,7 +795,7 @@ public class DoodleActivity extends Activity {
         @Override
         public void setSize(float paintSize) {
             super.setSize(paintSize);
-            mEditSizeSeekBar.setProgress((int) paintSize);
+//            mEditSizeSeekBar.setProgress((int) paintSize);
             mPaintSizeView.setText("" + (int) paintSize);
 
             if (mTouchGestureListener.getSelectedItem() != null) {
@@ -877,7 +899,7 @@ public class DoodleActivity extends Activity {
             }
         }
 
-        private void setSingleSelected(Collection<Integer> ids, int selectedId) {
+        public void setSingleSelected(Collection<Integer> ids, int selectedId) {
             for (int id : ids) {
                 if (id == selectedId) {
                     DoodleActivity.this.findViewById(id).setSelected(true);

@@ -19,8 +19,8 @@ public class PointView extends View {
     private String color;
     private Paint paint;
 
-    public PointView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public PointView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         mContext = context;
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -45,7 +45,7 @@ public class PointView extends View {
         super.onDraw(canvas);
         if (color != null) {
             paint.setColor(Color.parseColor(color));
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - DensityUtils.dp2px(mContext, 5), paint);
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - DensityUtils.dp2px(mContext, 8), paint);
         }
     }
 
