@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bamboo.savills.R;
+import com.bamboo.savills.utils.EditPicHelper;
 
 import cn.hzw.doodle.DoodleColor;
 import cn.hzw.doodle.DoodlePen;

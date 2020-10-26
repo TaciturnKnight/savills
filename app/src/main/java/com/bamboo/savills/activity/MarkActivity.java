@@ -203,6 +203,12 @@ public class MarkActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EditPicHelper.getInstance().reset();
+    }
+
+    @Override
     public void onClickNext(View v) {
 
     }

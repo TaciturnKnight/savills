@@ -49,8 +49,18 @@ public class EditPicHelper {
         editParams.mSupportScaleItem = false;
     }
 
+    public void addText(String text) {
+        strings.add(text);
+    }
+
     public void reset() {
-        strings.clear();
+        if (strings != null)
+            strings.clear();
+        if (bitmap != null) {
+            bitmap.recycle();
+            bitmap = null;
+        }
+        editParams = null;
     }
 
     public DoodleParams editParams;

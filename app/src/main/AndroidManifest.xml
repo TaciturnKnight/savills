@@ -44,6 +44,8 @@
         <activity android:name=".activity.PartBQuestionActivity" />
         <activity android:name=".activity.EditPicDrawActivity" />
         <activity android:name=".activity.EditPicTextActivity" />
+        <activity android:name=".activity.FilePickerActivity" />
+        <activity android:name=".activity.LoadFileByWebViewActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

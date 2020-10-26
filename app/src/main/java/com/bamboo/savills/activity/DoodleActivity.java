@@ -386,7 +386,6 @@ public abstract class DoodleActivity extends Activity {
         if (isFinishing()) {
             return;
         }
-
         DialogController.showInputTextDialog(this, doodleText == null ? null : doodleText.getText(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -407,6 +406,7 @@ public abstract class DoodleActivity extends Activity {
         if (doodleText == null) {
             mSettingsPanel.removeCallbacks(mHideDelayRunnable);
         }
+        EditPicHelper.getInstance().addText(doodleText.getText());
     }
 
     // 添加贴图

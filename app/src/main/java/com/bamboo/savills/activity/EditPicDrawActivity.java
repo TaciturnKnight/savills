@@ -1,9 +1,6 @@
 package com.bamboo.savills.activity;
 
 import android.graphics.Color;
-import android.view.View;
-
-import com.bamboo.savills.base.view.BaseActivity;
 
 import cn.hzw.doodle.DoodleColor;
 import cn.hzw.doodle.DoodleView;

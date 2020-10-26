@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/item_filepicker_dirrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_filetypelist_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="@dimen/loan_padding_toparent_without_shadow"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/icon_file_dir" />
+
+        <TextView
+            android:id="@+id/item_filetypelist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/item_filetypelist_icon"
+            android:text="文件名称"
+            android:textColor="@color/loan_title_black"
+            android:textSize="@dimen/loan_normal_title_size" />
+
+        <TextView
+            android:id="@+id/item_filetypelist_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/item_filetypelist_name"
+            android:textColor="@color/loan_title_black"
+            android:textSize="@dimen/loan_normal_title_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/item_filetypelist_icon"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/loan_light_line_gray" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_filepicker_filerl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:id="@+id/item_filelist_filepic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/loan_padding_toparent_without_shadow"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/icon_file_excel" />
+
+
+        <TextView
+            android:id="@+id/item_filelist_filename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_filelist_filepic"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="@dimen/loan_padding_toparent_without_shadow"
+            android:layout_toRightOf="@+id/item_filelist_filepic"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/loan_title_black"
+            android:textSize="@dimen/loan_normal_title_size" />
+
+        <TextView
+            android:id="@+id/item_filelist_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_filelist_filename"
+            android:layout_alignBottom="@+id/item_filelist_filepic"
+            android:layout_marginRight="@dimen/loan_padding_toparent_without_shadow"
+            android:textColor="@color/loan_title_gray"
+            android:textSize="@dimen/list_item_text_size_small" />
+        <!--        android:layout_toLeftOf="@+id/item_filelist_del"-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/item_filelist_filepic"
+            android:layout_marginLeft="@dimen/loan_padding_toparent_without_shadow"
+            android:layout_marginTop="12dp"
+            android:background="@color/loan_light_line_gray" />
+    </RelativeLayout>
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_choose"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:src="@mipmap/file_no_selection"-->
+    <!--android:visibility="gone" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_toRightOf="@id/iv_choose"-->
+    <!--android:divider="@drawable/bottom_line"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:showDividers="middle">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_type"-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_centerVertical="true" />-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/layout_info"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_toRightOf="@id/iv_type"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="10dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_name"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:ellipsize="end"-->
+    <!--android:maxLines="1"-->
+    <!--android:text="名字"-->
+    <!--android:textColor="@color/file_picker_title"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_detail"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:textColor="@color/file_picker_des"-->
+    <!--android:textSize="14sp" />-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+</FrameLayout>

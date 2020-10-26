@@ -16,4 +16,9 @@
     <color name="colorChoiceUnSelect">#7a828a</color>
     <color name="save_only">#1C1D2B</color>
     <color name="completed">#02306e</color>
+    <color name="loan_title_black">#333333</color>
+    <color name="loan_light_line_gray">#efefef</color>
+    <color name="blue">#0000FF</color>
+    <color name="loan_title_gray">#969696</color>
+    <color name="file_bottom_line">#ECECEC</color>
 </resources>

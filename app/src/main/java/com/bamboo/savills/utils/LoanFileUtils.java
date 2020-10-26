@@ -34,7 +34,7 @@ public class LoanFileUtils {
     public static Uri fileToUri(Context mContext, File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //7.0以后
-            return FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileProvider", file);
+            return FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileprovider", file);
         } else {
             return Uri.fromFile(file);
         }

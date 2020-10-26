@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/selectfile_takepic"
+        style="@style/selectfile_textstyle"
+        android:text="拍照" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/loan_light_line_gray" />
+
+    <TextView
+        android:id="@+id/selectfile_takevideo"
+        style="@style/selectfile_textstyle"
+        android:text="拍视频" />
+
+    <View
+        android:id="@+id/selectfile_privateline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/loan_light_line_gray" />
+
+    <TextView
+        android:id="@+id/selectfile_selectprivate"
+        style="@style/selectfile_textstyle"
+        android:text="选择图片/视频" />
+
+    <View
+        android:id="@+id/selectfile_publicline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/loan_light_line_gray" />
+
+
+    <TextView
+        android:id="@+id/selectfile_cancle"
+        style="@style/selectfile_textstyle"
+        android:text="取消" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/loan_light_line_gray" />
+</LinearLayout>
