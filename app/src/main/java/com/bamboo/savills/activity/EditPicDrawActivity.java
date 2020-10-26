@@ -1,6 +1,8 @@
 package com.bamboo.savills.activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
 
 import cn.hzw.doodle.DoodleColor;
 import cn.hzw.doodle.DoodleView;
@@ -9,7 +11,6 @@ import cn.hzw.doodle.DoodleView;
  * Created by tong on 2020/10/20.
  */
 public class EditPicDrawActivity extends DoodleActivity {
-
     @Override
     public void onSelectColor(String color) {
         //选择颜色时调用
