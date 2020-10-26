@@ -60,7 +60,6 @@ public class EditPicHelper {
             bitmap.recycle();
             bitmap = null;
         }
-        editParams = null;
     }
 
     public DoodleParams editParams;

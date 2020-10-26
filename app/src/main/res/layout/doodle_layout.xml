@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doodle_btn_finish"
         app:tabBackground="@android:color/transparent"
@@ -258,6 +259,7 @@
         android:id="@+id/editpic_viewpager"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/doodle_container" />
 </androidx.constraintlayout.widget.ConstraintLayout>

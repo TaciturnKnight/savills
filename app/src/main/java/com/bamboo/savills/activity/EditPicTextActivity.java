@@ -28,6 +28,8 @@ public class EditPicTextActivity extends DoodleActivity {
                 createDoodleText((DoodleText) mTouchGestureListener.getSelectedItem(), -1, -1);
             }
         });
+        viewPager.setVisibility(View.VISIBLE);
+        tabLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
