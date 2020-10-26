@@ -6,4 +6,23 @@
     <string name="title_part_a">Job Report - Part A</string>
     <string name="title_floor_plan">Floor Plan</string>
     <string name="title_part_b">Job Report - Part B</string>
+    <string name="pack_text_up">收起</string>
+    <string name="pack_text_down">展开</string>
+    <string name="file_normal">常用文件</string>
+    <string name="file_all">全部文件</string>
+    <string name="empty_data">没有数据</string>
+    <string name="not_available">sd卡不可用</string>
+    <string name="already_select">已选择：%s</string>
+    <string name="file_select_res">确定%s</string>
+    <string name="file_select_max">最多选择%d个文件</string>
+    <string name="all_images">全部图片</string>
+    <string name="folder_image_count">共%1$d张</string>
+    <string name="preview_image_count">%1$s/%2$s</string>
+    <string name="select_limit">最多选择%1$s张图片</string>
+    <string name="complete">完成</string>
+    <string name="select_complete">完成(%1$s/%2$s)</string>
+    <string name="preview_count">预览(%1$s)</string>
+    <string name="photo_crop">图片裁剪</string>
+    <string name="origin">原图</string>
+    <string name="origin_size">原图(%1$s)</string>
 </resources>

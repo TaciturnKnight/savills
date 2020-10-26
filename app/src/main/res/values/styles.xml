@@ -33,5 +33,19 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
+    <style name="editpic_textstyle">
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="Selectfile_Dialog_style" parent="Custom_Dialog_Theme_Background_DimEnabled_True">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="selectfile_textstyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/loan_padding_toparent_without_shadow</item>
+        <item name="android:paddingBottom">@dimen/loan_padding_toparent_without_shadow</item>
+        <item name="android:textColor">@color/loan_title_black</item>
+        <item name="android:textSize">@dimen/loan_normal_title_size</item>
+    </style>
 </resources>

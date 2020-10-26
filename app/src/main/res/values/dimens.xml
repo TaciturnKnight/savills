@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="editpic_buttonsize">15dp</dimen>
+    <dimen name="loan_padding_toparent_without_shadow">11dp</dimen>
+    <dimen name="loan_normal_title_size">14sp</dimen>
+    <dimen name="list_refresh_height">100dp</dimen><!-- 下拉刷新区域的高度 -->
+    <dimen name="list_loadMore_height">100dp</dimen><!-- 上拉加载区域的高度 -->
+    <dimen name="list_item_height">80dp</dimen><!-- 列表中条目的高度 -->
+    <dimen name="list_item_driverHeight">3dp</dimen><!-- 列表中条目的分割线高度 -->
+    <dimen name="list_item_nick_side">60dp</dimen><!-- 列表中条目的客户称呼 -->
+    <dimen name="list_item_nick_margin_left">5dp</dimen><!-- 列表中条目的客户左侧边距 -->
+    <dimen name="list_item_text_size_small">11sp</dimen><!-- 列表中条目的字体大小(小) -->
+    <dimen name="list_item_text_size_middle">13sp</dimen><!-- 列表中条目的字体大小(中) -->
+    <dimen name="list_item_text_size_large">16sp</dimen><!-- 列表中条目的字体大小(大) -->
+    <dimen name="list_item_message_info_marginLeft">10dp</dimen><!-- 列表中条目的内容的左边距 -->
+    <dimen name="list_item_message_info_marginRight">10dp</dimen><!-- 列表中条目的内容的右边距 -->
+    <dimen name="list_item_message_info_child_interval">3dp</dimen><!-- 列表中条目的内容之间的间距 -->
+    <dimen name="list_item_to_next_icon_marginRight">5dp</dimen><!-- 列表中条目的点击提示图标的右边距 -->
+</resources>
