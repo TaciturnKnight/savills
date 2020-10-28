@@ -35,6 +35,7 @@ import java.io.InputStream;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.InjectView;
+import cn.hzw.doodle.imagepicker.ImageLoader;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
@@ -106,7 +107,7 @@ public class MarkActivity extends BaseActivity {
                 if (TextUtils.isEmpty(path)) {
                     return;
                 }
-                Glide.with(this).load(picFile).into(pic);
+                ImageLoader.getInstance(mContext).display(pic, path);
             } else if (resultCode == cn.hzw.doodle.DoodleActivity.RESULT_ERROR) {
                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
             }

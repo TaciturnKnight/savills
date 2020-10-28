@@ -228,12 +228,12 @@ public abstract class DoodleActivity extends Activity {
                     File dcimFile = new File(Environment.getExternalStorageDirectory(), "DCIM");
                     doodleFile = new File(dcimFile, "Doodle");
                     //　保存的路径
-                    file = new File(doodleFile, System.currentTimeMillis() + ".jpg");
+                    file = new File(doodleFile, System.currentTimeMillis() + ".png");
                 } else {
                     if (isDir) {
                         doodleFile = new File(savePath);
                         //　保存的路径
-                        file = new File(doodleFile, System.currentTimeMillis() + ".jpg");
+                        file = new File(doodleFile, System.currentTimeMillis() + ".png");
                     } else {
                         file = new File(savePath);
                         doodleFile = file.getParentFile();
@@ -244,7 +244,7 @@ public abstract class DoodleActivity extends Activity {
                 FileOutputStream outputStream = null;
                 try {
                     outputStream = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 95, outputStream);
                     ImageUtils.addImage(getContentResolver(), file.getAbsolutePath());
                     Intent intent = new Intent();
                     intent.putExtra(KEY_IMAGE_PATH, file.getAbsolutePath());
