@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -394,19 +395,32 @@ public abstract class DoodleActivity extends Activity {
                     return;
                 }
                 if (doodleText == null) {
-                    IDoodleSelectableItem item = new DoodleText(mDoodle, text, mDoodle.getSize(), mDoodle.getColor().copy(), x, y);
-                    mDoodle.addItem(item);
-                    mTouchGestureListener.setSelectedItem(item);
+                    addText(text);
+//                    IDoodleSelectableItem item = new DoodleText(mDoodle, text, mDoodle.getSize(), mDoodle.getColor().copy(), x, y);
+//                    mDoodle.addItem(item);
+//                    mTouchGestureListener.setSelectedItem(item);
                 } else {
                     doodleText.setText(text);
                 }
                 mDoodle.refresh();
             }
-        }, null);
+        }, null).findViewById(cn.hzw.doodle.R.id.doodle_selectable_edit).requestFocus();
         if (doodleText == null) {
             mSettingsPanel.removeCallbacks(mHideDelayRunnable);
         }
-        EditPicHelper.getInstance().addText(doodleText.getText());
+//        EditPicHelper.getInstance().addText(doodleText.getText());
+    }
+
+    public static void showSoftInput(final View view) {
+        if (view == null || view.getContext() == null) return;
+        final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+            }
+        }, 200L);
     }
 
     // 添加贴图
@@ -449,13 +463,7 @@ public abstract class DoodleActivity extends Activity {
             @Override
             public void onTextClick(String text) {
                 //添加文字
-                if (TextUtils.isEmpty(text)) {
-                    return;
-                }
-                IDoodleSelectableItem item = new DoodleText(mDoodle, text, 100, mDoodle.getColor().copy(), EditPicHelper.getInstance().bitmap.getWidth() / 2, EditPicHelper.getInstance().bitmap.getHeight() / 2);
-                mDoodle.addItem(item);
-                mTouchGestureListener.setSelectedItem(item);
-                mDoodle.refresh();
+                addText(text);
             }
         });
         viewPager.setAdapter(textPageAdapter);
@@ -592,6 +600,16 @@ public abstract class DoodleActivity extends Activity {
                 showView(mSettingsPanel);
             }
         };
+    }
+
+    public void addText(String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        IDoodleSelectableItem item = new DoodleText(mDoodle, text, 100, mDoodle.getColor().copy(), EditPicHelper.getInstance().bitmap.getWidth() / 2, EditPicHelper.getInstance().bitmap.getHeight() / 2);
+        mDoodle.addItem(item);
+        mTouchGestureListener.setSelectedItem(item);
+        mDoodle.refresh();
     }
 
     public ValueAnimator mRotateAnimator;
