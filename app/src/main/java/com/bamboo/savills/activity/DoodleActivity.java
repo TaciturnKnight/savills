@@ -498,7 +498,7 @@ public abstract class DoodleActivity extends Activity {
             texts.add("RF");
             texts.add("FR");
             texts.add("VR");
-            texts.add("No Inspection");
+            texts.add("No Insp");
             textDatas.add(texts);
         }
         textPageAdapter.setDatas(textDatas);
