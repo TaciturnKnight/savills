@@ -85,12 +85,24 @@
         android:id="@+id/editpic_seekbartitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:paddingBottom="15dp"
         android:text="Size"
         android:textColor="@color/colorWhite"
         android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@+id/doodle_seekbar_size"
         app:layout_constraintStart_toStartOf="@+id/doodle_seekbar_size" />
+
+    <TextView
+        android:id="@+id/editpic_revoke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:text="revoke"
+        android:textColor="@color/colorWhite"
+        android:textSize="14dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/doodle_seekbar_size"
+        app:layout_constraintEnd_toEndOf="@+id/doodle_seekbar_size" />
 
     <FrameLayout
         android:id="@+id/doodle_panel"
