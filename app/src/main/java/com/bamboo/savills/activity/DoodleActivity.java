@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -245,7 +246,7 @@ public abstract class DoodleActivity extends Activity {
                 FileOutputStream outputStream = null;
                 try {
                     outputStream = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 95, outputStream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                     ImageUtils.addImage(getContentResolver(), file.getAbsolutePath());
                     Intent intent = new Intent();
                     intent.putExtra(KEY_IMAGE_PATH, file.getAbsolutePath());
@@ -409,6 +410,14 @@ public abstract class DoodleActivity extends Activity {
             mSettingsPanel.removeCallbacks(mHideDelayRunnable);
         }
 //        EditPicHelper.getInstance().addText(doodleText.getText());
+    }
+
+    public void setBitmapBGColor(Bitmap bitmap, int color) {
+        for (int i = 0; i < bitmap.getWidth(); i++) {
+            for (int j = 0; j < bitmap.getHeight(); j++) {
+                bitmap.setPixel(i, j, color);//将bitmap的每个像素点都设置成相应的颜色
+            }
+        }
     }
 
     public static void showSoftInput(final View view) {
