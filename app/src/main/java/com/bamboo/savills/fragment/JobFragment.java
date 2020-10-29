@@ -35,6 +35,9 @@ public class JobFragment extends BaseFragment {
     @InjectView(R.id.ll_on_hold)
     LinearLayout llOnHold;
 
+    @InjectView(R.id.ll_complete)
+    LinearLayout llComplete;
+
     @InjectView(R.id.tv_title_unassigned)
     TextView tvUnAssigned;
 
@@ -47,6 +50,9 @@ public class JobFragment extends BaseFragment {
     @InjectView(R.id.tv_title_on_hold)
     TextView tvOnHold;
 
+    @InjectView(R.id.tv_title_complete)
+    TextView tvComplete;
+
     @InjectView(R.id.v_title_unassigned)
     View vUnAssigned;
 
@@ -58,6 +64,9 @@ public class JobFragment extends BaseFragment {
 
     @InjectView(R.id.v_title_on_hold)
     View vOnHold;
+
+    @InjectView(R.id.v_title_complete)
+    View vComplete;
 
     @InjectView(R.id.swipe_job)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -87,6 +96,7 @@ public class JobFragment extends BaseFragment {
         llAssigned.setOnClickListener(this);
         llAssignToMe.setOnClickListener(this);
         llOnHold.setOnClickListener(this);
+        llComplete.setOnClickListener(this);
     }
 
     @Override
@@ -132,6 +142,9 @@ public class JobFragment extends BaseFragment {
                 tvOnHold.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
                 vOnHold.setVisibility(View.GONE);
 
+                tvComplete.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vComplete.setVisibility(View.GONE);
+
                 adapter.setType(1);
                 break;
             case R.id.ll_assigned:
@@ -146,7 +159,11 @@ public class JobFragment extends BaseFragment {
 
                 tvOnHold.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
                 vOnHold.setVisibility(View.GONE);
-                adapter.setType(2);
+
+                tvComplete.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vComplete.setVisibility(View.GONE);
+
+                adapter.setType(3);
                 break;
             case R.id.ll_assign_to_me:
                 tvUnAssigned.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
@@ -160,7 +177,11 @@ public class JobFragment extends BaseFragment {
 
                 tvOnHold.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
                 vOnHold.setVisibility(View.GONE);
-                adapter.setType(3);
+
+                tvComplete.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vComplete.setVisibility(View.GONE);
+
+                adapter.setType(2);
                 break;
             case R.id.ll_on_hold:
                 tvUnAssigned.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
@@ -174,6 +195,28 @@ public class JobFragment extends BaseFragment {
 
                 tvOnHold.setTextColor(mContext.getResources().getColor(R.color.colorTextSelect));
                 vOnHold.setVisibility(View.VISIBLE);
+
+                tvComplete.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vComplete.setVisibility(View.GONE);
+
+                adapter.setType(5);
+                break;
+            case R.id.ll_complete:
+                tvUnAssigned.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vUnAssigned.setVisibility(View.GONE);
+
+                tvAssigned.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vAssigned.setVisibility(View.GONE);
+
+                tvAssignToMe.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vAssignToMe.setVisibility(View.GONE);
+
+                tvOnHold.setTextColor(mContext.getResources().getColor(R.color.colorTextSelectUn));
+                vOnHold.setVisibility(View.GONE);
+
+                tvComplete.setTextColor(mContext.getResources().getColor(R.color.colorTextSelect));
+                vComplete.setVisibility(View.VISIBLE);
+
                 adapter.setType(4);
                 break;
         }
