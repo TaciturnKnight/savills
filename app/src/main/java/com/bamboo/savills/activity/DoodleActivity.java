@@ -461,6 +461,14 @@ public abstract class DoodleActivity extends Activity {
 
     //
     public void initView() {
+        TextView revoke = findViewById(R.id.editpic_revoke);
+        revoke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //撤回
+                mDoodle.undo();
+            }
+        });
         tabLayout = findViewById(R.id.editpic_tablayout);
         viewPager = findViewById(R.id.editpic_viewpager);
         tabLayout.setupWithViewPager(viewPager);

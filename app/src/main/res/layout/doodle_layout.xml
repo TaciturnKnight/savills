@@ -100,7 +100,6 @@
         android:text="revoke"
         android:textColor="@color/colorWhite"
         android:textSize="14dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/doodle_seekbar_size"
         app:layout_constraintEnd_toEndOf="@+id/doodle_seekbar_size" />
 
