@@ -7,13 +7,16 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bamboo.savills.Module.FileBean;
 import com.bamboo.savills.R;
+import com.bamboo.savills.adapter.FileListAdapter;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.FileEntity;
@@ -25,8 +28,11 @@ import com.bamboo.savills.view.SlectFileDialog;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.InjectView;
 
 public class PhotoActivity extends BaseActivity {
@@ -38,12 +44,8 @@ public class PhotoActivity extends BaseActivity {
 
     @InjectView(R.id.iv_send)
     ImageView ivSend;
-    @InjectView(R.id.rl_photo_out)
-    RelativeLayout picLayout;
-    @InjectView(R.id.show_img)
-    ImageView showImage;
-    @InjectView(R.id.show_videotag)
-    ImageView videoTag;
+    @InjectView(R.id.showimg_recycler)
+    RecyclerView recyclerView;
 
     @Override
     public void onClickNext(View v) {
@@ -59,18 +61,11 @@ public class PhotoActivity extends BaseActivity {
     public void initView() {
         tvTitle.setText("Photo");
         ivSend.setVisibility(View.GONE);
-
-    }
-
-    private Uri picUri;
-    private File picFile, videoFile;
-    Uri videoUri;
-    File selectFile;
-
-    @Override
-    public void initListener() {
-        ivBack.setOnClickListener(this);
-        picLayout.setOnClickListener(new View.OnClickListener() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+        fileListAdapter = new FileListAdapter();
+        recyclerView.setAdapter(fileListAdapter);
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.head_filerecycler, null);
+        headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //弹出对话框
@@ -113,17 +108,22 @@ public class PhotoActivity extends BaseActivity {
                 }).show();
             }
         });
+        fileListAdapter.addHeaderView(headerView);
+        View footView = LayoutInflater.from(mContext).inflate(R.layout.foot_filerecycler, null);
+        fileListAdapter.addFooterView(footView);
     }
 
-    public static Bitmap getVideoThumb(String path) {
+    private Uri picUri;
+    private File picFile, videoFile;
+    Uri videoUri;
+    File selectFile;
 
-        MediaMetadataRetriever media = new MediaMetadataRetriever();
-
-        media.setDataSource(path);
-
-        return media.getFrameAtTime();
-
+    @Override
+    public void initListener() {
+        ivBack.setOnClickListener(this);
     }
+
+    private FileListAdapter fileListAdapter;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -132,46 +132,23 @@ public class PhotoActivity extends BaseActivity {
             if (resultCode == Activity.RESULT_OK) {
                 switch (requestCode) {
                     case 101:
-//                    Log.i("文件路径", LoanFileUtils.uri2File(this, picUri).getAbsolutePath());
                         selectFile = new File(picFile.getAbsolutePath());
                         break;
                     case 102:
                         selectFile = new File(videoFile.getAbsolutePath());
                         break;
                     case 104:
-//                        ArrayList<FileEntity> files = PickerManager.getInstance().files;
-//                        if (files.size() > 0) {
-//                            FileEntity fileEntity = files.get(0);
-//                            selectFile = fileEntity.getFile();
-//                        }
                         Uri uri = data.getData();
                         selectFile = new File(LoanFileUtils.uri2File(PhotoActivity.this, uri));
                         break;
                 }
-                boolean isPic;
-                if (selectFile.getAbsolutePath().endsWith("jpg")
-                        || selectFile.getAbsolutePath().endsWith("JPEG")
-                        || selectFile.getAbsolutePath().endsWith("png")) {
-                    isPic = true;
-                } else {
-                    isPic = false;
-                }
-                showImage.setImageBitmap(isPic ? BitmapFactory.decodeFile(selectFile.getAbsolutePath()) : getVideoThumb(selectFile.getAbsolutePath()));
-                videoTag.setVisibility(isPic ? View.GONE : View.VISIBLE);
-                showImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, LoadFileByWebViewActivity.class);
-                        intent.putExtra("url", selectFile.getAbsolutePath());
-                        intent.putExtra("ispic", isPic);
-                        startActivity(intent);
-                    }
-                });
+                FileBean fileBean = new FileBean();
+                fileBean.setFilePath(selectFile.getAbsolutePath());
+                fileListAdapter.addData(fileBean);
             }
         } catch (OutOfMemoryError error) {
             //内存溢出
             ToastUtil.showToast(mContext, "文件过大");
-
         }
     }
 

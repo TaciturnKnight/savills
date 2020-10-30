@@ -2,11 +2,12 @@ package com.bamboo.savills.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bamboo.savills.R;
-import com.bamboo.savills.utils.EditPicHelper;
 
 import cn.hzw.doodle.DoodleColor;
 import cn.hzw.doodle.DoodlePen;
@@ -19,7 +20,6 @@ public class EditPicTextActivity extends DoodleActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDoodle.setPen(DoodlePen.TEXT);
         TextView seekbarTitle = findViewById(R.id.editpic_seekbartitle);
         seekbarTitle.setText("Edit");
         seekbarTitle.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +30,14 @@ public class EditPicTextActivity extends DoodleActivity {
         });
         viewPager.setVisibility(View.VISIBLE);
         tabLayout.setVisibility(View.VISIBLE);
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                mDoodle.setPen(DoodlePen.TEXT);
+            }
+        };
+        handler.sendEmptyMessageDelayed(1, 1000);
     }
 
     @Override

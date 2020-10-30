@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_below="@+id/rl_photo_out"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp">
+
+    <ImageView
+        android:id="@+id/show_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/show_videotag"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_play"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/show_delfile"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:adjustViewBounds="true"
+        android:padding="15dp"
+        android:src="@drawable/icon_delfile" />
+</FrameLayout>
