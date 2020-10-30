@@ -148,7 +148,7 @@ public class PhotoActivity extends BaseActivity {
                     ToastUtil.showToast(mContext, "只能选择图片和视频文件");
                     return;
                 }
-                String type = split[1];
+                String type = split[split.length - 1];
                 if (!(type.toLowerCase().equals("jpg")
                         || type.equals("jpeg")
                         || type.equals("png")
