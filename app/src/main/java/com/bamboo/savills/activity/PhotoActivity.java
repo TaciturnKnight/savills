@@ -142,6 +142,23 @@ public class PhotoActivity extends BaseActivity {
                         selectFile = new File(LoanFileUtils.uri2File(PhotoActivity.this, uri));
                         break;
                 }
+                String path = selectFile.getAbsolutePath();
+                String[] split = path.split("\\.");
+                if (split.length < 2) {
+                    ToastUtil.showToast(mContext, "只能选择图片和视频文件");
+                    return;
+                }
+                String type = split[1];
+                if (!(type.toLowerCase().equals("jpg")
+                        || type.equals("jpeg")
+                        || type.equals("png")
+                        || type.equals("mp4")
+                        || type.equals("avi")
+                        || type.equals("flv")
+                )) {
+                    ToastUtil.showToast(mContext, "只能选择图片和视频文件");
+                    return;
+                }
                 FileBean fileBean = new FileBean();
                 fileBean.setFilePath(selectFile.getAbsolutePath());
                 fileListAdapter.addData(fileBean);
