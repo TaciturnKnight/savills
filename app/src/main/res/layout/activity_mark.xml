@@ -60,7 +60,6 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:scaleType="centerInside"
-        android:src="@drawable/img_floor_plan"
         app:layout_constraintBottom_toTopOf="@+id/editpic_finish"
         app:layout_constraintTop_toBottomOf="@+id/editpic_desc" />
 

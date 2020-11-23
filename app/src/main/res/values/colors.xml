@@ -21,4 +21,5 @@
     <color name="blue">#0000FF</color>
     <color name="loan_title_gray">#969696</color>
     <color name="file_bottom_line">#ECECEC</color>
+    <color name="show_detail">#02215A</color>
 </resources>

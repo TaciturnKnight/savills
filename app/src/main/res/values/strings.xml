@@ -25,4 +25,6 @@
     <string name="photo_crop">图片裁剪</string>
     <string name="origin">原图</string>
     <string name="origin_size">原图(%1$s)</string>
+    <string name="show_detail">Show Details</string>
+    <string name="hide_detail">Hide Details</string>
 </resources>

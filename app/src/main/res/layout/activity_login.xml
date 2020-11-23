@@ -20,21 +20,12 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/colorBlack"/>
         <RelativeLayout
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:background="@color/colorYellow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/img_logo"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/savills"
-                android:textSize="20sp"
-                android:textColor="#c80c0f"
-                android:gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="3dp"
-                />
+
 
         </RelativeLayout>
         <TextView

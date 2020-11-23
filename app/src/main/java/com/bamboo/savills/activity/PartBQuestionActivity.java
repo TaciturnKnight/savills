@@ -119,6 +119,7 @@ public class PartBQuestionActivity extends BaseActivity {
         int count =  mDatas.size();
         for (int i = 0 ;i<count;i++){
             View pointView = LayoutInflater.from(mContext).inflate(R.layout.item_point,null);
+            TextView tvCount = pointView.findViewById(R.id.tv_item_count);
             ImageView ivPoint = pointView.findViewById(R.id.iv_item_point);
             View vPoint = pointView.findViewById(R.id.v_item_point);
             LinearLayout llPointInerOut = pointView.findViewById(R.id.ll_item_point_out);
@@ -135,6 +136,7 @@ public class PartBQuestionActivity extends BaseActivity {
             }else {
                 vPoint.setVisibility(View.VISIBLE);
             }
+            tvCount.setText(mDatas.get(i).getNo());
             llPointOut.addView(pointView);
 
         }

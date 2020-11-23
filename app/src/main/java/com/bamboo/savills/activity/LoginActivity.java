@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bamboo.savills.Module.UserBack;
 import com.bamboo.savills.Module.UserInfo;
 import com.bamboo.savills.R;
 import com.bamboo.savills.base.utils.LogUtil;
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvAccont;
     LoadingDialog loadingDialog;
     LinearLayout llSec;
+//    private boolean isHaveToken = false;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -138,15 +140,17 @@ public class LoginActivity extends AppCompatActivity {
                 String  tag = (String)v.getTag();
                 if ("loginAgain".equalsIgnoreCase(tag)){
                     //有账户
-//                    if (mSingleAccountApp == null) {
-//                        return;
-//                    }
-//                    mSingleAccountApp.acquireToken(LoginActivity.this, SCOPES, getAuthInteractiveCallback());
-
-                    if (mSingleAccountApp == null){
+                    if (mSingleAccountApp == null) {
                         return;
                     }
-                    mSingleAccountApp.acquireTokenSilentAsync(SCOPES, AUTHORITY, getAuthSilentCallback());
+                    mSingleAccountApp.acquireToken(LoginActivity.this, SCOPES, getAuthInteractiveCallback());
+
+//                    if (mSingleAccountApp == null){
+//                        return;
+//                    }
+//                    mSingleAccountApp.acquireTokenSilentAsync(SCOPES, AUTHORITY, getAuthSilentCallback());
+//                    String[] newScopes={"api://15df8d38-ad1a-454f-ae12-edbce9f8f858/access_as_user"};
+//                    mSingleAccountApp.acquireTokenSilentAsync(newScopes, AUTHORITY, getAuthSilentCallback());
 
                 }else {
 //                    无账户
@@ -258,7 +262,10 @@ public class LoginActivity extends AppCompatActivity {
     private void callGraphAPI(IAuthenticationResult authenticationResult) {
 
         final String accessToken = authenticationResult.getAccessToken();
-
+//        if (isHaveToken){
+//            BaseApplication.token = "Bearer " +accessToken;
+//            LogUtil.e("/////",BaseApplication.token);
+//        }
         IGraphServiceClient graphClient =
                 GraphServiceClient
                         .builder()
@@ -314,16 +321,48 @@ public class LoginActivity extends AppCompatActivity {
         msg.obj = exception.toString();
         mHandler.sendMessage(msg);
     }
-    private void displayGraphResult(@NonNull final JsonObject graphResponse) {
+    private SilentAuthenticationCallback callToken(){
+        return new SilentAuthenticationCallback() {
+            @Override
+            public void onSuccess(IAuthenticationResult authenticationResult) {
+                Log.d(TAG, "Successfully authenticated");
+                final String accessToken = authenticationResult.getAccessToken();
+
+                BaseApplication.token = "Bearer " +accessToken;
+                LogUtil.e("/////",BaseApplication.token);
+//                BaseApplication.userInfo = new Gson().fromJson(graphResponse.toString(),new TypeToken<UserInfo>(){}.getType());
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+            @Override
+            public void onError(MsalException exception) {
+                Log.d(TAG, "Authentication failed: " + exception.toString());
+                displayError(exception);
+            }
+        };
+    }
+    private void displayGraphResult(@NonNull final JsonObject graphResponse ) {
         loadingDialog.dismiss();
 //        成功 返回的信息
 //        {"@odata.context":"https://graph.microsoft.com/v1.0/$metadata#drives/$entity","createdDateTime":"2017-10-17T03:37:14Z","description":"","id":"b!YfBrE2oet0WeMSpYqRNel6Uk0eDM4shGqXCkKvKE8dSKvozqfHWXQ5vLnhSmgCiB","lastModifiedDateTime":"2017-11-23T02:46:55Z","name":"OneDrive","webUrl":"https://bamboonetwork-my.sharepoint.com/personal/sunny_qiao_bamboonetworks_com/Documents","driveType":"business","createdBy":{"user":{"displayName":"系统帐户"}},"lastModifiedBy":{"user":{"email":"sunny.qiao@bamboonetworks.com","id":"ffbeda94-4305-479a-8411-e8872b73d51e","displayName":"Sunny Qiao"}},"owner":{"user":{"email":"sunny.qiao@bamboonetworks.com","id":"ffbeda94-4305-479a-8411-e8872b73d51e","displayName":"Sunny Qiao"}},"quota":{"deleted":0,"remaining":1099509779868,"state":"normal","total":1099511627776,"used":0}}
         LogUtil.e("---------",graphResponse.toString());
+        BaseApplication.userBack = new Gson().fromJson(graphResponse.toString(),new TypeToken<UserBack>(){}.getType());
+//        if (isHaveToken){
+//            //已经获取过token
+//            BaseApplication.userInfo = new Gson().fromJson(graphResponse.toString(),new TypeToken<UserInfo>(){}.getType());
+//            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//
+//        }else {
+//            isHaveToken = true;
+            String[] newScopes={"api://15df8d38-ad1a-454f-ae12-edbce9f8f858/access_as_user"};
+            mSingleAccountApp.acquireTokenSilentAsync(newScopes, AUTHORITY, callToken());
+//        }
 //        logTextView.setText(graphResponse.toString());
-        BaseApplication.userInfo = new Gson().fromJson(graphResponse.toString(),new TypeToken<UserInfo>(){}.getType());
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
-        finish();
+
 
 
     }

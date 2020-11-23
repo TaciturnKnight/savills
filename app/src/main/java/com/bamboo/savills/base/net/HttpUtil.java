@@ -38,11 +38,8 @@ import okhttp3.Response;
 public class HttpUtil {
 
     private OkHttpClient client;
-    public static final String JSON = "application/json; charset=utf-8";
-    public static final String URLENCODE = "application/x-www-form-urlencoded";
-    public static final String LANCOOKIE_FN = "lang=zh-hk";
-    public static final String LANCOOKIE_CN = "lang=zh-cn";
-    public static final String LANCOOKIE_EN = "lang=en";
+    public static final String JSON = "application/json";
+
     //拦截器 （暂时没有需求）
     private Interceptor interceptor = new Interceptor() {
         @Override
@@ -84,30 +81,7 @@ public class HttpUtil {
 
     private HttpUtil() {
         client = new OkHttpClient.Builder().connectTimeout(1000 * 10, TimeUnit.SECONDS).readTimeout(1000 * 10, TimeUnit.SECONDS).writeTimeout(1000 * 10, TimeUnit.SECONDS)
-                .cookieJar(new CookieJar() {
-                    private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
-
-                    @Override
-                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                        LogUtil.e("saveFromResponse","saveFromResponse----------" );
-                        cookieStore.put(url, cookies);
-                        cookieStore.put(HttpUrl.parse(RequstList.BASE_URL+RequstList.SESSION_AUTHENTICATION), cookies);
-                        for (Cookie cookie : cookies) {
-                            LogUtil.e("cookie","cookie Name:"+cookie.name()+"  cookie value "+cookie.value());
-                            LogUtil.e("cookie","cookie Path:"+cookie.path());
-                        }
-                    }
-
-                    @Override
-                    public List<Cookie> loadForRequest(HttpUrl url) {
-                        List<Cookie> cookies = cookieStore
-                                .get(HttpUrl.parse(RequstList.BASE_URL+RequstList.SESSION_AUTHENTICATION));
-                        if (cookies == null) {
-                            LogUtil.e("cookie","没加载到cookie");
-                        }
-                        return cookies != null ? cookies : new ArrayList<Cookie>();
-                    }
-                }).sslSocketFactory(RxUtils.createSSLSocketFactory())
+                .sslSocketFactory(RxUtils.createSSLSocketFactory())
                 .hostnameVerifier(new RxUtils.TrustAllHostnameVerifier())
                 .retryOnConnectionFailure(true).build();
         client.dispatcher().setMaxRequests(10);//最大请求数
@@ -149,23 +123,24 @@ public class HttpUtil {
         Request request = new Request.Builder()
                 .url(RequstList.BASE_URL + url)
                 .post(requestBody)
+                .header("Authorization",BaseApplication.token)
                 .build();
         client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
     }
-    public void postImage(final Context mContext,final int tag,File mFile, final NetCallback callback){
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
-        // 文件上传的请求体封装
-        MultipartBody multipartBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("fileupload", mFile.getName(), requestBody)
-                .build();
-        Request request = new Request.Builder()
-                .url(RequstList.BASE_URL+RequstList.UPLOAD_IMAGE)
-                .post(multipartBody)
-                .build();
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.UPLOAD_IMAGE));
-        LogUtil.e("url",RequstList.BASE_URL+RequstList.UPLOAD_IMAGE);
-    }
+//    public void postImage(final Context mContext,final int tag,File mFile, final NetCallback callback){
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+//        // 文件上传的请求体封装
+//        MultipartBody multipartBody = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("fileupload", mFile.getName(), requestBody)
+//                .build();
+//        Request request = new Request.Builder()
+//                .url(RequstList.BASE_URL+RequstList.UPLOAD_IMAGE)
+//                .post(multipartBody)
+//                .build();
+//        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.UPLOAD_IMAGE));
+//        LogUtil.e("url",RequstList.BASE_URL+RequstList.UPLOAD_IMAGE);
+//    }
 
     private void post(final Context mContext, String url, String contentType, final int tag, RequestParams params, final NetCallback callback, boolean useBaseUrl) {
         if (url == null)
@@ -176,6 +151,7 @@ public class HttpUtil {
                 //添加公共参数之后发起请求
                 .post(requestBody)
                 .header("Content-Type", contentType)
+                .addHeader("Authorization",BaseApplication.token)
                 .build();
         LogUtil.e("post",useBaseUrl ? RequstList.BASE_URL + url : url);
         if (params != null)
@@ -219,6 +195,7 @@ public class HttpUtil {
                     @Override
                     public void run() {
                         callback.onComplete(tag);
+                        callback.onSuccess(tag, result);
 //                        LogUtil.e("result--->",result);
 //                        登录失效统一处理
 //                        if (result.contains("\"code\":-10,\"") ||result.contains("\"code\":-10}")){

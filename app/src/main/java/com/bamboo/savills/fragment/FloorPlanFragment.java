@@ -63,7 +63,7 @@ public class FloorPlanFragment extends BaseFragment {
     private void getData(){
         swipeRefreshLayout.setRefreshing(false);
         mDatas = new ArrayList<>();
-        for (int i = 0;i<5;i++){
+        for (int i = 0;i<4;i++){
             FloorPlan plan = new FloorPlan();
             plan.setName("Floor Plan A");
             mDatas.add(plan);

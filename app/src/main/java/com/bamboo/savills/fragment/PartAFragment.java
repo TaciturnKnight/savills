@@ -15,6 +15,7 @@ import com.bamboo.savills.R;
 import com.bamboo.savills.activity.PhotoActivity;
 import com.bamboo.savills.adapter.PartAAdapter;
 import com.bamboo.savills.base.utils.LogUtil;
+import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +41,8 @@ public class PartAFragment extends BaseFragment {
     private TextView tvSave,tvComplete;
     private ImageView ivPhoto;
     private List<ImageView> points = new ArrayList<>();
+
+    private List<String> titleCount = new ArrayList<>();
 
 
 
@@ -103,6 +106,7 @@ public class PartAFragment extends BaseFragment {
        int count =  questions.size();
         for (int i = 0 ;i<count;i++){
             View pointView = LayoutInflater.from(mContext).inflate(R.layout.item_point,null);
+            TextView tvCount = pointView.findViewById(R.id.tv_item_count);
             ImageView ivPoint = pointView.findViewById(R.id.iv_item_point);
             View vPoint = pointView.findViewById(R.id.v_item_point);
             LinearLayout llPointInerOut = pointView.findViewById(R.id.ll_item_point_out);
@@ -119,6 +123,9 @@ public class PartAFragment extends BaseFragment {
             }else {
                 vPoint.setVisibility(View.VISIBLE);
             }
+//            标题b
+            tvCount.setText(questions.get(i).getqNo());
+
             llPointOut.addView(pointView);
 
         }

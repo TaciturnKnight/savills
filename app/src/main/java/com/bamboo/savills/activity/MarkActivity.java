@@ -54,8 +54,12 @@ public class MarkActivity extends BaseActivity {
     ImageView pic;
     private EditPicHelper editPicHelper = EditPicHelper.getInstance();
 
+    int position;
+
+
     public void initView() {
         editPicHelper.reset();
+        position = getIntent().getIntExtra("position",0);
     }
 
     @Override
@@ -128,7 +132,18 @@ public class MarkActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            String picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest";
+            String picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
+            switch (position){
+                case 1:
+                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan1";
+                    break;
+                case 2:
+                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan2";
+                    break;
+                case 3:
+                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan3";
+                    break;
+            }
             showLoading();
             downLoadFile(picUrl, "png");
         }

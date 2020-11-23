@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.WindowManager;
 
+import com.bamboo.savills.Module.UserBack;
 import com.bamboo.savills.Module.UserInfo;
 import com.bamboo.savills.R;
 import com.bamboo.savills.base.utils.LogUtil;
@@ -22,8 +23,10 @@ public class BaseApplication extends Application {
     public static int windowWidth;
     public static int windowHeight;
     public static Context mContext;
-    public static UserInfo userInfo;
+    public static UserBack userBack;
     private static final String TAG ="SavillsApplication" ;
+//    userToken
+    public static String token;
 
     @Override
     public void onCreate() {

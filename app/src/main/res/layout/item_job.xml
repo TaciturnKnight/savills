@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_item_job"
@@ -28,7 +29,7 @@
                 android:text="Job Reference No.:"
                 android:textColor="@color/colorTextSelectUn"/>
             <TextView
-                android:id="@+id/tv_item_jib_name"
+                android:id="@+id/tv_item_job_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -48,124 +49,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Instruction Date:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10/20/2020"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Create Date/Time:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10/20/2020"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Assigned Officer:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="David Chow, Carmen Ho"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:text="Property Name:"
                 android:textColor="@color/colorTextSelectUn"/>
             <TextView
+                android:id="@+id/tv_item_job_property_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Kornhill 康怡花園"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="0"
-                android:text="Building Name:"
-                android:textColor="@color/colorTextSelectUn" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kornhill (Block P) 康怡花園(P座)"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Unit Name:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="07/F, 709"
                 android:textColor="@color/colorBlack"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="10dp"/>
@@ -184,6 +75,7 @@
                 android:text="Street Name:"
                 android:textColor="@color/colorTextSelectUn"/>
             <TextView
+                android:id="@+id/tv_item_job_street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -203,112 +95,269 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Scheduled Inspect Date:"
+                android:text="Create Date/Time:"
                 android:textColor="@color/colorTextSelectUn"/>
             <TextView
-                android:id="@+id/tv_item_jib_inspect_date"
+                android:id="@+id/tv_item_job_create_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
+                android:text="10/20/2020"
                 android:textColor="@color/colorBlack"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_item_jib_inspect_date_actual"
+            android:id="@+id/ll_item_job_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Actual Inspect Date:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:id="@+id/tv_item_jib_inspect_date_actual"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Instruction Date:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_instruction_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="10/20/2020"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10/14/2020"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Assigned Officer:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_assigned_officer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="David Chow, Carmen Ho"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0"
+                    android:text="Building Name:"
+                    android:textColor="@color/colorTextSelectUn" />
+                <TextView
+                    android:id="@+id/tv_item_job_building_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kornhill (Block P) 康怡花園(P座)"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Unit Name:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_unit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="07/F, 709"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Scheduled Inspect Date:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_jib_inspect_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_item_jib_inspect_date_actual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Actual Inspect Date:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_jib_inspect_date_actual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="10/14/2020"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Company Name:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bank of China"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Client Name:"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_client_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chan Yee Man"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Phone No. :"
+                    android:textColor="@color/colorTextSelectUn"/>
+                <TextView
+                    android:id="@+id/tv_item_job_phone_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="67891234"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ll_item_job_show_hide"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            >
             <TextView
+                android:id="@+id/tv_item_job_show_hide"
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Company Name:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Bank of China"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
+                android:text="@string/show_detail"
+                android:textColor="@color/show_detail"
+                android:paddingTop="15dp"
+                />
+            <ImageView
+                android:id="@+id/iv_item_job_show_hide"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/img_arrow_down"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Client Name:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Chan Yee Man"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Phone No. :"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="67891234"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
 
        <FrameLayout
            android:layout_width="match_parent"
