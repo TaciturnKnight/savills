@@ -23,8 +23,10 @@ public class RequstList {
     public static final String JOB_ACCEPT = "/api/v1/Mobile/AcceptedSiteVisit/";
     public static final String JOB_UNASSIGN = "/api/v1/Mobile/UnassignToMe/";
     public static final String JOB_START_INSPECTION = "/api/v1/Mobile/StartInspection/";
-
-
+//   post 上传 /api/v1/JobFile/Upload/{jobId}
+    public static final String JOB_UPLOAD = "/api/v1/JobFile/Upload/";
+//   GET /api/v1/JobFile/FileList/{jobId}
+    public static final String JOB_GET_IMGS = "/api/v1/JobFile/FileList/";
 
 
 }

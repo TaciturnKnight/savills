@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.InjectView;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -63,10 +64,12 @@ public class InspectionDetailActivity extends BaseActivity {
     private PartBFragment partBFragment;
 
     private FragmentManager fragmentManager;
+    private String jobModule = "";
 
 
     @Override
     public void initView() {
+        jobModule =  getIntent().getStringExtra("JobModule");
         fragmentManager = getSupportFragmentManager();
         tvTitle.setText(mContext.getResources().getString(R.string.title_part_a));
         setFragmentTag(0);
@@ -88,28 +91,36 @@ public class InspectionDetailActivity extends BaseActivity {
     private void setFragmentTag(int position) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideAllFragment(transaction);
+        Bundle bundle = new Bundle();
+        bundle.putString("JobModule",jobModule);
         switch (position) {
             case 0:
                 if (partAFragment == null) {
                     partAFragment = new PartAFragment();
+                    partAFragment.setArguments(bundle);
                     transaction.add(R.id.inspection_fragment, partAFragment, "partAFragment");
                 } else {
+                    partAFragment.setArguments(bundle);
                     transaction.show(partAFragment);
                 }
                 break;
             case 1:
                 if (floorPlanFragment == null) {
                     floorPlanFragment = new FloorPlanFragment();
+                    floorPlanFragment.setArguments(bundle);
                     transaction.add(R.id.inspection_fragment, floorPlanFragment, "floorPlanFragment");
                 } else {
+                    floorPlanFragment.setArguments(bundle);
                     transaction.show(floorPlanFragment);
                 }
                 break;
             case 2:
                 if (partBFragment == null) {
                     partBFragment = new PartBFragment();
+                    partBFragment.setArguments(bundle);
                     transaction.add(R.id.inspection_fragment, partBFragment, "partBFragment");
                 } else {
+                    partBFragment.setArguments(bundle);
                     transaction.show(partBFragment);
                 }
                 break;
