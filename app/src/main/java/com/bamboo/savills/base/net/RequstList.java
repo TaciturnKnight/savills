@@ -19,6 +19,13 @@ public class RequstList {
     public static final String JOB_LIST_ACCPET = "/api/v1/Mobile/GetAcceptedSiteVisit";
     public static final String JOB_LIST_COMPLETE = "/api/v1/Mobile/GetCompletedSiteVisit";
     public static final String JOB_LIST_ONHOLD = "/api/v1/Mobile/GetOnHoldSiteVisit";
+    public static final String JOB_LIST_NUM = "/api/v1/Mobile/GetDifferentTypeCount";
+    public static final String JOB_ACCEPT = "/api/v1/Mobile/AcceptedSiteVisit/";
+    public static final String JOB_UNASSIGN = "/api/v1/Mobile/UnassignToMe/";
+    public static final String JOB_START_INSPECTION = "/api/v1/Mobile/StartInspection/";
+
+
+
 
 }
 

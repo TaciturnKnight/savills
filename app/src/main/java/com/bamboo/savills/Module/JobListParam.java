@@ -4,6 +4,25 @@ public class JobListParam {
     private int pageNumber;
     private int pageSize;
     private String searchValue;
+//    orderByColumnName为propertyName，orderByDirection为ascend或者descend
+    private String orderByColumnName;
+    private String orderByDirection;
+
+    public String getOrderByColumnName() {
+        return orderByColumnName;
+    }
+
+    public void setOrderByColumnName(String orderByColumnName) {
+        this.orderByColumnName = orderByColumnName;
+    }
+
+    public String getOrderByDirection() {
+        return orderByDirection;
+    }
+
+    public void setOrderByDirection(String orderByDirection) {
+        this.orderByDirection = orderByDirection;
+    }
 
     public int getPageNumber() {
         return pageNumber;

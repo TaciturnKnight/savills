@@ -1,5 +1,7 @@
 package com.bamboo.savills.Module;
 
+import java.util.List;
+
 public class JobModule {
     private String name = "S9 Florissa Park Giffard Mansion";
 //    是否展开 默认false
@@ -8,6 +10,60 @@ public class JobModule {
     private String propertyName;
     private String street1;
     private String createdOn;
+    private int id;
+    private int jobId;
+    private String inspectorAssignedOfficerUserName;
+    private String ActualInspectionDate;
+    private List<BuildingBean> buildings;
+    private int siteVisitStatus;
+
+    public int getSiteVisitStatus() {
+        return siteVisitStatus;
+    }
+
+    public void setSiteVisitStatus(int siteVisitStatus) {
+        this.siteVisitStatus = siteVisitStatus;
+    }
+
+    public List<BuildingBean> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<BuildingBean> buildings) {
+        this.buildings = buildings;
+    }
+
+    public String getActualInspectionDate() {
+        return ActualInspectionDate;
+    }
+
+    public void setActualInspectionDate(String actualInspectionDate) {
+        ActualInspectionDate = actualInspectionDate;
+    }
+
+    public String getInspectorAssignedOfficerUserName() {
+        return inspectorAssignedOfficerUserName;
+    }
+
+    public void setInspectorAssignedOfficerUserName(String inspectorAssignedOfficerUserName) {
+        this.inspectorAssignedOfficerUserName = inspectorAssignedOfficerUserName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
+    }
 
     public JobBean getJob() {
         return job;

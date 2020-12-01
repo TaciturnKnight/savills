@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bamboo.savills.R;
+import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.EditPicHelper;
@@ -132,16 +133,16 @@ public class MarkActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            String picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
+            String picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
             switch (position){
                 case 1:
-                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan1";
+                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan1";
                     break;
                 case 2:
-                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan2";
+                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan2";
                     break;
                 case 3:
-                    picUrl = "http://savills.bamboonetworks.com/NGWebApi/api/v1/Job/GetFloorPlanForTest/FloorPlan3";
+                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan3";
                     break;
             }
             showLoading();

@@ -13,6 +13,26 @@ public class PartBQuestion implements MultiItemEntity {
     private String q4f1;
     private String q4F2;
     private String no;
+    //    是都是单选
+    private boolean isSimgle;
+    //    是否是必填项 初始赋值的时候不一定会设置 最后提交答案的时候 需要分情况验证
+    private boolean isRequired;
+
+    public boolean isSimgle() {
+        return isSimgle;
+    }
+
+    public void setSimgle(boolean simgle) {
+        isSimgle = simgle;
+    }
+
+    public boolean isRequired() {
+        return isRequired;
+    }
+
+    public void setRequired(boolean required) {
+        isRequired = required;
+    }
 
     public String getNo() {
         return no;

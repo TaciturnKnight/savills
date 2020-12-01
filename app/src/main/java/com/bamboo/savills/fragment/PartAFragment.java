@@ -42,7 +42,7 @@ public class PartAFragment extends BaseFragment {
     private ImageView ivPhoto;
     private List<ImageView> points = new ArrayList<>();
 
-    private List<String> titleCount = new ArrayList<>();
+//    private List<String> titleCount = new ArrayList<>();
 
 
 
@@ -141,6 +141,12 @@ public class PartAFragment extends BaseFragment {
            }
         }
     }
+//    在
+//    1a, 1b, 1c and 2 are mandatory
+//If 1a = Industrial, then 8 & 9 &10 and mandatory
+//If 1a = Retail, then 11 & 12 are mandatory
+//If 1a = Carpark, then 7 is mandatory
+//3, 4, 5, 6 are optional to fill in
 
     private void dealData(){
         questions = new ArrayList<>();
@@ -149,6 +155,8 @@ public class PartAFragment extends BaseFragment {
         q1a.setTitle("1a. Type of Building/Land Use");
         q1a.setqNo("1a");
         q1a.setType(1);
+        q1a.setSimgle(false);
+        q1a.setRequired(true);
         List<Answers> mAnswers = new ArrayList<>();
 
         Answers ans1 = new Answers();
@@ -175,6 +183,10 @@ public class PartAFragment extends BaseFragment {
         ans6.setAnswer("Agricultural");
         mAnswers.add(ans6);
 
+        Answers ans8 = new Answers();
+        ans8.setAnswer("Carpark");
+        mAnswers.add(ans8);
+
         Answers ans7 = new Answers();
         ans7.setAnswer("Others");
         ans7.setEdit(true);
@@ -187,11 +199,17 @@ public class PartAFragment extends BaseFragment {
         q1b.setTitle("1b. Mode of Construction");
         q1b.setqNo("1b");
         q1b.setType(1);
+        q1b.setSimgle(false);
+        q1b.setRequired(true);
         List<Answers> mAnswersb = new ArrayList<>();
 
         Answers ans1b = new Answers();
         ans1b.setAnswer("Reinforced Concrete");
         mAnswersb.add(ans1b);
+
+        Answers ans3b = new Answers();
+        ans3b.setAnswer("Structural Steel");
+        mAnswersb.add(ans3b);
 
 
         Answers ans2b = new Answers();
@@ -206,6 +224,9 @@ public class PartAFragment extends BaseFragment {
         q1c.setTitle("1c. External Wall Finished");
         q1c.setqNo("1c");
         q1c.setType(1);
+        q1c.setSimgle(false);
+        q1c.setRequired(true);
+
         List<Answers> mAnswersc = new ArrayList<>();
 
         Answers ans1c = new Answers();
@@ -244,7 +265,13 @@ public class PartAFragment extends BaseFragment {
         q2.setTitle("2. External Condition:");
         q2.setqNo("2");
         q2.setType(1);
+        q2.setSimgle(true);
+        q2.setRequired(true);
         List<Answers> mAnswers2 = new ArrayList<>();
+
+        Answers ans24 = new Answers();
+        ans24.setAnswer("Very Good");
+        mAnswers2.add(ans24);
 
         Answers ans21 = new Answers();
         ans21.setAnswer("Good");
@@ -254,6 +281,10 @@ public class PartAFragment extends BaseFragment {
         Answers ans22 = new Answers();
         ans22.setAnswer("Reasonable");
         mAnswers2.add(ans22);
+
+        Answers ans25 = new Answers();
+        ans25.setAnswer("Fair");
+        mAnswers2.add(ans25);
 
         Answers ans23 = new Answers();
         ans23.setAnswer("Poor");
@@ -267,24 +298,29 @@ public class PartAFragment extends BaseFragment {
         q3.setTitle("3. Composition");
         q3.setqNo("3");
         q3.setType(3);
+        q3.setRequired(false);
         questions.add(q3);
+
 //第六题 4
         PartAQuestion q4 = new PartAQuestion();
         q4.setTitle("4. Facilities Provided");
         q4.setqNo("4");
         q4.setType(2);
+        q4.setRequired(false);
         questions.add(q4);
 //第七题 5
         PartAQuestion q5 = new PartAQuestion();
         q5.setTitle("5. Lifts");
         q5.setqNo("5");
         q5.setType(4);
+        q5.setRequired(false);
         questions.add(q5);
 //第八题 6
         PartAQuestion q6 = new PartAQuestion();
         q6.setTitle("6. Staircase");
         q6.setqNo("6");
         q6.setType(5);
+        q6.setRequired(false);
         questions.add(q6);
 //第九题 7
         PartAQuestion q7 = new PartAQuestion();
@@ -316,6 +352,7 @@ public class PartAFragment extends BaseFragment {
         q8.setTitle("8. Air Conditioning:");
         q8.setqNo("8");
         q8.setType(1);
+        q8.setSimgle(true);
         List<Answers> mAnswers8 = new ArrayList<>();
 
         Answers ans81 = new Answers();
@@ -341,6 +378,7 @@ public class PartAFragment extends BaseFragment {
         q9.setTitle("9. Fire-fighting");
         q9.setqNo("9");
         q9.setType(1);
+        q9.setSimgle(false);
         List<Answers> mAnswers9 = new ArrayList<>();
 
         Answers ans91 = new Answers();
@@ -375,6 +413,7 @@ public class PartAFragment extends BaseFragment {
         q12.setTitle("12. Pedestrian Flow");
         q12.setqNo("12");
         q12.setType(1);
+        q12.setSimgle(true);
         List<Answers> mAnswers12 = new ArrayList<>();
 
         Answers ans121 = new Answers();

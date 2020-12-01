@@ -162,7 +162,7 @@ public class HttpUtil {
         if (url == null)
             url = "";
         Request request = new Request.Builder()
-                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).build();
+                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).addHeader("Authorization",BaseApplication.token).build();
         LogUtil.e("get",useBaseUrl ? RequstList.BASE_URL + url : url);
         client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
     }

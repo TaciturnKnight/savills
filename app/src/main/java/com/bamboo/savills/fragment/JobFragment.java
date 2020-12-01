@@ -1,12 +1,19 @@
 package com.bamboo.savills.fragment;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bamboo.savills.Constant;
+import com.bamboo.savills.Module.JobCountList;
 import com.bamboo.savills.Module.JobList;
 import com.bamboo.savills.Module.JobListParam;
 import com.bamboo.savills.Module.JobModule;
@@ -18,6 +25,7 @@ import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.RequestParams;
 import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
+import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.BaseFragment;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,6 +45,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.InjectView;
 
 public class JobFragment extends BaseFragment {
+
+    @InjectView(R.id.tv_welcome)
+    TextView tvWelcome;
+
+    @InjectView(R.id.et_search_job)
+    EditText etSearch;
+
     @InjectView(R.id.ll_unassigned)
     LinearLayout llUnAssined;
 
@@ -100,17 +115,32 @@ public class JobFragment extends BaseFragment {
     private List<JobModule> mDatas = new ArrayList<>();
 
     private int pageNo = 1;
-    private int pageSize = 10;
+    private int pageSize = 5;
 
     private int type = 1;
     private int lastType = 1;
 
+    private String searchInput = "";
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 99:
+                    pageNo = 1;
+                    getJobCount();
+                    getJobData();
+                    break;
+            }
+        }
+    };
 
 
     @Override
     public void initView() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext,RecyclerView.VERTICAL,false);
         rvJob.setLayoutManager(manager);
+        tvWelcome.setText("Hello! "+BaseApplication.userBack.getOwner().getUser().getDisplayName());
     }
 
     @Override
@@ -130,11 +160,29 @@ public class JobFragment extends BaseFragment {
         llOnHold.setOnClickListener(this);
         llComplete.setOnClickListener(this);
         llSortBy.setOnClickListener(this);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchInput = etSearch.getText().toString().trim();
+                pageNo = 1;
+                getJobData();
+            }
+        });
     }
 
     @Override
     public void initData() {
-        adapter = new JobAdapter(mContext,mDatas);
+        adapter = new JobAdapter(mContext,mHandler,mDatas);
         rvJob.setAdapter(adapter);
         adapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -153,7 +201,61 @@ public class JobFragment extends BaseFragment {
         adapter.getLoadMoreModule().setEnableLoadMoreIfNotFullPage(false);
 
         getJobData();
+        getJobCount();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Constant.isInspectionRefresh){
+            pageNo = 1;
+            getJobData();
+            getJobCount();
+            Constant.isInspectionRefresh = false;
+        }
+    }
+
+    private void getJobCount(){
+        HttpUtil.getInstance().get(mContext, RequstList.JOB_LIST_NUM, HttpUtil.JSON, 101, true, new NetCallback() {
+            @Override
+            public void onSuccess(int tag, String result) {
+                LogUtil.e("getJobCount",result);
+                JobCountList jobCountList = new Gson().fromJson(result,new TypeToken<JobCountList>(){}.getType());
+                if (jobCountList != null && jobCountList.getCode() == 0 && jobCountList.getData() != null
+                        && jobCountList.getData().size()>0){
+                    for (int i = 0; i<jobCountList.getData().size();i++){
+                        if ("AssignedToMe".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                            tvAssignToMe.setText("Assigned to Me "+jobCountList.getData().get(i).getItem2());
+                        }
+                        if ("Completed".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                            tvComplete.setText("Completed "+jobCountList.getData().get(i).getItem2());
+                        }
+                        if ("OnHold".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                            tvOnHold.setText("On Hold "+jobCountList.getData().get(i).getItem2());
+                        }
+                        if ("Unassigned".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                            tvUnAssigned.setText("Unassigned "+jobCountList.getData().get(i).getItem2());
+                        }
+                        if ("Accepted".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                            tvAssigned.setText("Accepted "+jobCountList.getData().get(i).getItem2());
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+
+            }
+
+            @Override
+            public void onComplete(int tag) {
+
+            }
+        });
     }
     private void getJobData(){
         if (lastType != type){
@@ -169,7 +271,12 @@ public class JobFragment extends BaseFragment {
         JobListParam param = new JobListParam();
         param.setPageNumber(pageNo);
         param.setPageSize(pageSize);
-        param.setSearchValue("");
+        param.setSearchValue(searchInput);
+        if (isSort){
+            param.setOrderByColumnName("propertyName");
+        }else {
+            param.setOrderByColumnName("");
+        }
         String json = new Gson().toJson(param,new TypeToken<JobListParam>(){}.getType());
         String path = "";
         switch (type){
@@ -246,6 +353,8 @@ public class JobFragment extends BaseFragment {
                     ivSortBy.setImageResource(R.drawable.checkcircle_uncheck);
                 }
                 isSort = !isSort;
+                pageNo = 1;
+                getJobData();
                 break;
             case R.id.ll_unassigned:
                 if (type == 1){

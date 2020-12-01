@@ -64,7 +64,7 @@
                     android:id="@+id/tv_title_unassigned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unassigned 20"
+                    android:text="Unassigned"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelect"
                     android:layout_weight="1"/>
@@ -86,7 +86,7 @@
                     android:id="@+id/tv_title_assign_to_me"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Assigned to Me 4"
+                    android:text="Assigned to Me"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelectUn"
                     android:layout_weight="1"/>
@@ -109,7 +109,7 @@
                     android:id="@+id/tv_title_assigned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accepted 23"
+                    android:text="Accepted"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelectUn"
                     android:layout_weight="1"/>
@@ -133,7 +133,7 @@
                     android:id="@+id/tv_title_complete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Completed 100"
+                    android:text="Completed"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelectUn"
                     android:layout_weight="1"/>
@@ -157,7 +157,7 @@
                     android:id="@+id/tv_title_on_hold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="On Hold 10"
+                    android:text="On Hold"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextSelectUn"
                     android:layout_weight="1"/>

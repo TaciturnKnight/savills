@@ -149,6 +149,7 @@ public class PartBQuestionActivity extends BaseActivity {
         question1a.setTitle("1a. Finishes");
         question1a.setNo("1a");
         question1a.setType(1);
+        question1a.setSimgle(false);
 
         List<Answers> answers1a = new ArrayList<>();
 
@@ -187,6 +188,7 @@ public class PartBQuestionActivity extends BaseActivity {
         question1b.setTitle("1b. Wall");
         question1b.setNo("1b");
         question1b.setType(1);
+        question1b.setSimgle(false);
 
         List<Answers> answers1b = new ArrayList<>();
 
@@ -218,6 +220,7 @@ public class PartBQuestionActivity extends BaseActivity {
         question1c.setTitle("1c. Ceiling");
         question1c.setNo("1c");
         question1c.setType(1);
+        question1c.setSimgle(false);
 
         List<Answers> answers1c = new ArrayList<>();
 
@@ -246,8 +249,14 @@ public class PartBQuestionActivity extends BaseActivity {
         question2.setTitle("2. Internal Condition");
         question2.setNo("2");
         question2.setType(1);
+        question2.setRequired(true);
+        question2.setSimgle(true);
 
         List<Answers> answers2 = new ArrayList<>();
+
+        Answers answers25 = new Answers();
+        answers25.setAnswer("Very Good");
+        answers2.add(answers25);
 
         Answers answers21 = new Answers();
         answers21.setAnswer("Good");
@@ -256,6 +265,10 @@ public class PartBQuestionActivity extends BaseActivity {
         Answers answers22 = new Answers();
         answers22.setAnswer("Reasonable");
         answers2.add(answers22);
+
+        Answers answers26 = new Answers();
+        answers26.setAnswer("Fair");
+        answers2.add(answers26);
 
 
         Answers answers24 = new Answers();
@@ -288,6 +301,7 @@ public class PartBQuestionActivity extends BaseActivity {
         question6.setTitle("6. Ancillary Accommodation");
         question6.setNo("6");
         question6.setType(1);
+        question6.setSimgle(false);
 
         List<Answers> answers6 = new ArrayList<>();
 
@@ -319,6 +333,8 @@ public class PartBQuestionActivity extends BaseActivity {
         question7.setTitle("7. Occupation Status");
         question7.setNo("7");
         question7.setType(4);
+        question7.setRequired(true);
+        question7.setSimgle(false);
 
         List<Answers> answers7 = new ArrayList<>();
 
