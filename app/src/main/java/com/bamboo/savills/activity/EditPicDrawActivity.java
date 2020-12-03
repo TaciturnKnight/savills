@@ -14,6 +14,11 @@ import cn.hzw.doodle.DoodleView;
  * Created by tong on 2020/10/20.
  */
 public class EditPicDrawActivity extends DoodleActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fileName = getIntent().getStringExtra("fileName");
+    }
 
     @Override
     public void onSelectColor(String color) {

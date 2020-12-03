@@ -158,6 +158,27 @@ public class HttpUtil {
             LogUtil.e("params",params.toString());
         client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
     }
+    public void delete(Context mContext, String url,int tag,final NetCallback callback){
+        delete(mContext,url,HttpUtil.JSON,tag,null,callback,true);
+    }
+
+    private void delete(final Context mContext, String url, String contentType, final int tag, RequestParams params, final NetCallback callback, boolean useBaseUrl){
+        if (url == null)
+            url = "";
+        RequestBody requestBody = addParams(url, params);
+        Request request = new Request.Builder()
+                .url(useBaseUrl ? RequstList.BASE_URL + url : url)
+                //添加公共参数之后发起请求
+                .delete(requestBody)
+                .header("Content-Type", contentType)
+                .addHeader("Authorization",BaseApplication.token)
+                .build();
+        LogUtil.e("delete",useBaseUrl ? RequstList.BASE_URL + url : url);
+        if (params != null)
+            LogUtil.e("params",params.toString());
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
+
+    }
     public void get(final Context mContext, String url, String contentType, final int tag, boolean useBaseUrl,final NetCallback callback){
         if (url == null)
             url = "";
@@ -165,6 +186,38 @@ public class HttpUtil {
                 .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).addHeader("Authorization",BaseApplication.token).build();
         LogUtil.e("get",useBaseUrl ? RequstList.BASE_URL + url : url);
         client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
+    }
+
+    public void postImage(final Context mContext,final int tag,File mFile,int jobId, final NetCallback callback){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+        // 文件上传的请求体封装
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file1", mFile.getName(), requestBody)
+                .build();
+        Request request = new Request.Builder()
+                .url(RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId)
+                .post(multipartBody)
+                .addHeader("Authorization",BaseApplication.token)
+                .build();
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.JOB_UPLOAD+jobId));
+        LogUtil.e("url",RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId);
+    }
+
+    public void updateFloorPlanImage(final Context mContext,final int tag,File mFile,int jobId,String fileId,String fileName, final NetCallback callback){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+        // 文件上传的请求体封装
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file1", fileName, requestBody)
+                .build();
+        Request request = new Request.Builder()
+                .url(RequstList.BASE_URL+RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId)
+                .post(multipartBody)
+                .addHeader("Authorization",BaseApplication.token)
+                .build();
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId));
+        LogUtil.e("url",RequstList.BASE_URL+RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId);
     }
 
     private Callback createCallback(final Context mContext, final int tag, final NetCallback callback,final String url) {

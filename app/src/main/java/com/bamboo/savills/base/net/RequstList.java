@@ -28,6 +28,12 @@ public class RequstList {
 //   GET /api/v1/JobFile/FileList/{jobId}
     public static final String JOB_GET_IMGS = "/api/v1/JobFile/FileList/";
 
+    public static final String SHOW_IMGS_VIDEO = "/api/v1/JobFile/GetFile/";
+
+    public static final String DELETE_IMGS_VIDEO = "/api/v1/JobFile/Delete/";
+//    更新floor plan
+    public static final String UPDATE_FLOOR_PLAN = "/api/v1/JobFile/UploadFloorPlan/";
+
 
 }
 

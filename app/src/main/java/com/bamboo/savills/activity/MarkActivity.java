@@ -2,10 +2,13 @@ package com.bamboo.savills.activity;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -14,9 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bamboo.savills.Constant;
+import com.bamboo.savills.Module.PhotoVideo;
+import com.bamboo.savills.Module.SimpleResponse;
 import com.bamboo.savills.R;
+import com.bamboo.savills.base.net.HttpUtil;
+import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.RequstList;
+import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.view.BaseActivity;
+import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.EditPicHelper;
 import com.bamboo.savills.utils.HttpClient;
@@ -26,6 +36,8 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.spi.inject.Inject;
 
 import java.io.File;
@@ -55,12 +67,17 @@ public class MarkActivity extends BaseActivity {
     ImageView pic;
     private EditPicHelper editPicHelper = EditPicHelper.getInstance();
 
-    int position;
+    private int jobId;
+    private PhotoVideo photoVideo;
+    //处理成功的File
+    private File picFile;
+    private String backPath;
 
 
     public void initView() {
         editPicHelper.reset();
-        position = getIntent().getIntExtra("position",0);
+        jobId = getIntent().getIntExtra("jobId",0);
+        photoVideo = new Gson().fromJson(getIntent().getStringExtra("PhotoVideo"),new TypeToken<PhotoVideo>(){}.getType());
     }
 
     @Override
@@ -75,7 +92,9 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    startActivityForResult(new Intent(mContext, EditPicTextActivity.class), 101);
+                    Intent intent = new Intent(mContext, EditPicTextActivity.class);
+                    intent.putExtra("fileName",photoVideo.getFileName());
+                    startActivityForResult(intent, 101);
                 }
             }
         });
@@ -83,16 +102,56 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    startActivityForResult(new Intent(mContext, EditPicDrawActivity.class), 101);
+                    Intent intent = new Intent(mContext, EditPicDrawActivity.class);
+                    intent.putExtra("fileName",photoVideo.getFileName());
+                    startActivityForResult(intent, 101);
                 }
             }
         });
         toSubmmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //上传
+                uploadFloorPlan();
             }
         });
+    }
+
+    private void uploadFloorPlan(){
+        if (picFile == null){
+            ToastUtil.showToast(mContext,"Please edit the picture first.");
+            return;
+        }
+        showLoading();
+//        重新上传Floor Plan
+        HttpUtil.getInstance().updateFloorPlanImage(mContext, 212,picFile, jobId,photoVideo.getId(),photoVideo.getFileName(), new NetCallback() {
+            @Override
+            public void onSuccess(int tag, String result) {
+                LogUtil.loge("uploadFloorPlan",result);
+                SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                if (simple.getCode() == 0){
+                    ToastUtil.showToast(mContext,"Upload Successfully");
+                    //提醒floor plan 更新数据
+                    Constant.isFloorPlanRefresh = true;
+                    finish();
+
+                }else {
+                    ToastUtil.showToast(mContext,simple.getCodeDesc());
+                }
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+                LogUtil.loge("uploadFloorPlan:onError",msg);
+                ToastUtil.showToast(mContext,"Upload Failed");
+            }
+
+            @Override
+            public void onComplete(int tag) {
+                hideLoading();
+            }
+        });
+
     }
 
     @Override
@@ -107,7 +166,9 @@ public class MarkActivity extends BaseActivity {
                 //得到编辑后的图片路径
                 String path = data.getStringExtra(cn.hzw.doodle.DoodleActivity.KEY_IMAGE_PATH);
                 //更新图片状态
-                File picFile = new File(path);
+                backPath = path;
+                picFile = new File(path);
+                LogUtil.loge("fileName",picFile.getName());
                 editPicHelper.setImage(picFile);
                 if (TextUtils.isEmpty(path)) {
                     return;
@@ -133,18 +194,10 @@ public class MarkActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            String picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
-            switch (position){
-                case 1:
-                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan1";
-                    break;
-                case 2:
-                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan2";
-                    break;
-                case 3:
-                    picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/FloorPlan3";
-                    break;
-            }
+//            String picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
+
+            String picUrl = RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId();
+            LogUtil.loge("url---",picUrl);
             showLoading();
             downLoadFile(picUrl, "png");
         }
@@ -172,7 +225,7 @@ public class MarkActivity extends BaseActivity {
     };
 
     public void downLoadFile(String url, String type) {
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(url).addHeader("Authorization",BaseApplication.token).build();
         HttpClient.getInstance().getClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -10,9 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bamboo.savills.Module.Answers;
+import com.bamboo.savills.Module.JobModule;
 import com.bamboo.savills.Module.PartAQuestion;
 import com.bamboo.savills.R;
 import com.bamboo.savills.activity.PhotoActivity;
+import com.bamboo.savills.activity.PhotoShowActivity;
 import com.bamboo.savills.adapter.PartAAdapter;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
@@ -39,20 +41,28 @@ public class PartAFragment extends BaseFragment {
     private List<PartAQuestion> questions;
     private View headView,footView;
     private TextView tvSave,tvComplete;
-    private ImageView ivPhoto;
+    private ImageView ivPhoto,ivPhotoShow;
     private List<ImageView> points = new ArrayList<>();
 
 //    private List<String> titleCount = new ArrayList<>();
+    private JobModule mJobModle;
 
 
 
     @Override
     public void initView() {
+        String jobModule = getArguments().getString("JobModule");
+        if (StringUtil.isNotEmpty(jobModule)) {
+            mJobModle = new Gson().fromJson(jobModule, new TypeToken<JobModule>() {
+            }.getType());
+            LogUtil.loge("JobModule",jobModule);
+        }
         LinearLayoutManager manager = new LinearLayoutManager(mContext,RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
         headView = LayoutInflater.from(mContext).inflate(R.layout.head_view_part_a,null);
         LinearLayout llHeadOut = headView.findViewById(R.id.ll_head_view_part_a_out);
         ivPhoto = headView.findViewById(R.id.iv_head_view_photo);
+        ivPhotoShow = headView.findViewById(R.id.iv_head_view_show);
         footView = LayoutInflater.from(mContext).inflate(R.layout.foot_view_part_a,null);
         tvSave = footView.findViewById(R.id.tv_foot_part_a_save);
         tvComplete = footView.findViewById(R.id.tv_foot_part_a_complete);
@@ -65,6 +75,7 @@ public class PartAFragment extends BaseFragment {
         tvSave.setOnClickListener(this);
         tvComplete.setOnClickListener(this);
         ivPhoto.setOnClickListener(this);
+        ivPhotoShow.setOnClickListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -452,6 +463,7 @@ public class PartAFragment extends BaseFragment {
                 break;
             case R.id.iv_head_view_photo:
                 Intent intent = new Intent(mContext,PhotoActivity.class);
+                intent.putExtra("JobModule",new Gson().toJson(mJobModle,new TypeToken<JobModule>(){}.getType()));
                 startActivity(intent);
                 break;
             case R.id.ll_item_point_out:
@@ -463,6 +475,11 @@ public class PartAFragment extends BaseFragment {
                 mLayoutManager.scrollToPositionWithOffset(position+1, 0);
                 //变色
                 changePointsColor(position);
+                break;
+            case R.id.iv_head_view_show:
+                Intent intent1 = new Intent(mContext,PhotoShowActivity.class);
+                intent1.putExtra("JobModule",new Gson().toJson(mJobModle,new TypeToken<JobModule>(){}.getType()));
+                startActivity(intent1);
                 break;
         }
 

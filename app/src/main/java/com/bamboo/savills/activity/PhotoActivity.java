@@ -44,6 +44,7 @@ public class PhotoActivity extends BaseActivity {
 
     @InjectView(R.id.iv_send)
     ImageView ivSend;
+
     @InjectView(R.id.showimg_recycler)
     RecyclerView recyclerView;
 
@@ -53,6 +54,9 @@ public class PhotoActivity extends BaseActivity {
             case R.id.iv_back:
                 finish();
                 break;
+            case R.id.iv_send:
+//                上传 所选的图片、视频
+                break;
         }
 
     }
@@ -60,7 +64,6 @@ public class PhotoActivity extends BaseActivity {
     @Override
     public void initView() {
         tvTitle.setText("Photo");
-        ivSend.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         fileListAdapter = new FileListAdapter();
         recyclerView.setAdapter(fileListAdapter);
@@ -121,6 +124,7 @@ public class PhotoActivity extends BaseActivity {
     @Override
     public void initListener() {
         ivBack.setOnClickListener(this);
+        ivSend.setOnClickListener(this);
     }
 
     private FileListAdapter fileListAdapter;

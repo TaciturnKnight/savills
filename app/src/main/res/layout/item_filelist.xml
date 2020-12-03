@@ -28,5 +28,5 @@
         android:layout_gravity="end"
         android:adjustViewBounds="true"
         android:padding="15dp"
-        android:src="@drawable/icon_delfile" />
+        android:src="@drawable/icon_delete" />
 </FrameLayout>

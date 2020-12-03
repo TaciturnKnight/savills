@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Job No.:"
+                android:text="Job Reference No.:"
                 android:textColor="@color/colorTextSelectUn"
                 android:textSize="10sp"/>
             <TextView
@@ -26,9 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2020/20390/BOC"
+                android:text="--"
                 android:textColor="@color/colorBlack"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -42,31 +43,73 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Assigned Inspector:"
+                android:text="Property Name:"
                 android:textColor="@color/colorTextSelectUn"/>
             <TextView
                 android:id="@+id/tv_head_view_floor_inspector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="David Chow"
+                android:text="--"
                 android:textColor="@color/colorBlack"
                 android:layout_marginRight="18dp"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"/>
 
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/tv_head_view_floor_job_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="S9 Florissa Park Giffard Mansion"
-            android:textSize="12sp"
-            android:textColor="#252839"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
-            />
+            android:layout_marginLeft="18dp">
+            <TextView
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Street Name:"
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:id="@+id/tv_head_view_floor_street_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                android:textColor="@color/colorBlack"
+                android:layout_marginRight="18dp"
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp">
+            <TextView
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Create Date/Time:"
+                android:textColor="@color/colorTextSelectUn"/>
+            <TextView
+                android:id="@+id/tv_head_view_floor_create_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                android:textColor="@color/colorBlack"
+                android:layout_marginRight="18dp"
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"/>
+
+
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

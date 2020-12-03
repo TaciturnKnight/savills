@@ -91,6 +91,8 @@ public abstract class DoodleActivity extends Activity {
     public TabLayout tabLayout;
     public ViewPager viewPager;
 
+    public String fileName;
+
 
     /**
      * 启动涂鸦界面
@@ -230,12 +232,14 @@ public abstract class DoodleActivity extends Activity {
                     File dcimFile = new File(Environment.getExternalStorageDirectory(), "DCIM");
                     doodleFile = new File(dcimFile, "Doodle");
                     //　保存的路径
-                    file = new File(doodleFile, System.currentTimeMillis() + ".png");
+//                    file = new File(doodleFile, System.currentTimeMillis() + ".png");
+                    file = new File(doodleFile, fileName);
                 } else {
                     if (isDir) {
                         doodleFile = new File(savePath);
                         //　保存的路径
-                        file = new File(doodleFile, System.currentTimeMillis() + ".png");
+//                        file = new File(doodleFile, System.currentTimeMillis() + ".png");
+                        file = new File(doodleFile, fileName);
                     } else {
                         file = new File(savePath);
                         doodleFile = file.getParentFile();
