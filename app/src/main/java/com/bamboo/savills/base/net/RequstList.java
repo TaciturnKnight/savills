@@ -34,6 +34,8 @@ public class RequstList {
 //    更新floor plan
     public static final String UPDATE_FLOOR_PLAN = "/api/v1/JobFile/UploadFloorPlan/";
 
+    public static final String JOB_UPLOAD_FLOOR_PLAN = "/api/v1/JobFile/UploadFloorPlan/";
+
 
 }
 

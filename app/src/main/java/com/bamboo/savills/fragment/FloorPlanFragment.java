@@ -83,7 +83,6 @@ public class FloorPlanFragment extends BaseFragment {
         if (StringUtil.isNotEmpty(mJobModle.getCreatedOn())){
             tvCreateDate.setText(mJobModle.getCreatedOn());
         }
-        tvUpload.setVisibility(View.GONE);
 
     }
 
@@ -155,7 +154,7 @@ public class FloorPlanFragment extends BaseFragment {
         return R.layout.fragment_floor_plan;
     }
     private void upload(){
-        Bitmap btm = BitmapFactory.decodeResource(getResources(),R.drawable.img_floor_1);
+        Bitmap btm = BitmapFactory.decodeResource(getResources(),R.drawable.img_floor_3);
         HttpUtil.getInstance().postImage(mContext, 201, getFile(btm), 22, new NetCallback() {
             @Override
             public void onSuccess(int tag, String result) {
@@ -196,7 +195,7 @@ public class FloorPlanFragment extends BaseFragment {
     public void onClickNext(View v) {
         switch (v.getId()){
             case R.id.tv_floor_plan:
-//                upload();
+                upload();
                 break;
         }
 
