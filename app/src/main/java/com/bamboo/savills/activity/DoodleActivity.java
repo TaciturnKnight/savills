@@ -224,6 +224,16 @@ public abstract class DoodleActivity extends Activity {
         mDoodle = mDoodleView = new DoodleViewWrapper(this, bitmap, mDoodleParams.mOptimizeDrawing, new IDoodleListener() {
             @Override
             public void onSaved(IDoodle doodle, Bitmap bitmap, Runnable callback) { // 保存图片为jpg格式
+                List<IDoodleItem> allItem = doodle.getAllItem();
+                if (allItem != null && !allItem.isEmpty()) {
+                    //记录所添加的文字
+                    for (IDoodleItem item : allItem) {
+                        if (item instanceof DoodleText) {
+                            String text = ((DoodleText) item).getText();
+                            EditPicHelper.getInstance().addText(text);
+                        }
+                    }
+                }
                 File doodleFile = null;
                 File file = null;
                 String savePath = mDoodleParams.mSavePath;
@@ -411,7 +421,6 @@ public abstract class DoodleActivity extends Activity {
         if (doodleText == null) {
             mSettingsPanel.removeCallbacks(mHideDelayRunnable);
         }
-//        EditPicHelper.getInstance().addText(doodleText.getText());
     }
 
     public void setBitmapBGColor(Bitmap bitmap, int color) {

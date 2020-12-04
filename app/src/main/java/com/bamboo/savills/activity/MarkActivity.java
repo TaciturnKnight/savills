@@ -76,8 +76,9 @@ public class MarkActivity extends BaseActivity {
 
     public void initView() {
         editPicHelper.reset();
-        jobId = getIntent().getIntExtra("jobId",0);
-        photoVideo = new Gson().fromJson(getIntent().getStringExtra("PhotoVideo"),new TypeToken<PhotoVideo>(){}.getType());
+        jobId = getIntent().getIntExtra("jobId", 0);
+        photoVideo = new Gson().fromJson(getIntent().getStringExtra("PhotoVideo"), new TypeToken<PhotoVideo>() {
+        }.getType());
     }
 
     @Override
@@ -113,33 +114,34 @@ public class MarkActivity extends BaseActivity {
         });
     }
 
-    private void uploadFloorPlan(){
-        if (picFile == null){
-            ToastUtil.showToast(mContext,"Please edit the picture first.");
+    private void uploadFloorPlan() {
+        if (picFile == null) {
+            ToastUtil.showToast(mContext, "Please edit the picture first.");
             return;
         }
         showLoading();
 //        重新上传Floor Plan
-        HttpUtil.getInstance().updateFloorPlanImage(mContext, 212,picFile, jobId,photoVideo.getId(),photoVideo.getFileName(), new NetCallback() {
+        HttpUtil.getInstance().updateFloorPlanImage(mContext, 212, picFile, jobId, photoVideo.getId(), photoVideo.getFileName(), new NetCallback() {
             @Override
             public void onSuccess(int tag, String result) {
-                LogUtil.loge("uploadFloorPlan",result);
-                SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                if (simple.getCode() == 0){
-                    ToastUtil.showToast(mContext,"Upload Successfully");
+                LogUtil.loge("uploadFloorPlan", result);
+                SimpleResponse simple = new Gson().fromJson(result, new TypeToken<SimpleResponse>() {
+                }.getType());
+                if (simple.getCode() == 0) {
+                    ToastUtil.showToast(mContext, "Upload Successfully");
                     //提醒floor plan 更新数据
                     Constant.isFloorPlanRefresh = true;
                     finish();
 
-                }else {
-                    ToastUtil.showToast(mContext,simple.getCodeDesc());
+                } else {
+                    ToastUtil.showToast(mContext, simple.getCodeDesc());
                 }
             }
 
             @Override
             public void onError(int tag, String msg) {
-                LogUtil.loge("uploadFloorPlan:onError",msg);
-                ToastUtil.showToast(mContext,"Upload Failed");
+                LogUtil.loge("uploadFloorPlan:onError", msg);
+                ToastUtil.showToast(mContext, "Upload Failed");
             }
 
             @Override
@@ -191,8 +193,8 @@ public class MarkActivity extends BaseActivity {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //            String picUrl = RequstList.BASE_URL+"/api/v1/Job/GetFloorPlanForTest/TestFloorPlan";
 
-            String picUrl = RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId();
-            LogUtil.loge("url---",picUrl);
+            String picUrl = RequstList.BASE_URL + RequstList.SHOW_IMGS_VIDEO + jobId + "/" + photoVideo.getId();
+            LogUtil.loge("url---", picUrl);
             showLoading();
             downLoadFile(picUrl, "png");
         }
@@ -220,7 +222,7 @@ public class MarkActivity extends BaseActivity {
     };
 
     public void downLoadFile(String url, String type) {
-        Request request = new Request.Builder().url(url).addHeader("Authorization",BaseApplication.token).build();
+        Request request = new Request.Builder().url(url).addHeader("Authorization", BaseApplication.token).build();
         HttpClient.getInstance().getClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
