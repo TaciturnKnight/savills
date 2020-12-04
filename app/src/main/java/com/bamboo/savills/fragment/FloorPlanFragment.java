@@ -3,6 +3,8 @@ package com.bamboo.savills.fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -56,6 +58,8 @@ public class FloorPlanFragment extends BaseFragment {
     private TextView tvJobNo,tvProName,tvStreetName,tvCreateDate;
 
 
+
+
     @Override
     public void initView() {
         String jobModule = getArguments().getString("JobModule");
@@ -83,7 +87,7 @@ public class FloorPlanFragment extends BaseFragment {
         if (StringUtil.isNotEmpty(mJobModle.getCreatedOn())){
             tvCreateDate.setText(mJobModle.getCreatedOn());
         }
-
+        tvUpload.setVisibility(View.GONE);
     }
 
     @Override

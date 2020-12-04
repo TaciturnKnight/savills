@@ -190,19 +190,19 @@ public class HttpUtil {
 
     public void postImage(final Context mContext,final int tag,File mFile,int jobId, final NetCallback callback){
 //        这里有个坑 等我再想想
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), mFile);
         // 文件上传的请求体封装
         MultipartBody multipartBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file1", mFile.getName(), requestBody)
                 .build();
         Request request = new Request.Builder()
-                .url(RequstList.BASE_URL+RequstList.JOB_UPLOAD_FLOOR_PLAN+jobId)
+                .url(RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId)
                 .post(multipartBody)
                 .addHeader("Authorization",BaseApplication.token)
                 .build();
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.JOB_UPLOAD_FLOOR_PLAN+jobId));
-        LogUtil.e("url",RequstList.BASE_URL+RequstList.JOB_UPLOAD_FLOOR_PLAN+jobId);
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.JOB_UPLOAD+jobId));
+        LogUtil.e("url",RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId);
     }
 
     public void updateFloorPlanImage(final Context mContext,final int tag,File mFile,int jobId,String fileId,String fileName, final NetCallback callback){

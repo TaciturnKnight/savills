@@ -92,9 +92,7 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    Intent intent = new Intent(mContext, EditPicTextActivity.class);
-                    intent.putExtra("fileName",photoVideo.getFileName());
-                    startActivityForResult(intent, 101);
+                    startActivityForResult(new Intent(mContext, EditPicTextActivity.class), 101);
                 }
             }
         });
@@ -102,9 +100,7 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (editPicHelper.bitmap != null) {
-                    Intent intent = new Intent(mContext, EditPicDrawActivity.class);
-                    intent.putExtra("fileName",photoVideo.getFileName());
-                    startActivityForResult(intent, 101);
+                    startActivityForResult(new Intent(mContext, EditPicDrawActivity.class), 101);
                 }
             }
         });
@@ -168,7 +164,6 @@ public class MarkActivity extends BaseActivity {
                 //更新图片状态
                 backPath = path;
                 picFile = new File(path);
-                LogUtil.loge("fileName",picFile.getName());
                 editPicHelper.setImage(picFile);
                 if (TextUtils.isEmpty(path)) {
                     return;

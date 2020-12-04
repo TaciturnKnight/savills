@@ -20,7 +20,6 @@ public class EditPicTextActivity extends DoodleActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fileName = getIntent().getStringExtra("fileName");
         TextView seekbarTitle = findViewById(R.id.editpic_seekbartitle);
         seekbarTitle.setText("Edit");
         seekbarTitle.setOnClickListener(new View.OnClickListener() {

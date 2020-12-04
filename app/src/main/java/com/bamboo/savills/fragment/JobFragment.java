@@ -121,6 +121,9 @@ public class JobFragment extends BaseFragment {
     private int lastType = 1;
 
     private String searchInput = "";
+    private static final int MESSAGE_SEARCH = 0x1;
+    private static long INTERVAL = 600; // 输入变化时间间隔
+
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -129,6 +132,11 @@ public class JobFragment extends BaseFragment {
                 case 99:
                     pageNo = 1;
                     getJobCount();
+                    getJobData();
+                    break;
+                case MESSAGE_SEARCH:
+                    searchInput = etSearch.getText().toString().trim();
+                    pageNo = 1;
                     getJobData();
                     break;
             }
@@ -173,9 +181,10 @@ public class JobFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                searchInput = etSearch.getText().toString().trim();
-                pageNo = 1;
-                getJobData();
+                if (mHandler.hasMessages(MESSAGE_SEARCH)) {
+                    mHandler.removeMessages(MESSAGE_SEARCH);
+                }
+                mHandler.sendEmptyMessageDelayed(MESSAGE_SEARCH, INTERVAL);
             }
         });
     }

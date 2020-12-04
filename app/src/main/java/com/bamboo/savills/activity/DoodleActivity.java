@@ -232,14 +232,12 @@ public abstract class DoodleActivity extends Activity {
                     File dcimFile = new File(Environment.getExternalStorageDirectory(), "DCIM");
                     doodleFile = new File(dcimFile, "Doodle");
                     //　保存的路径
-//                    file = new File(doodleFile, System.currentTimeMillis() + ".png");
-                    file = new File(doodleFile, fileName);
+                    file = new File(doodleFile, System.currentTimeMillis() + ".png");
                 } else {
                     if (isDir) {
                         doodleFile = new File(savePath);
                         //　保存的路径
-//                        file = new File(doodleFile, System.currentTimeMillis() + ".png");
-                        file = new File(doodleFile, fileName);
+                        file = new File(doodleFile, System.currentTimeMillis() + ".png");
                     } else {
                         file = new File(savePath);
                         doodleFile = file.getParentFile();
@@ -511,7 +509,7 @@ public abstract class DoodleActivity extends Activity {
         tabLayout.getTabAt(2).setText("Industrial");
         tabLayout.getTabAt(3).setText("House");
         colorRecyclerView = findViewById(R.id.editpic_color_recycler);
-        colorRecyclerView.setLayoutManager(new GridLayoutManager(this, EditPicHelper.getInstance().colors.size(), LinearLayoutManager.VERTICAL, false));
+        colorRecyclerView.setLayoutManager(new GridLayoutManager(this, EditPicHelper.getInstance().colors.size(), RecyclerView.VERTICAL, false));
         colorAdapter = new EditPicColorAdapter();
         colorRecyclerView.setAdapter(colorAdapter);
         colorAdapter.setNewData(EditPicHelper.getInstance().colors);

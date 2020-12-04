@@ -17,6 +17,15 @@ public class PhotoVideo {
     private int createdBy;
     private String createdOn;
     private String createdByUserName;
+    private String newName;
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
 
     public String getId() {
         return id;

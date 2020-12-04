@@ -1,8 +1,14 @@
 package com.bamboo.savills.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Handler;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -13,6 +19,7 @@ import com.bamboo.savills.base.net.HttpUtil;
 import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
+import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.GlideUtil;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -24,7 +31,9 @@ import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder> {
     private Context mContext;
@@ -41,23 +50,47 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
     @Override
     protected void convert(@NotNull BaseViewHolder holder, PhotoVideo photoVideo) {
         ImageView imageView = holder.findView(R.id.iv_item_photo_video);
-        GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId(),imageView);
+        WebView webView = holder.findView(R.id.wb_item_photo_video);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAllowFileAccess(true);
+        Map<String, String > map = new HashMap<>() ;
+        map.put("Authorization",BaseApplication.token) ;
+
         if (photoVideo.getFileName().endsWith("mp4")){
             holder.setVisible(R.id.iv_item_photo_video_is,true);
+            imageView.setVisibility(View.GONE);
+            webView.setVisibility(View.VISIBLE);
+            webView.loadUrl(RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId(),map);
+            LogUtil.loge("webView",RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId());
         }else {
+            imageView.setVisibility(View.VISIBLE);
+            webView.setVisibility(View.GONE);
             holder.setGone(R.id.iv_item_photo_video_is,true);
+            GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId(),imageView);
         }
         RelativeLayout rlDelete = holder.getView(R.id.rl_item_photo_delete);
         rlDelete.setTag(photoVideo);
         rlDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoVideo item = (PhotoVideo)v.getTag();
-                delete(item);
+                new AlertDialog.Builder(getContext()).setMessage("确认删除该文件?").setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PhotoVideo item = (PhotoVideo)v.getTag();
+                        delete(item);
+                    }
+                }).setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+
             }
         });
 
     }
+
     private void delete(PhotoVideo photoVideo){
         String path = RequstList.DELETE_IMGS_VIDEO+jobId+"/"+photoVideo.getId();
         HttpUtil.getInstance().delete(mContext, path, 210, new NetCallback() {
