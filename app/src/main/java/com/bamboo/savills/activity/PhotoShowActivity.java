@@ -41,7 +41,8 @@ public class PhotoShowActivity extends BaseActivity {
     @InjectView(R.id.rv_photo_show)
     RecyclerView recyclerView;
 
-    private JobModule mJobModule;
+    private int  jobId;
+    private String formId;
     private PhoteVideoAdapter adapter;
     private List<PhotoVideo> mDatas = new ArrayList<>();
 
@@ -60,11 +61,12 @@ public class PhotoShowActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        jobId = getIntent().getIntExtra("jobId",0);
+        formId = getIntent().getStringExtra("formId");
         tvTitle.setText("Photo&Video");
         ivSend.setVisibility(View.GONE);
-        mJobModule =  new Gson().fromJson(getIntent().getStringExtra("JobModule"),new TypeToken<JobModule>(){}.getType());
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
-        adapter = new PhoteVideoAdapter(mContext,mJobModule.getJobId(),mHandler,mDatas);
+        adapter = new PhoteVideoAdapter(mContext,jobId,mHandler,mDatas);
         recyclerView.setAdapter(adapter);
     }
 
@@ -79,7 +81,7 @@ public class PhotoShowActivity extends BaseActivity {
         getImgOrVideoData();
     }
     private void getImgOrVideoData(){
-        String path = RequstList.JOB_GET_IMGS+mJobModule.getJobId();
+        String path = RequstList.GET_FORM_FILE_LIST+jobId+"/"+formId;
         HttpUtil.getInstance().get(mContext, path, HttpUtil.JSON, 200, true, new NetCallback() {
             @Override
             public void onSuccess(int tag, String result) {

@@ -146,7 +146,7 @@ public class FloorPlanFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new FloorPlanAdapter(mContext,mJobModle.getJobId(),mDatas);
+        adapter = new FloorPlanAdapter(mContext,mJobModle.getJobId(),mJobModle.getId(),mDatas);
         recyclerView.setAdapter(adapter);
         adapter.addHeaderView(headView);
         getImgOrVideoData();

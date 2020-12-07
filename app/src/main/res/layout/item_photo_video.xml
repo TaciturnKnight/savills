@@ -17,12 +17,6 @@
         android:src="@drawable/img_video"
         android:layout_centerInParent="true"
         />
-    <WebView
-        android:id="@+id/wb_item_photo_video"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:visibility="gone"
-    />
 
     <RelativeLayout
         android:id="@+id/rl_item_photo_delete"

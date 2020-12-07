@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bamboo.savills.Module.FileBean;
+import com.bamboo.savills.Module.JobModule;
 import com.bamboo.savills.R;
 import com.bamboo.savills.adapter.FileListAdapter;
 import com.bamboo.savills.base.view.BaseActivity;
@@ -24,6 +25,8 @@ import com.bamboo.savills.utils.FileUtils;
 import com.bamboo.savills.utils.LoanFileUtils;
 import com.bamboo.savills.utils.PickerManager;
 import com.bamboo.savills.view.SlectFileDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 import java.io.File;
@@ -48,6 +51,10 @@ public class PhotoActivity extends BaseActivity {
     @InjectView(R.id.showimg_recycler)
     RecyclerView recyclerView;
 
+    private int  jobId;
+    private String formId;
+
+
     @Override
     public void onClickNext(View v) {
         switch (v.getId()) {
@@ -63,6 +70,8 @@ public class PhotoActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        jobId = getIntent().getIntExtra("jobId",0);
+        formId = getIntent().getStringExtra("formId");
         tvTitle.setText("Photo");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         fileListAdapter = new FileListAdapter();

@@ -115,7 +115,7 @@ public class JobFragment extends BaseFragment {
     private List<JobModule> mDatas = new ArrayList<>();
 
     private int pageNo = 1;
-    private int pageSize = 5;
+    private int pageSize = 10;
 
     private int type = 1;
     private int lastType = 1;

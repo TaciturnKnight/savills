@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bamboo.savills.Module.Answers;
+import com.bamboo.savills.Module.FormBList;
 import com.bamboo.savills.Module.PartAQuestion;
 import com.bamboo.savills.Module.PartBQuestion;
 import com.bamboo.savills.R;
@@ -52,19 +53,25 @@ public class PartBQuestionActivity extends BaseActivity {
     @InjectView(R.id.iv_send)
     ImageView ivSend;
 
-    private ImageView ivPhoto;
+    private ImageView ivPhoto,ivPhotoShow;
     private TextView tvSave,tvComplete;
 
     private List<ImageView> points = new ArrayList<>();
+    private FormBList.DataBean.FormBsBean formBsBean;
+    private int jobId;
 
     @Override
     public void initView() {
-        tvTitle.setText("Floor Plan A - BedRoom 2");
+        formBsBean = new Gson().fromJson(getIntent().getStringExtra("formBsBean"),new TypeToken<FormBList.DataBean.FormBsBean>(){}.getType());
+        jobId = getIntent().getIntExtra("jobId",0);
+        String title = formBsBean.getJobFileName().split("\\.")[0]+formBsBean.getTitle();
+        tvTitle.setText(title);
         ivSend.setVisibility(View.INVISIBLE);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext ,RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
         headView = LayoutInflater.from(mContext).inflate(R.layout.head_view_part_a,null);
         ivPhoto = headView.findViewById(R.id.iv_head_view_photo);
+        ivPhotoShow = headView.findViewById(R.id.iv_head_view_show);
         tvQuestionTitle = headView.findViewById(R.id.tv_head_view_question_title);
         tvQuestionTitle.setText("Part B: The Subject Property");
         footView = LayoutInflater.from(mContext).inflate(R.layout.foot_view_part_a,null);
@@ -79,6 +86,7 @@ public class PartBQuestionActivity extends BaseActivity {
         ivPhoto.setOnClickListener(this);
         tvSave.setOnClickListener(this);
         tvComplete.setOnClickListener(this);
+        ivPhotoShow.setOnClickListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -109,6 +117,8 @@ public class PartBQuestionActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        //formBsBean 设置一下题目
+
         getData();
         adapter = new PartBQuestionAdapter(mContext,mDatas);
         recyclerView.setAdapter(adapter);
@@ -397,6 +407,8 @@ public class PartBQuestionActivity extends BaseActivity {
                 break;
             case R.id.iv_head_view_photo:
                 Intent intent = new Intent(mContext,PhotoActivity.class);
+                intent.putExtra("jobId",jobId);
+                intent.putExtra("formId",formBsBean.getId());
                 startActivity(intent);
                 break;
             case R.id.tv_foot_part_a_save:
@@ -414,6 +426,12 @@ public class PartBQuestionActivity extends BaseActivity {
                 mLayoutManager.scrollToPositionWithOffset(position+1, 0);
                 //变色
                 changePointsColor(position);
+                break;
+            case R.id.iv_head_view_show:
+                Intent intent1 = new Intent(mContext,PhotoShowActivity.class);
+                intent1.putExtra("jobId",jobId);
+                intent1.putExtra("formId",formBsBean.getId());
+                startActivity(intent1);
                 break;
         }
 

@@ -9,4 +9,7 @@ public class Constant {
     public static final int FLOOR_PLAN_NAME_CHANGE = 1138;
 //    等待时间
     public static final long FLOOR_PLAN_NAME_INTERNAL = 1000;
+
+//    formB list 是否需要更新数据
+    public static boolean isFormBListRefresh = false;
 }

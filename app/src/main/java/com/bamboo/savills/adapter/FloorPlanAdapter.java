@@ -34,6 +34,7 @@ import java.util.List;
 public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder> {
     private Context mContext;
     private int jobId;
+    private int id;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -47,10 +48,11 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
             }
         }
     };
-    public FloorPlanAdapter(Context mContext,int jobId, @Nullable List<PhotoVideo> data) {
+    public FloorPlanAdapter(Context mContext,int jobId, int id,@Nullable List<PhotoVideo> data) {
         super(R.layout.item_floor_plan, data);
         this.mContext = mContext;
         this.jobId = jobId;
+        this.id = id;
     }
 
     @Override
@@ -62,6 +64,7 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
                 Intent intent = new Intent(mContext,MarkActivity.class);
                 intent.putExtra("PhotoVideo",new Gson().toJson(item,new TypeToken<PhotoVideo>(){}.getType()));
                 intent.putExtra("jobId",jobId);
+                intent.putExtra("id",id);
                 mContext.startActivity(intent);
             }
         });

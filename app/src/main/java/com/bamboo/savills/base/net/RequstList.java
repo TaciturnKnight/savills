@@ -23,7 +23,7 @@ public class RequstList {
     public static final String JOB_ACCEPT = "/api/v1/Mobile/AcceptedSiteVisit/";
     public static final String JOB_UNASSIGN = "/api/v1/Mobile/UnassignToMe/";
     public static final String JOB_START_INSPECTION = "/api/v1/Mobile/StartInspection/";
-//   post 上传 /api/v1/JobFile/Upload/{jobId}
+//   post 上传 /api/v1/JobFile/Upload/{jobId} 弃用
     public static final String JOB_UPLOAD = "/api/v1/JobFile/Upload/";
 //   GET /api/v1/JobFile/FileList/{jobId}
     public static final String JOB_GET_IMGS = "/api/v1/JobFile/FileList/";
@@ -37,6 +37,21 @@ public class RequstList {
     public static final String JOB_UPLOAD_FLOOR_PLAN = "/api/v1/JobFile/UploadFloorPlan/";
 
     public static final String CHANGE_FLOOR_PLAN_NAME = "/api/v1/JobFile/Rename/";
+//    创建FormBs
+    public static final String JOB_CREATE_FORM_B = "/api/v1/InspectionForm/CreateFormBs/";
+
+    public static final String GET_FORM_B_LIST = "/api/v1/InspectionForm/GetFormBs/";
+//    获取FormA 详情
+    public static final String GET_FORM_A_DETAIL = "/api/v1/InspectionForm/GetFormA/";
+
+//    /api/v1/InspectionForm/Upload/{jobId}/{formId}
+//    上传图片 视频 表单提交
+    public static final String UPLOAD_FORM_IMG_VIDEO = "/api/v1/InspectionForm/Upload/";
+//    获取form对应的资源 /api/v1/InspectionForm/GetFormFileList/{jobId}/{formId}
+    public static final String GET_FORM_FILE_LIST = "/api/v1/InspectionForm/GetFormFileList/";
+//    获取form 图片 视频资源
+    public static final String GET_FORM_VIDEO_IMG = "/api/v1/InspectionForm/GetFormFile/";
+
 
 
 }

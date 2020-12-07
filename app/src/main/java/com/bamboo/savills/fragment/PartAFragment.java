@@ -11,11 +11,15 @@ import android.widget.TextView;
 
 import com.bamboo.savills.Module.Answers;
 import com.bamboo.savills.Module.JobModule;
+import com.bamboo.savills.Module.PartAAnswerDetail;
 import com.bamboo.savills.Module.PartAQuestion;
 import com.bamboo.savills.R;
 import com.bamboo.savills.activity.PhotoActivity;
 import com.bamboo.savills.activity.PhotoShowActivity;
 import com.bamboo.savills.adapter.PartAAdapter;
+import com.bamboo.savills.base.net.HttpUtil;
+import com.bamboo.savills.base.net.NetCallback;
+import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseFragment;
@@ -46,6 +50,7 @@ public class PartAFragment extends BaseFragment {
 
 //    private List<String> titleCount = new ArrayList<>();
     private JobModule mJobModle;
+    private String formId;
 
 
 
@@ -111,7 +116,32 @@ public class PartAFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
         adapter.addHeaderView(headView);
         adapter.addFooterView(footView);
+        getFormAData();
 
+    }
+    private void getFormAData(){
+        HttpUtil.getInstance().get(mContext, RequstList.GET_FORM_A_DETAIL + mJobModle.getJobId() + "/" + mJobModle.getId(), HttpUtil.JSON, 306, true, new NetCallback() {
+            @Override
+            public void onSuccess(int tag, String result) {
+                LogUtil.loge("getFormAData",result);
+//                题目的数据也得 设置上 后期做
+                PartAAnswerDetail partAAnswerDetail = new Gson().fromJson(result,new TypeToken<PartAAnswerDetail>(){}.getType());
+                if (partAAnswerDetail != null && partAAnswerDetail.getCode() == 0){
+                    //
+                    formId = partAAnswerDetail.getData().getId();
+                }
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+                LogUtil.loge("getFormAData-onError",msg);
+            }
+
+            @Override
+            public void onComplete(int tag) {
+
+            }
+        });
     }
     private void initPoint(){
        int count =  questions.size();
@@ -463,7 +493,8 @@ public class PartAFragment extends BaseFragment {
                 break;
             case R.id.iv_head_view_photo:
                 Intent intent = new Intent(mContext,PhotoActivity.class);
-                intent.putExtra("JobModule",new Gson().toJson(mJobModle,new TypeToken<JobModule>(){}.getType()));
+                intent.putExtra("jobId",mJobModle.getJobId());
+                intent.putExtra("formId",formId);
                 startActivity(intent);
                 break;
             case R.id.ll_item_point_out:
@@ -478,7 +509,8 @@ public class PartAFragment extends BaseFragment {
                 break;
             case R.id.iv_head_view_show:
                 Intent intent1 = new Intent(mContext,PhotoShowActivity.class);
-                intent1.putExtra("JobModule",new Gson().toJson(mJobModle,new TypeToken<JobModule>(){}.getType()));
+                intent1.putExtra("jobId",mJobModle.getJobId());
+                intent1.putExtra("formId",formId);
                 startActivity(intent1);
                 break;
         }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bamboo.savills.Constant;
+import com.bamboo.savills.Module.CreateFormBParam;
 import com.bamboo.savills.Module.PhotoVideo;
 import com.bamboo.savills.Module.SimpleResponse;
 import com.bamboo.savills.R;
@@ -44,6 +45,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,11 +75,13 @@ public class MarkActivity extends BaseActivity {
     //处理成功的File
     private File picFile;
     private String backPath;
+    private int id;
 
 
     public void initView() {
         editPicHelper.reset();
         jobId = getIntent().getIntExtra("jobId", 0);
+        id = getIntent().getIntExtra("id",0);
         photoVideo = new Gson().fromJson(getIntent().getStringExtra("PhotoVideo"), new TypeToken<PhotoVideo>() {
         }.getType());
     }
@@ -109,6 +114,7 @@ public class MarkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //上传
+
                 uploadFloorPlan();
             }
         });
@@ -131,7 +137,27 @@ public class MarkActivity extends BaseActivity {
                     ToastUtil.showToast(mContext, "Upload Successfully");
                     //提醒floor plan 更新数据
                     Constant.isFloorPlanRefresh = true;
-                    finish();
+                    List<String> strs =  EditPicHelper.getInstance().strings;
+                    List<CreateFormBParam> mParams = new ArrayList<>();
+                    for (int i = 0;i<strs.size();i++){
+                        LogUtil.loge("mark",strs.get(i));
+//                    这里是所有mark 的数据 要去掉 No Insp. 和以 * 开头的输入
+                        String title = strs.get(i);
+                        if (!"No Insp.".equalsIgnoreCase(title) && !title.startsWith("*")){
+                            CreateFormBParam param = new CreateFormBParam();
+                            param.setTitle(title);
+                            param.setJobPropertyId(id);
+                            param.setJobFileId(photoVideo.getId());
+                            mParams.add(param);
+                        }
+
+                    }
+                    if (mParams.size()<=0){
+//                        没有要写入的 formB
+                        finish();
+                    }else {
+                        createFormB(mParams);
+                    }
 
                 } else {
                     ToastUtil.showToast(mContext, simple.getCodeDesc());
@@ -149,6 +175,41 @@ public class MarkActivity extends BaseActivity {
                 hideLoading();
             }
         });
+
+    }
+    private void createFormB(List<CreateFormBParam> mParams){
+        showLoading();
+        HttpUtil.getInstance().postJson(mContext, RequstList.JOB_CREATE_FORM_B + jobId, 302,
+                new Gson().toJson(mParams, new TypeToken<List<CreateFormBParam>>() {
+                }.getType()), new NetCallback() {
+                    @Override
+                    public void onSuccess(int tag, String result) {
+                        LogUtil.loge("createFormB",result);
+                        //成功后finish  通知partb 需要更新list
+                        SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                        if (simple.getCode() == 0){
+                            //成功
+                            Constant.isFormBListRefresh = true;
+                            finish();
+
+                        }else {
+                            ToastUtil.showToast(mContext,simple.getCodeDesc());
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(int tag, String msg) {
+                        LogUtil.loge("createFormB-onError",msg);
+                        ToastUtil.showToast(mContext,msg);
+                    }
+
+                    @Override
+                    public void onComplete(int tag) {
+                        hideLoading();
+                    }
+                });
 
     }
 

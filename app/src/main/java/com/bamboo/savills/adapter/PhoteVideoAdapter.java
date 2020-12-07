@@ -50,23 +50,14 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
     @Override
     protected void convert(@NotNull BaseViewHolder holder, PhotoVideo photoVideo) {
         ImageView imageView = holder.findView(R.id.iv_item_photo_video);
-        WebView webView = holder.findView(R.id.wb_item_photo_video);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setAllowFileAccess(true);
-        Map<String, String > map = new HashMap<>() ;
-        map.put("Authorization",BaseApplication.token) ;
 
         if (photoVideo.getFileName().endsWith("mp4")){
             holder.setVisible(R.id.iv_item_photo_video_is,true);
             imageView.setVisibility(View.GONE);
-            webView.setVisibility(View.VISIBLE);
-            webView.loadUrl(RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId(),map);
-            LogUtil.loge("webView",RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId());
-        }else {
+            }else {
             imageView.setVisibility(View.VISIBLE);
-            webView.setVisibility(View.GONE);
             holder.setGone(R.id.iv_item_photo_video_is,true);
-            GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList.SHOW_IMGS_VIDEO+jobId+"/"+photoVideo.getId(),imageView);
+            GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList.GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId(),imageView);
         }
         RelativeLayout rlDelete = holder.getView(R.id.rl_item_photo_delete);
         rlDelete.setTag(photoVideo);
