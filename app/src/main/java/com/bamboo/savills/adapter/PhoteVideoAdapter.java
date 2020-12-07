@@ -3,26 +3,22 @@ package com.bamboo.savills.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bamboo.savills.Module.PhotoVideo;
 import com.bamboo.savills.Module.SimpleResponse;
 import com.bamboo.savills.R;
+import com.bamboo.savills.activity.LoadImgsOrVideosByWebviewActivity;
 import com.bamboo.savills.base.net.HttpUtil;
 import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
-import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.GlideUtil;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.google.gson.Gson;
@@ -31,9 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder> {
     private Context mContext;
@@ -50,14 +45,14 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
     @Override
     protected void convert(@NotNull BaseViewHolder holder, PhotoVideo photoVideo) {
         ImageView imageView = holder.findView(R.id.iv_item_photo_video);
+        RelativeLayout rlOut = holder.findView(R.id.rl_item_photo_out);
+        rlOut.setTag(photoVideo);
 
         if (photoVideo.getFileName().endsWith("mp4")){
             holder.setVisible(R.id.iv_item_photo_video_is,true);
-            imageView.setVisibility(View.GONE);
             }else {
-            imageView.setVisibility(View.VISIBLE);
             holder.setGone(R.id.iv_item_photo_video_is,true);
-            GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList.GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId(),imageView);
+            GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId(),imageView);
         }
         RelativeLayout rlDelete = holder.getView(R.id.rl_item_photo_delete);
         rlDelete.setTag(photoVideo);
@@ -77,6 +72,16 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
                     }
                 }).create().show();
 
+            }
+        });
+        rlOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoVideo item = (PhotoVideo)v.getTag();
+                Intent intent = new Intent(getContext(), LoadImgsOrVideosByWebviewActivity.class);
+                intent.putExtra("url", RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+item.getId());
+                intent.putExtra("ispic", !item.getFileName().endsWith("mp4"));
+                getContext().startActivity(intent);
             }
         });
 

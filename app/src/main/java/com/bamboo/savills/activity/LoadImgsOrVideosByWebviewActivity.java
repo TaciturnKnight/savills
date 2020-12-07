@@ -1,6 +1,9 @@
 package com.bamboo.savills.activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -10,14 +13,12 @@ import com.bamboo.savills.R;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.BaseApplication;
+import com.bamboo.savills.utils.GlideUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tong on 2020/1/11.
- */
-public class LoadFileByWebViewActivity extends BaseActivity {
+public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
     private WebView webView;
     private boolean ispic;
     private ImageView bigImage;
@@ -30,18 +31,17 @@ public class LoadFileByWebViewActivity extends BaseActivity {
         webView.getSettings().setAllowFileAccess(true);
         String url = getIntent().getStringExtra("url");
         ispic = getIntent().getBooleanExtra("ispic", false);
+        Map<String,String> header = new HashMap<>();
+        header.put("Authorization",BaseApplication.token);
         if (ispic) {
             webView.setVisibility(View.GONE);
             bigImage.setVisibility(View.VISIBLE);
-            bigImage.setImageBitmap(BitmapFactory.decodeFile(url));
+            GlideUtil.getInstance().showImages(mContext,url,bigImage);
         } else {
             bigImage.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
-            if (!url.startsWith("http")) {
-                url = "file://" + url;
-            }
-            Log.i("加载地址", url);
-            webView.loadUrl(url);
+            LogUtil.loge("webView",url);
+            webView.loadUrl(url,header);
         }
     }
 
@@ -70,5 +70,4 @@ public class LoadFileByWebViewActivity extends BaseActivity {
         super.onDestroy();
         webView.destroy();
     }
-
 }
