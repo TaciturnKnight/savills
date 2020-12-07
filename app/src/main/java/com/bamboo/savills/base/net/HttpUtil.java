@@ -1,13 +1,17 @@
 package com.bamboo.savills.base.net;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.ToastUtil;
+import com.bamboo.savills.utils.FileRequestBody;
+import com.bamboo.savills.utils.ProgressListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,15 +121,15 @@ public class HttpUtil {
     public void postJson(final Context mContext, String url, final int tag, String params, final NetCallback callback) {
         if (url == null)
             url = "";
-        LogUtil.e("url",RequstList.BASE_URL + url);
-        LogUtil.e("params",params);
+        LogUtil.e("url", RequstList.BASE_URL + url);
+        LogUtil.e("params", params);
         RequestBody requestBody = RequestBody.create(MediaType.parse(JSON), params);
         Request request = new Request.Builder()
                 .url(RequstList.BASE_URL + url)
                 .post(requestBody)
-                .header("Authorization",BaseApplication.token)
+                .header("Authorization", BaseApplication.token)
                 .build();
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
     }
 //    public void postImage(final Context mContext,final int tag,File mFile, final NetCallback callback){
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
@@ -151,18 +155,19 @@ public class HttpUtil {
                 //添加公共参数之后发起请求
                 .post(requestBody)
                 .header("Content-Type", contentType)
-                .addHeader("Authorization",BaseApplication.token)
+                .addHeader("Authorization", BaseApplication.token)
                 .build();
-        LogUtil.e("post",useBaseUrl ? RequstList.BASE_URL + url : url);
+        LogUtil.e("post", useBaseUrl ? RequstList.BASE_URL + url : url);
         if (params != null)
-            LogUtil.e("params",params.toString());
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
-    }
-    public void delete(Context mContext, String url,int tag,final NetCallback callback){
-        delete(mContext,url,HttpUtil.JSON,tag,null,callback,true);
+            LogUtil.e("params", params.toString());
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
     }
 
-    private void delete(final Context mContext, String url, String contentType, final int tag, RequestParams params, final NetCallback callback, boolean useBaseUrl){
+    public void delete(Context mContext, String url, int tag, final NetCallback callback) {
+        delete(mContext, url, HttpUtil.JSON, tag, null, callback, true);
+    }
+
+    private void delete(final Context mContext, String url, String contentType, final int tag, RequestParams params, final NetCallback callback, boolean useBaseUrl) {
         if (url == null)
             url = "";
         RequestBody requestBody = addParams(url, params);
@@ -171,24 +176,25 @@ public class HttpUtil {
                 //添加公共参数之后发起请求
                 .delete(requestBody)
                 .header("Content-Type", contentType)
-                .addHeader("Authorization",BaseApplication.token)
+                .addHeader("Authorization", BaseApplication.token)
                 .build();
-        LogUtil.e("delete",useBaseUrl ? RequstList.BASE_URL + url : url);
+        LogUtil.e("delete", useBaseUrl ? RequstList.BASE_URL + url : url);
         if (params != null)
-            LogUtil.e("params",params.toString());
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
+            LogUtil.e("params", params.toString());
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
 
     }
-    public void get(final Context mContext, String url, String contentType, final int tag, boolean useBaseUrl,final NetCallback callback){
+
+    public void get(final Context mContext, String url, String contentType, final int tag, boolean useBaseUrl, final NetCallback callback) {
         if (url == null)
             url = "";
         Request request = new Request.Builder()
-                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).addHeader("Authorization",BaseApplication.token).build();
-        LogUtil.e("get",useBaseUrl ? RequstList.BASE_URL + url : url);
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,url));
+                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).addHeader("Authorization", BaseApplication.token).build();
+        LogUtil.e("get", useBaseUrl ? RequstList.BASE_URL + url : url);
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
     }
 
-    public void postImage(final Context mContext,final int tag,File mFile,int jobId, final NetCallback callback){
+    public void postImage(final Context mContext, final int tag, File mFile, int jobId, final NetCallback callback) {
 //        这里有个坑 等我再想想
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), mFile);
         // 文件上传的请求体封装
@@ -197,15 +203,42 @@ public class HttpUtil {
                 .addFormDataPart("file1", mFile.getName(), requestBody)
                 .build();
         Request request = new Request.Builder()
-                .url(RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId)
+                .url(RequstList.BASE_URL + RequstList.JOB_UPLOAD + jobId)
                 .post(multipartBody)
-                .addHeader("Authorization",BaseApplication.token)
+                .addHeader("Authorization", BaseApplication.token)
                 .build();
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.JOB_UPLOAD+jobId));
-        LogUtil.e("url",RequstList.BASE_URL+RequstList.JOB_UPLOAD+jobId);
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, RequstList.JOB_UPLOAD + jobId));
+        LogUtil.e("url", RequstList.BASE_URL + RequstList.JOB_UPLOAD + jobId);
     }
 
-    public void updateFloorPlanImage(final Context mContext,final int tag,File mFile,int jobId,String fileId,String fileName, final NetCallback callback){
+    public void updateFormFile(final Context mContext, String url, final int tag, File mFile, String fileName, final NetWithProgressCallback callback) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+        FileRequestBody fileRequestBody = new FileRequestBody(requestBody, new ProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+                ((Activity) mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onProgress(progress);
+                    }
+                });
+            }
+        });
+        // 文件上传的请求体封装
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file1", fileName, fileRequestBody)
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(multipartBody)
+                .addHeader("Authorization", BaseApplication.token)
+                .build();
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
+        LogUtil.e("url", url);
+    }
+
+    public void updateFloorPlanImage(final Context mContext, final int tag, File mFile, int jobId, String fileId, String fileName, final NetCallback callback) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), mFile);
         // 文件上传的请求体封装
         MultipartBody multipartBody = new MultipartBody.Builder()
@@ -213,15 +246,15 @@ public class HttpUtil {
                 .addFormDataPart("file1", fileName, requestBody)
                 .build();
         Request request = new Request.Builder()
-                .url(RequstList.BASE_URL+RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId)
+                .url(RequstList.BASE_URL + RequstList.UPDATE_FLOOR_PLAN + jobId + "/" + fileId)
                 .post(multipartBody)
-                .addHeader("Authorization",BaseApplication.token)
+                .addHeader("Authorization", BaseApplication.token)
                 .build();
-        client.newCall(request).enqueue(createCallback(mContext, tag, callback,RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId));
-        LogUtil.e("url",RequstList.BASE_URL+RequstList.UPDATE_FLOOR_PLAN+jobId+"/"+fileId);
+        client.newCall(request).enqueue(createCallback(mContext, tag, callback, RequstList.UPDATE_FLOOR_PLAN + jobId + "/" + fileId));
+        LogUtil.e("url", RequstList.BASE_URL + RequstList.UPDATE_FLOOR_PLAN + jobId + "/" + fileId);
     }
 
-    private Callback createCallback(final Context mContext, final int tag, final NetCallback callback,final String url) {
+    private Callback createCallback(final Context mContext, final int tag, final NetCallback callback, final String url) {
         if (mainHandler == null)
             mainHandler = new Handler(mContext.getMainLooper());
         return new Callback() {
@@ -233,10 +266,10 @@ public class HttpUtil {
                     public void run() {
                         callback.onComplete(tag);
                         //接口失败处理
-                        if ( e != null &&StringUtil.isNotEmpty(e.getMessage()))
-                            ToastUtil.showToast(mContext, "网络请求失败 请求接口："+url+"失败原因："+e.getMessage());
+                        if (e != null && StringUtil.isNotEmpty(e.getMessage()))
+                            ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url + "失败原因：" + e.getMessage());
                         else
-                            ToastUtil.showToast(mContext, "网络请求失败 请求接口："+url);
+                            ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url);
                     }
                 });
             }

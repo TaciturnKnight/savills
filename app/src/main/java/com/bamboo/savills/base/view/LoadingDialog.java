@@ -3,6 +3,7 @@ package com.bamboo.savills.base.view;
 import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.bamboo.savills.R;
 
@@ -11,7 +12,8 @@ import com.bamboo.savills.R;
  * Created by qyj on 2017/6/16.
  */
 
-public class LoadingDialog extends CustomDialog{
+public class LoadingDialog extends CustomDialog {
+    private TextView tipText;
 
     public LoadingDialog(Context context) {
         this(context, false);
@@ -27,6 +29,11 @@ public class LoadingDialog extends CustomDialog{
         setDialogHeight(WindowManager.LayoutParams.MATCH_PARENT);
         setContentView(R.layout.dialog_loding);
         setCanceledOnTouchOutside(false);
+        tipText = findViewById(R.id.hint_text);
+    }
+
+    public void setTipText(String text) {
+        tipText.setText(text);
     }
 
     @Override

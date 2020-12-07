@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,12 @@ import com.bamboo.savills.Module.FileBean;
 import com.bamboo.savills.Module.JobModule;
 import com.bamboo.savills.R;
 import com.bamboo.savills.adapter.FileListAdapter;
+import com.bamboo.savills.base.net.HttpUtil;
+import com.bamboo.savills.base.net.NetCallback;
+import com.bamboo.savills.base.net.NetWithProgressCallback;
+import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.view.BaseActivity;
+import com.bamboo.savills.base.view.LoadingDialog;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.FileEntity;
 import com.bamboo.savills.utils.FileUtils;
@@ -51,9 +57,11 @@ public class PhotoActivity extends BaseActivity {
     @InjectView(R.id.showimg_recycler)
     RecyclerView recyclerView;
 
-    private int  jobId;
+    private int jobId;
     private String formId;
-
+    private String uploadUrl;
+    private int totalCount, currentCount;
+    private List<FileBean> files;
 
     @Override
     public void onClickNext(View v) {
@@ -63,15 +71,60 @@ public class PhotoActivity extends BaseActivity {
                 break;
             case R.id.iv_send:
 //                上传 所选的图片、视频
+                showLoading();
+                startUpload();
                 break;
         }
 
     }
 
+    private void startUpload() {
+        files = fileListAdapter.getData();
+        totalCount = files.size();
+        currentCount = 1;
+        uploadFile();
+    }
+
+    private void uploadFile() {
+        FileBean fileBean = files.get(currentCount - 1);
+        File file = new File(fileBean.getFilePath());
+        HttpUtil.getInstance().updateFormFile(mContext, uploadUrl, 101, file, file.getName(), new NetWithProgressCallback() {
+            @Override
+            public void onProgress(int progress) {
+                Log.i("upload", progress + "");
+                showLoading();
+                LoadingDialog progressDialog = (LoadingDialog) loadingDialog;
+                progressDialog.setTipText("Uploading..." + progress + "%(" + currentCount + "/" + totalCount + ")");
+            }
+
+            @Override
+            public void onSuccess(int tag, String result) {
+                Log.i("upload", "成功" + result);
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+                Log.i("upload", "失败" + msg);
+                ToastUtil.showToast(mContext, "上传失败" + msg);
+            }
+
+            @Override
+            public void onComplete(int tag) {
+                Log.i("upload", "完成");
+                if (currentCount != totalCount) {
+                    currentCount++;
+                    uploadFile();
+                } else {
+                    hideLoading();
+                    ToastUtil.showToast(mContext, "上传成功");
+                    finish();
+                }
+            }
+        });
+    }
+
     @Override
     public void initView() {
-        jobId = getIntent().getIntExtra("jobId",0);
-        formId = getIntent().getStringExtra("formId");
         tvTitle.setText("Photo");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         fileListAdapter = new FileListAdapter();
@@ -184,6 +237,9 @@ public class PhotoActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        jobId = getIntent().getIntExtra("jobId", 0);
+        formId = getIntent().getStringExtra("formId");
+        uploadUrl = RequstList.BASE_URL + RequstList.UPLOAD_FORM_IMG_VIDEO + jobId + "/" + formId;
 
     }
 
