@@ -50,7 +50,9 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
 
         if (photoVideo.getFileName().endsWith("mp4")){
             holder.setVisible(R.id.iv_item_photo_video_is,true);
+            holder.setVisible(R.id.iv_item_photo_video,false);
             }else {
+            holder.setVisible(R.id.iv_item_photo_video,true);
             holder.setGone(R.id.iv_item_photo_video_is,true);
             GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId(),imageView);
         }
@@ -81,6 +83,7 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
                 Intent intent = new Intent(getContext(), LoadImgsOrVideosByWebviewActivity.class);
                 intent.putExtra("url", RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+item.getId());
                 intent.putExtra("ispic", !item.getFileName().endsWith("mp4"));
+                intent.putExtra("fileName",item.getFileName());
                 getContext().startActivity(intent);
             }
         });

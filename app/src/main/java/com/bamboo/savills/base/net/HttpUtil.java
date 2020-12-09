@@ -2,6 +2,7 @@ package com.bamboo.savills.base.net;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,9 @@ import com.bamboo.savills.utils.FileRequestBody;
 import com.bamboo.savills.utils.ProgressListener;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +149,11 @@ public class HttpUtil {
 //        LogUtil.e("url",RequstList.BASE_URL+RequstList.UPLOAD_IMAGE);
 //    }
 
+    private void downloadVideo(Context mContext){
+
+
+    }
+
     private void post(final Context mContext, String url, String contentType, final int tag, RequestParams params, final NetCallback callback, boolean useBaseUrl) {
         if (url == null)
             url = "";
@@ -189,7 +197,9 @@ public class HttpUtil {
         if (url == null)
             url = "";
         Request request = new Request.Builder()
-                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get().header("Content-Type", contentType).addHeader("Authorization", BaseApplication.token).build();
+                .url(useBaseUrl ? RequstList.BASE_URL + url : url).get()
+                .header("Content-Type", contentType)
+                .addHeader("Authorization", BaseApplication.token).build();
         LogUtil.e("get", useBaseUrl ? RequstList.BASE_URL + url : url);
         client.newCall(request).enqueue(createCallback(mContext, tag, callback, url));
     }
@@ -253,6 +263,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(createCallback(mContext, tag, callback, RequstList.UPDATE_FLOOR_PLAN + jobId + "/" + fileId));
         LogUtil.e("url", RequstList.BASE_URL + RequstList.UPDATE_FLOOR_PLAN + jobId + "/" + fileId);
     }
+
 
     private Callback createCallback(final Context mContext, final int tag, final NetCallback callback, final String url) {
         if (mainHandler == null)
