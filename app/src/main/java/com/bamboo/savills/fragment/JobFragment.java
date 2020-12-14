@@ -355,13 +355,13 @@ public class JobFragment extends BaseFragment {
         switch (v.getId()){
             case R.id.ll_sort_by:
                 //排序 现在没有逻辑
+                isSort = !isSort;
                 if (isSort){
                     ivSortBy.setImageResource(R.drawable.checkcircle_checked);
 
                 }else {
                     ivSortBy.setImageResource(R.drawable.checkcircle_uncheck);
                 }
-                isSort = !isSort;
                 pageNo = 1;
                 getJobData();
                 break;

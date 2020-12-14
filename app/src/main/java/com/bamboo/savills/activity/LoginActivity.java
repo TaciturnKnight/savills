@@ -21,6 +21,7 @@ import com.bamboo.savills.R;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.LoadingDialog;
+import com.bamboo.savills.base.view.LoginFailDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvAccont;
     LoadingDialog loadingDialog;
     LinearLayout llSec;
+    private LoginFailDialog loginFailDialog ;
 //    private boolean isHaveToken = false;
     private Handler mHandler = new Handler(){
         @Override
@@ -62,8 +64,10 @@ public class LoginActivity extends AppCompatActivity {
             switch (msg.what){
                 case 99:
                     String exception = (String) msg.obj;
-                    llSec.setVisibility(View.VISIBLE);
-                    logTextView.setText(exception);
+//                    llSec.setVisibility(View.VISIBLE);
+                    loginFailDialog.setReason(exception);
+                    loginFailDialog.show();
+//                    logTextView.setText(exception);
                     break;
             }
         }
@@ -74,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         llSec = findViewById(R.id.ll_login_sec);
+        loginFailDialog = new LoginFailDialog(this);
 
         initializeUI();
 
@@ -379,6 +384,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onDestroy();
         if (loadingDialog!= null && loadingDialog.isShowing()){
             loadingDialog.dismiss();
+        }
+        if (loginFailDialog != null && loginFailDialog.isShowing()){
+            loginFailDialog.dismiss();
         }
     }
 }

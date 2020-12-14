@@ -51,8 +51,8 @@ public class RequstList {
     public static final String GET_FORM_FILE_LIST = "/api/v1/InspectionForm/GetFormFileList/";
 //    获取form 图片 视频资源
     public static final String GET_FORM_VIDEO_IMG = "/api/v1/InspectionForm/GetFormFile/";
-
-
+//    保存FormA /api/v1/InspectionForm/SaveFormA/{jobId}
+    public static final String SAVE_FORM_A = "/api/v1/InspectionForm/SaveFormA/";
 
 }
 

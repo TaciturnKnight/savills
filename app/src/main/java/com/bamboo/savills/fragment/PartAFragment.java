@@ -482,12 +482,36 @@ public class PartAFragment extends BaseFragment {
         return R.layout.fragment_part_a;
     }
 
+    private void saveFormA(String partAJson){
+        showLoading();
+
+        HttpUtil.getInstance().postJson(mContext, RequstList.SAVE_FORM_A + mJobModle.getJobId(), 401, partAJson, new NetCallback() {
+            @Override
+            public void onSuccess(int tag, String result) {
+                LogUtil.loge("saveFormA",result);
+//                保存成功 不用关闭窗口
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+//                失败了 就存一下数据 并且 保存有数据待上传
+
+            }
+
+            @Override
+            public void onComplete(int tag) {
+                hideLoading();
+            }
+        });
+    }
+
     @Override
     public void onClickNext(View v) {
         switch (v.getId()){
             case R.id.tv_foot_part_a_save:
                 String json = new Gson().toJson(questions,new TypeToken<List<PartAQuestion>>(){}.getType());
                 LogUtil.e("---Questions---",json);
+//                这里要把 PartAQuestion 转成 PartAAnswer 然后调接口 传给后台
                 break;
             case R.id.tv_foot_part_a_complete:
                 break;

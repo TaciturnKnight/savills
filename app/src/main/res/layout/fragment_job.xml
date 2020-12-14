@@ -31,9 +31,10 @@
             android:textSize="12sp"
             android:textColor="@color/colorBlack"
             android:gravity="left|center_vertical"
-           android:padding="5dp"
+            android:padding="5dp"
             android:layout_below="@+id/tv_welcome"
             android:layout_marginTop="7dp"
+            android:singleLine="true"
             />
 
         <ImageView
