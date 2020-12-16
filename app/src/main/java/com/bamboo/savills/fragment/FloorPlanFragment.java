@@ -112,36 +112,43 @@ public class FloorPlanFragment extends BaseFragment {
     }
 
     private void getImgOrVideoData(){
-        swipeRefreshLayout.setRefreshing(false);
-        mDatas.clear();
-        String path = RequstList.JOB_GET_IMGS+mJobModle.getJobId();
-        HttpUtil.getInstance().get(mContext, path, HttpUtil.JSON, 211, true, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("getImgOrVideoData",result);
-                PhotoVideoList photoVideoList = new Gson().fromJson(result,new TypeToken<PhotoVideoList>(){}.getType());
-                if (photoVideoList!= null && photoVideoList.getData()!= null && photoVideoList.getData().size()>0){
+        try {
+
+            swipeRefreshLayout.setRefreshing(false);
+            mDatas.clear();
+            String path = RequstList.JOB_GET_IMGS+mJobModle.getJobId();
+            HttpUtil.getInstance().get(mContext, path, HttpUtil.JSON, 211, true, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("getImgOrVideoData",result);
+                    PhotoVideoList photoVideoList = new Gson().fromJson(result,new TypeToken<PhotoVideoList>(){}.getType());
+                    if (photoVideoList!= null && photoVideoList.getData()!= null && photoVideoList.getData().size()>0){
 
 //                 fileType 是0 的拿出来
-                    for(int i = 0;i<photoVideoList.getData().size();i++){
-                        if (photoVideoList.getData().get(i).getFileType()== 1){
-                            mDatas.add(photoVideoList.getData().get(i));
+                        for(int i = 0;i<photoVideoList.getData().size();i++){
+                            if (photoVideoList.getData().get(i).getFileType()== 1){
+                                mDatas.add(photoVideoList.getData().get(i));
+                            }
                         }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
+                @Override
+                public void onError(int tag, String msg) {
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("getImgOrVideoData",e.getMessage());
+        }
+
     }
 
     @Override
@@ -157,51 +164,8 @@ public class FloorPlanFragment extends BaseFragment {
     public int getLayoutId() {
         return R.layout.fragment_floor_plan;
     }
-    private void upload(){
-        Bitmap btm = BitmapFactory.decodeResource(getResources(),R.drawable.img_floor_3);
-        HttpUtil.getInstance().postImage(mContext, 201, getFile(btm), 22, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("upload",result);
-            }
-
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.loge("upload:onError",msg);
-            }
-
-            @Override
-            public void onComplete(int tag) {
-
-            }
-        });
-    }
-    public File getFile(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-        File file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
-        try {
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            int x = 0;
-            byte[] b = new byte[1024 * 100];
-            while ((x = is.read(b)) != -1) {
-                fos.write(b, 0, x);
-            }
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
     @Override
     public void onClickNext(View v) {
-        switch (v.getId()){
-            case R.id.tv_floor_plan:
-                upload();
-                break;
-        }
 
     }
 }

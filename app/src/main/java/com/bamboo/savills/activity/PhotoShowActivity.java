@@ -81,34 +81,42 @@ public class PhotoShowActivity extends BaseActivity {
         getImgOrVideoData();
     }
     private void getImgOrVideoData(){
-        String path = RequstList.GET_FORM_FILE_LIST+jobId+"/"+formId;
-        HttpUtil.getInstance().get(mContext, path, HttpUtil.JSON, 200, true, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("getImgOrVideoData",result);
-                PhotoVideoList photoVideoList = new Gson().fromJson(result,new TypeToken<PhotoVideoList>(){}.getType());
-                if (photoVideoList!= null && photoVideoList.getData()!= null && photoVideoList.getData().size()>0){
+        try {
+
+            String path = RequstList.GET_FORM_FILE_LIST+jobId+"/"+formId;
+            HttpUtil.getInstance().get(mContext, path, HttpUtil.JSON, 200, true, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("getImgOrVideoData",result);
                     mDatas.clear();
+                    PhotoVideoList photoVideoList = new Gson().fromJson(result,new TypeToken<PhotoVideoList>(){}.getType());
+                    if (photoVideoList!= null && photoVideoList.getData()!= null && photoVideoList.getData().size()>0){
+
 //                 fileType 是0 的拿出来
-                    for(int i = 0;i<photoVideoList.getData().size();i++){
-                        if (photoVideoList.getData().get(i).getFileType()== 0){
-                            mDatas.add(photoVideoList.getData().get(i));
+                        for(int i = 0;i<photoVideoList.getData().size();i++){
+                            if (photoVideoList.getData().get(i).getFileType()== 0){
+                                mDatas.add(photoVideoList.getData().get(i));
+                            }
                         }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
+                @Override
+                public void onError(int tag, String msg) {
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("getImgOrVideoData",e.getMessage());
+        }
+
     }
 
     @Override

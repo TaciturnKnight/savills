@@ -23,6 +23,7 @@ import com.bamboo.savills.base.net.HttpUtil;
 import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.NetWithProgressCallback;
 import com.bamboo.savills.base.net.RequstList;
+import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.LoadingDialog;
 import com.bamboo.savills.base.view.ToastUtil;
@@ -86,41 +87,48 @@ public class PhotoActivity extends BaseActivity {
     }
 
     private void uploadFile() {
-        FileBean fileBean = files.get(currentCount - 1);
-        File file = new File(fileBean.getFilePath());
-        HttpUtil.getInstance().updateFormFile(mContext, uploadUrl, 101, file, file.getName(), new NetWithProgressCallback() {
-            @Override
-            public void onProgress(int progress) {
-                Log.i("upload", progress + "");
-                showLoading();
-                LoadingDialog progressDialog = (LoadingDialog) loadingDialog;
-                progressDialog.setTipText("Uploading..." + progress + "%(" + currentCount + "/" + totalCount + ")");
-            }
+        try {
 
-            @Override
-            public void onSuccess(int tag, String result) {
-                Log.i("upload", "成功" + result);
-            }
-
-            @Override
-            public void onError(int tag, String msg) {
-                Log.i("upload", "失败" + msg);
-                ToastUtil.showToast(mContext, "上传失败" + msg);
-            }
-
-            @Override
-            public void onComplete(int tag) {
-                Log.i("upload", "完成");
-                if (currentCount != totalCount) {
-                    currentCount++;
-                    uploadFile();
-                } else {
-                    hideLoading();
-                    ToastUtil.showToast(mContext, "上传成功");
-                    finish();
+            FileBean fileBean = files.get(currentCount - 1);
+            File file = new File(fileBean.getFilePath());
+            HttpUtil.getInstance().updateFormFile(mContext, uploadUrl, 101, file, file.getName(), new NetWithProgressCallback() {
+                @Override
+                public void onProgress(int progress) {
+                    Log.i("upload", progress + "");
+                    showLoading();
+                    LoadingDialog progressDialog = (LoadingDialog) loadingDialog;
+                    progressDialog.setTipText("Uploading..." + progress + "%(" + currentCount + "/" + totalCount + ")");
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(int tag, String result) {
+                    Log.i("upload", "成功" + result);
+                }
+
+                @Override
+                public void onError(int tag, String msg) {
+                    Log.i("upload", "失败" + msg);
+                    ToastUtil.showToast(mContext, "上传失败" + msg);
+                }
+
+                @Override
+                public void onComplete(int tag) {
+                    Log.i("upload", "完成");
+                    if (currentCount != totalCount) {
+                        currentCount++;
+                        uploadFile();
+                    } else {
+                        hideLoading();
+                        ToastUtil.showToast(mContext, "上传成功");
+                        finish();
+                    }
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("uploadFile",e.getMessage());
+        }
+
     }
 
     @Override

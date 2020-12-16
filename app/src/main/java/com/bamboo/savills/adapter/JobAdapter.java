@@ -18,6 +18,7 @@ import com.bamboo.savills.activity.InspectionDetailActivity;
 import com.bamboo.savills.base.net.HttpUtil;
 import com.bamboo.savills.base.net.NetCallback;
 import com.bamboo.savills.base.net.RequstList;
+import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -199,83 +200,102 @@ public class JobAdapter extends BaseQuickAdapter<JobModule,BaseViewHolder> imple
 
     }
     private void startInspection(JobModule item){
-        String path = RequstList.JOB_START_INSPECTION+item.getJobId()+"/"+item.getId();
-        HttpUtil.getInstance().post(mContext, path, 104, null, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                Log.e("startInspection",result);
-                //接收成功 需要刷新数据
-                SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                if (response != null && response.getCode() == 0){
-                    Intent intent = new Intent(mContext,InspectionDetailActivity.class);
-                    intent.putExtra("JobModule",new Gson().toJson(item,new TypeToken<JobModule>(){}.getType()));
-                    mContext.startActivity(intent);
+        try{
+            String path = RequstList.JOB_START_INSPECTION+item.getJobId()+"/"+item.getId();
+            HttpUtil.getInstance().post(mContext, path, 104, null, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    Log.e("startInspection",result);
+                    //接收成功 需要刷新数据
+                    SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                    if (response != null && response.getCode() == 0){
+                        Intent intent = new Intent(mContext,InspectionDetailActivity.class);
+                        intent.putExtra("JobModule",new Gson().toJson(item,new TypeToken<JobModule>(){}.getType()));
+                        mContext.startActivity(intent);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
+                @Override
+                public void onError(int tag, String msg) {
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
 
+        }catch (Exception e){
+            LogUtil.loge("startInspection",e.getMessage());
+        }
     }
 
     private void unAssignJob(JobModule item){
-        String path = RequstList.JOB_UNASSIGN+item.getJobId()+"/"+item.getId();
-        HttpUtil.getInstance().post(mContext, path, 103, null, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                Log.e("unAssignJob",result);
-                //接收成功 需要刷新数据
-                SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                if (response != null && response.getCode() == 0){
-                    ToastUtil.showToast(mContext,"Successfully UnAssigned");
-                    mHandler.sendEmptyMessage(99);
+
+        try {
+
+            String path = RequstList.JOB_UNASSIGN+item.getJobId()+"/"+item.getId();
+            HttpUtil.getInstance().post(mContext, path, 103, null, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    Log.e("unAssignJob",result);
+                    //接收成功 需要刷新数据
+                    SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                    if (response != null && response.getCode() == 0){
+                        ToastUtil.showToast(mContext,"Successfully UnAssigned");
+                        mHandler.sendEmptyMessage(99);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
+                @Override
+                public void onError(int tag, String msg) {
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("unAssignJob",e.getMessage());
+        }
+
     }
 
     private void acceptJob(JobModule item){
-        String path = RequstList.JOB_ACCEPT+item.getJobId()+"/"+item.getId();
-        HttpUtil.getInstance().post(mContext, path, 102, null, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                Log.e("acceptJob",result);
-                //接收成功 需要刷新数据
-                SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                if (response != null && response.getCode() == 0){
-                    ToastUtil.showToast(mContext,"Successfully Accepted");
-                    mHandler.sendEmptyMessage(99);
+        try{
+
+            String path = RequstList.JOB_ACCEPT+item.getJobId()+"/"+item.getId();
+            HttpUtil.getInstance().post(mContext, path, 102, null, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    Log.e("acceptJob",result);
+                    //接收成功 需要刷新数据
+                    SimpleResponse response = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                    if (response != null && response.getCode() == 0){
+                        ToastUtil.showToast(mContext,"Successfully Accepted");
+                        mHandler.sendEmptyMessage(99);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
+                @Override
+                public void onError(int tag, String msg) {
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("acceptJob",e.getMessage());
+        }
+
 
     }
 }

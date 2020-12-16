@@ -91,31 +91,38 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
     }
 
     private void delete(PhotoVideo photoVideo){
-        String path = RequstList.DELETE_IMGS_VIDEO+jobId+"/"+photoVideo.getId();
-        HttpUtil.getInstance().delete(mContext, path, 210, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("delete",result);
+        try{
+
+            String path = RequstList.DELETE_IMGS_VIDEO+jobId+"/"+photoVideo.getId();
+            HttpUtil.getInstance().delete(mContext, path, 210, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("delete",result);
 //                {"code":0,"codeDesc":"OK"}
-                SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                if (simple!= null && simple.getCode() == 0){
-                    // 重新刷新数据
-                    mHandler.sendEmptyMessage(99);
-                    ToastUtil.showToast(mContext,"Successfully Deleted");
+                    SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                    if (simple!= null && simple.getCode() == 0){
+                        // 重新刷新数据
+                        mHandler.sendEmptyMessage(99);
+                        ToastUtil.showToast(mContext,"Successfully Deleted");
+                    }
+
                 }
 
-            }
+                @Override
+                public void onError(int tag, String msg) {
+                    LogUtil.loge("delete-onError",msg);
+                }
 
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.loge("delete-onError",msg);
-            }
+                @Override
+                public void onComplete(int tag) {
 
-            @Override
-            public void onComplete(int tag) {
+                }
+            });
 
-            }
-        });
+        }catch (Exception e){
+            LogUtil.loge("delete",e.getMessage());
+        }
+
 
     }
 }

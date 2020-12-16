@@ -146,8 +146,6 @@ public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
         } else {
             bigImage.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
-//            LogUtil.loge("webView",url);
-//            webView.loadUrl(url,header);
             getVideoSource();
         }
 
@@ -169,49 +167,56 @@ public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
     }
 
     public   void download( final String url){
-        showLoading();
-        final long startTime = System.currentTimeMillis();
-        LogUtil.loge("DOWNLOAD","startTime="+startTime);
-        Request request = new Request.Builder().url(url).header("Authorization", BaseApplication.token).build();
-        HttpUtil.getInstance().getClient().newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                // 下载失败
-                e.printStackTrace();
-                LogUtil.loge("DOWNLOAD","download failed");
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Sink sink = null;
-                BufferedSink bufferedSink = null;
-                try {
-                    String mSDCardPath= Environment.getExternalStorageDirectory().getAbsolutePath();//SD卡路径
-                    String appPath= getApplicationContext().getFilesDir().getAbsolutePath();//此APP的files路径
-                    LogUtil.loge("DOWNLOAD",appPath);
-                    File dest = new File(appPath,url.substring(url.lastIndexOf("/") + 1)+".mp4");
-                    sink = Okio.sink(dest);
-                    bufferedSink = Okio.buffer(sink);
+        try {
 
-
-                    bufferedSink.writeAll(response.body().source());
-                    LogUtil.loge("DOWNLOAD",response.body().source().toString());
-                    bufferedSink.close();
-                    LogUtil.loge("DOWNLOAD","download success");
-                    LogUtil.loge("DOWNLOAD","totalTime="+ (System.currentTimeMillis() - startTime));
-                    LogUtil.loge("DOWNLOAD",dest.getName()+"---"+dest.getAbsolutePath());
-                    path = dest.getAbsolutePath();
-                    mHandler.sendEmptyMessage(99);
-
-                } catch (Exception e) {
+            showLoading();
+            final long startTime = System.currentTimeMillis();
+            LogUtil.loge("DOWNLOAD","startTime="+startTime);
+            Request request = new Request.Builder().url(url).header("Authorization", BaseApplication.token).build();
+            HttpUtil.getInstance().getClient().newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    // 下载失败
                     e.printStackTrace();
                     LogUtil.loge("DOWNLOAD","download failed");
-                } finally {
-                    if(bufferedSink != null){
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Sink sink = null;
+                    BufferedSink bufferedSink = null;
+                    try {
+                        String mSDCardPath= Environment.getExternalStorageDirectory().getAbsolutePath();//SD卡路径
+                        String appPath= getApplicationContext().getFilesDir().getAbsolutePath();//此APP的files路径
+                        LogUtil.loge("DOWNLOAD",appPath);
+                        File dest = new File(appPath,url.substring(url.lastIndexOf("/") + 1)+".mp4");
+                        sink = Okio.sink(dest);
+                        bufferedSink = Okio.buffer(sink);
+
+
+                        bufferedSink.writeAll(response.body().source());
+                        LogUtil.loge("DOWNLOAD",response.body().source().toString());
                         bufferedSink.close();
+                        LogUtil.loge("DOWNLOAD","download success");
+                        LogUtil.loge("DOWNLOAD","totalTime="+ (System.currentTimeMillis() - startTime));
+                        LogUtil.loge("DOWNLOAD",dest.getName()+"---"+dest.getAbsolutePath());
+                        path = dest.getAbsolutePath();
+                        mHandler.sendEmptyMessage(99);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        LogUtil.loge("DOWNLOAD","download failed");
+                    } finally {
+                        if(bufferedSink != null){
+                            bufferedSink.close();
+                        }
                     }
                 }
-            }
-        });
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("download",e.getMessage());
+        }
+
     }
 
     @Override

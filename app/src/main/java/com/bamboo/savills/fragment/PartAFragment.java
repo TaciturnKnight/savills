@@ -120,28 +120,34 @@ public class PartAFragment extends BaseFragment {
 
     }
     private void getFormAData(){
-        HttpUtil.getInstance().get(mContext, RequstList.GET_FORM_A_DETAIL + mJobModle.getJobId() + "/" + mJobModle.getId(), HttpUtil.JSON, 306, true, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("getFormAData",result);
+        try {
+
+            HttpUtil.getInstance().get(mContext, RequstList.GET_FORM_A_DETAIL + mJobModle.getJobId() + "/" + mJobModle.getId(), HttpUtil.JSON, 306, true, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("getFormAData",result);
 //                题目的数据也得 设置上 后期做
-                PartAAnswerDetail partAAnswerDetail = new Gson().fromJson(result,new TypeToken<PartAAnswerDetail>(){}.getType());
-                if (partAAnswerDetail != null && partAAnswerDetail.getCode() == 0){
-                    //
-                    formId = partAAnswerDetail.getData().getId();
+                    PartAAnswerDetail partAAnswerDetail = new Gson().fromJson(result,new TypeToken<PartAAnswerDetail>(){}.getType());
+                    if (partAAnswerDetail != null && partAAnswerDetail.getCode() == 0){
+                        //
+                        formId = partAAnswerDetail.getData().getId();
+                    }
                 }
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.loge("getFormAData-onError",msg);
-            }
+                @Override
+                public void onError(int tag, String msg) {
+                    LogUtil.loge("getFormAData-onError",msg);
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onComplete(int tag) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            LogUtil.loge("getFormAData",e.getMessage());
+        }
+
     }
     private void initPoint(){
        int count =  questions.size();
@@ -485,24 +491,33 @@ public class PartAFragment extends BaseFragment {
     private void saveFormA(String partAJson){
         showLoading();
 
-        HttpUtil.getInstance().postJson(mContext, RequstList.SAVE_FORM_A + mJobModle.getJobId(), 401, partAJson, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("saveFormA",result);
-//                保存成功 不用关闭窗口
-            }
+        try {
 
-            @Override
-            public void onError(int tag, String msg) {
+            HttpUtil.getInstance().postJson(mContext, RequstList.SAVE_FORM_A + mJobModle.getJobId(), 401, partAJson, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("saveFormA",result);
+//                保存成功 不用关闭窗口
+                }
+
+                @Override
+                public void onError(int tag, String msg) {
 //                失败了 就存一下数据 并且 保存有数据待上传
 
-            }
+                }
 
-            @Override
-            public void onComplete(int tag) {
-                hideLoading();
-            }
-        });
+                @Override
+                public void onComplete(int tag) {
+                    hideLoading();
+                }
+            });
+
+
+        }catch (Exception e){
+            LogUtil.loge("saveFormA",e.getMessage());
+        }
+
+
     }
 
     @Override

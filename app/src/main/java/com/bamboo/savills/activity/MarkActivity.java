@@ -121,95 +121,109 @@ public class MarkActivity extends BaseActivity {
     }
 
     private void uploadFloorPlan() {
-        if (picFile == null) {
-            ToastUtil.showToast(mContext, "Please edit the picture first.");
-            return;
-        }
-        showLoading();
+        try {
+
+            if (picFile == null) {
+                ToastUtil.showToast(mContext, "Please edit the picture first.");
+                return;
+            }
+            showLoading();
 //        重新上传Floor Plan
-        HttpUtil.getInstance().updateFloorPlanImage(mContext, 212, picFile, jobId, photoVideo.getId(), photoVideo.getFileName(), new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("uploadFloorPlan", result);
-                SimpleResponse simple = new Gson().fromJson(result, new TypeToken<SimpleResponse>() {
-                }.getType());
-                if (simple.getCode() == 0) {
-                    ToastUtil.showToast(mContext, "Upload Successfully");
-                    //提醒floor plan 更新数据
-                    Constant.isFloorPlanRefresh = true;
-                    List<String> strs =  EditPicHelper.getInstance().strings;
-                    List<CreateFormBParam> mParams = new ArrayList<>();
-                    for (int i = 0;i<strs.size();i++){
-                        LogUtil.loge("mark",strs.get(i));
+            HttpUtil.getInstance().updateFloorPlanImage(mContext, 212, picFile, jobId, photoVideo.getId(), photoVideo.getFileName(), new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("uploadFloorPlan", result);
+                    SimpleResponse simple = new Gson().fromJson(result, new TypeToken<SimpleResponse>() {
+                    }.getType());
+                    if (simple.getCode() == 0) {
+                        ToastUtil.showToast(mContext, "Upload Successfully");
+                        //提醒floor plan 更新数据
+                        Constant.isFloorPlanRefresh = true;
+                        List<String> strs =  EditPicHelper.getInstance().strings;
+                        List<CreateFormBParam> mParams = new ArrayList<>();
+                        for (int i = 0;i<strs.size();i++){
+                            LogUtil.loge("mark",strs.get(i));
 //                    这里是所有mark 的数据 要去掉 No Insp. 和以 * 开头的输入
-                        String title = strs.get(i);
-                        if (!"No Insp.".equalsIgnoreCase(title) && !title.startsWith("*")){
-                            CreateFormBParam param = new CreateFormBParam();
-                            param.setTitle(title);
-                            param.setJobPropertyId(id);
-                            param.setJobFileId(photoVideo.getId());
-                            mParams.add(param);
+                            String title = strs.get(i);
+                            if (!"No Insp.".equalsIgnoreCase(title) && !title.startsWith("*")){
+                                CreateFormBParam param = new CreateFormBParam();
+                                param.setTitle(title);
+                                param.setJobPropertyId(id);
+                                param.setJobFileId(photoVideo.getId());
+                                mParams.add(param);
+                            }
+
+                        }
+                        if (mParams.size()<=0){
+//                        没有要写入的 formB
+                            finish();
+                        }else {
+                            createFormB(mParams);
                         }
 
+                    } else {
+                        ToastUtil.showToast(mContext, simple.getCodeDesc());
                     }
-                    if (mParams.size()<=0){
-//                        没有要写入的 formB
-                        finish();
-                    }else {
-                        createFormB(mParams);
-                    }
-
-                } else {
-                    ToastUtil.showToast(mContext, simple.getCodeDesc());
                 }
-            }
 
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.loge("uploadFloorPlan:onError", msg);
-                ToastUtil.showToast(mContext, "Upload Failed");
-            }
+                @Override
+                public void onError(int tag, String msg) {
+                    LogUtil.loge("uploadFloorPlan:onError", msg);
+                    ToastUtil.showToast(mContext, "Upload Failed");
+                }
 
-            @Override
-            public void onComplete(int tag) {
-                hideLoading();
-            }
-        });
+                @Override
+                public void onComplete(int tag) {
+                    hideLoading();
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("uploadFloorPlan",e.getMessage());
+        }
+
 
     }
     private void createFormB(List<CreateFormBParam> mParams){
-        showLoading();
-        HttpUtil.getInstance().postJson(mContext, RequstList.JOB_CREATE_FORM_B + jobId, 302,
-                new Gson().toJson(mParams, new TypeToken<List<CreateFormBParam>>() {
-                }.getType()), new NetCallback() {
-                    @Override
-                    public void onSuccess(int tag, String result) {
-                        LogUtil.loge("createFormB",result);
-                        //成功后finish  通知partb 需要更新list
-                        SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
-                        if (simple.getCode() == 0){
-                            //成功
-                            Constant.isFormBListRefresh = true;
-                            finish();
+        try {
 
-                        }else {
-                            ToastUtil.showToast(mContext,simple.getCodeDesc());
+            showLoading();
+            HttpUtil.getInstance().postJson(mContext, RequstList.JOB_CREATE_FORM_B + jobId, 302,
+                    new Gson().toJson(mParams, new TypeToken<List<CreateFormBParam>>() {
+                    }.getType()), new NetCallback() {
+                        @Override
+                        public void onSuccess(int tag, String result) {
+                            LogUtil.loge("createFormB",result);
+                            //成功后finish  通知partb 需要更新list
+                            SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                            if (simple.getCode() == 0){
+                                //成功
+                                Constant.isFormBListRefresh = true;
+                                finish();
+
+                            }else {
+                                ToastUtil.showToast(mContext,simple.getCodeDesc());
+                            }
+
+
                         }
 
+                        @Override
+                        public void onError(int tag, String msg) {
+                            LogUtil.loge("createFormB-onError",msg);
+                            ToastUtil.showToast(mContext,msg);
+                        }
 
-                    }
+                        @Override
+                        public void onComplete(int tag) {
+                            hideLoading();
+                        }
+            });
 
-                    @Override
-                    public void onError(int tag, String msg) {
-                        LogUtil.loge("createFormB-onError",msg);
-                        ToastUtil.showToast(mContext,msg);
-                    }
+        }catch (Exception e){
+            LogUtil.loge("createFormB",e.getMessage());
+        }
 
-                    @Override
-                    public void onComplete(int tag) {
-                        hideLoading();
-                    }
-                });
 
     }
 

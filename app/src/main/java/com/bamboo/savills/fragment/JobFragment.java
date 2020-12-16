@@ -226,124 +226,138 @@ public class JobFragment extends BaseFragment {
     }
 
     private void getJobCount(){
-        HttpUtil.getInstance().get(mContext, RequstList.JOB_LIST_NUM, HttpUtil.JSON, 101, true, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.e("getJobCount",result);
-                JobCountList jobCountList = new Gson().fromJson(result,new TypeToken<JobCountList>(){}.getType());
-                if (jobCountList != null && jobCountList.getCode() == 0 && jobCountList.getData() != null
-                        && jobCountList.getData().size()>0){
-                    for (int i = 0; i<jobCountList.getData().size();i++){
-                        if ("AssignedToMe".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
-                            tvAssignToMe.setText("Assigned to Me "+jobCountList.getData().get(i).getItem2());
+        try {
+
+            HttpUtil.getInstance().get(mContext, RequstList.JOB_LIST_NUM, HttpUtil.JSON, 101, true, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.e("getJobCount",result);
+                    JobCountList jobCountList = new Gson().fromJson(result,new TypeToken<JobCountList>(){}.getType());
+                    if (jobCountList != null && jobCountList.getCode() == 0 && jobCountList.getData() != null
+                            && jobCountList.getData().size()>0){
+                        for (int i = 0; i<jobCountList.getData().size();i++){
+                            if ("AssignedToMe".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                                tvAssignToMe.setText("Assigned to Me "+jobCountList.getData().get(i).getItem2());
+                            }
+                            if ("Completed".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                                tvComplete.setText("Completed "+jobCountList.getData().get(i).getItem2());
+                            }
+                            if ("OnHold".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                                tvOnHold.setText("On Hold "+jobCountList.getData().get(i).getItem2());
+                            }
+                            if ("Unassigned".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                                tvUnAssigned.setText("Unassigned "+jobCountList.getData().get(i).getItem2());
+                            }
+                            if ("Accepted".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
+                                tvAssigned.setText("Accepted "+jobCountList.getData().get(i).getItem2());
+                            }
                         }
-                        if ("Completed".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
-                            tvComplete.setText("Completed "+jobCountList.getData().get(i).getItem2());
-                        }
-                        if ("OnHold".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
-                            tvOnHold.setText("On Hold "+jobCountList.getData().get(i).getItem2());
-                        }
-                        if ("Unassigned".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
-                            tvUnAssigned.setText("Unassigned "+jobCountList.getData().get(i).getItem2());
-                        }
-                        if ("Accepted".equalsIgnoreCase(jobCountList.getData().get(i).getItem1())){
-                            tvAssigned.setText("Accepted "+jobCountList.getData().get(i).getItem2());
-                        }
+
                     }
 
                 }
 
-            }
+                @Override
+                public void onError(int tag, String msg) {
 
-            @Override
-            public void onError(int tag, String msg) {
+                }
 
-            }
+                @Override
+                public void onComplete(int tag) {
 
-            @Override
-            public void onComplete(int tag) {
+                }
+            });
 
-            }
-        });
+        }catch (Exception e){
+            LogUtil.loge("getJobCount",e.getMessage());
+        }
+
     }
     private void getJobData(){
-        if (lastType != type){
-            //切换了type
-            pageNo = 1;
-        }
-        if (pageNo ==1){
-            mDatas.clear();
-            // 状态手动置为“加载中”，并且会调用加载更多监听
-            // 一般情况下，不需要自己设置'加载中'状态
+        try {
+
+            if (lastType != type){
+                //切换了type
+                pageNo = 1;
+            }
+            if (pageNo ==1){
+                mDatas.clear();
+                // 状态手动置为“加载中”，并且会调用加载更多监听
+                // 一般情况下，不需要自己设置'加载中'状态
 //            adapter.getLoadMoreModule().loadMoreToLoading();
-        }
-        JobListParam param = new JobListParam();
-        param.setPageNumber(pageNo);
-        param.setPageSize(pageSize);
-        param.setSearchValue(searchInput);
-        if (isSort){
-            param.setOrderByColumnName("propertyName");
-        }else {
-            param.setOrderByColumnName("");
-        }
-        String json = new Gson().toJson(param,new TypeToken<JobListParam>(){}.getType());
-        String path = "";
-        switch (type){
-            case 1:
-                path = RequstList.JOB_LIST_UNASSIGNED;
-                break;
-            case 2:
-                path = RequstList.JOB_LIST_ASSIGNEDTOME;
-                break;
-            case 3:
-                path = RequstList.JOB_LIST_ACCPET;
-                break;
-            case 4:
-                path = RequstList.JOB_LIST_COMPLETE;
-                break;
-            case 5:
-                path = RequstList.JOB_LIST_ONHOLD;
-                break;
-        }
+            }
+            JobListParam param = new JobListParam();
+            param.setPageNumber(pageNo);
+            param.setPageSize(pageSize);
+            param.setSearchValue(searchInput);
+            if (isSort){
+                param.setOrderByColumnName("propertyName");
+            }else {
+                param.setOrderByColumnName("");
+            }
+            String json = new Gson().toJson(param,new TypeToken<JobListParam>(){}.getType());
+            String path = "";
+            switch (type){
+                case 1:
+                    path = RequstList.JOB_LIST_UNASSIGNED;
+                    break;
+                case 2:
+                    path = RequstList.JOB_LIST_ASSIGNEDTOME;
+                    break;
+                case 3:
+                    path = RequstList.JOB_LIST_ACCPET;
+                    break;
+                case 4:
+                    path = RequstList.JOB_LIST_COMPLETE;
+                    break;
+                case 5:
+                    path = RequstList.JOB_LIST_ONHOLD;
+                    break;
+            }
 
-        lastType = type;
+            lastType = type;
 
-        HttpUtil.getInstance().postJson(mContext, path, 100, json, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.e("getJobData",result);
+            HttpUtil.getInstance().postJson(mContext, path, 100, json, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.e("getJobData",result);
 //                 {"code":48,"codeDesc":"UNKNOWN"}
-                JobList jobList = new Gson().fromJson(result,new TypeToken<JobList>(){}.getType());
-                if (jobList != null &&jobList.getCode() == 0&&jobList.getData()!=null && jobList.getData().getResult() != null
-                        && jobList.getData().getResult().size()>0){
-                    mDatas.addAll(jobList.getData().getResult());
-                    if (jobList.getData().getResult().size() <pageSize){
-                        adapter.getLoadMoreModule().loadMoreEnd();
+                    JobList jobList = new Gson().fromJson(result,new TypeToken<JobList>(){}.getType());
+                    if (jobList != null &&jobList.getCode() == 0&&jobList.getData()!=null && jobList.getData().getResult() != null
+                            && jobList.getData().getResult().size()>0){
+                        mDatas.addAll(jobList.getData().getResult());
+                        if (jobList.getData().getResult().size() <pageSize){
+                            adapter.getLoadMoreModule().loadMoreEnd();
+                        }else {
+                            adapter.getLoadMoreModule().loadMoreComplete();
+                        }
                     }else {
-                        adapter.getLoadMoreModule().loadMoreComplete();
+                        adapter.getLoadMoreModule().loadMoreEnd();
                     }
-                }else {
-                    adapter.getLoadMoreModule().loadMoreEnd();
+                    adapter.notifyDataSetChanged();
+
                 }
-                adapter.notifyDataSetChanged();
 
-            }
+                @Override
+                public void onError(int tag, String msg) {
+                    LogUtil.e("getJobData",msg);
+                    // 当前这次数据加载错误，调用此方法
+                    adapter.getLoadMoreModule().loadMoreFail();
+                }
 
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.e("getJobData",msg);
-                // 当前这次数据加载错误，调用此方法
-                adapter.getLoadMoreModule().loadMoreFail();
-            }
+                @Override
+                public void onComplete(int tag) {
+                    LogUtil.e("getJobData",""+tag);
+                    swipeRefreshLayout.setRefreshing(false);
+                    adapter.getLoadMoreModule().loadMoreEnd();
 
-            @Override
-            public void onComplete(int tag) {
-                LogUtil.e("getJobData",""+tag);
-                swipeRefreshLayout.setRefreshing(false);
-                adapter.getLoadMoreModule().loadMoreEnd();
+                }
+            });
 
-            }
-        });
+        }catch (Exception e){
+            LogUtil.loge("getJobData",e.getMessage());
+        }
+
     }
     @Override
     public int getLayoutId() {

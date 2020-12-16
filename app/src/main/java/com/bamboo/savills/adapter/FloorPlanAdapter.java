@@ -102,24 +102,31 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
 
     }
     private void changeName(PhotoVideo photoVideo){
-        RequestParams params = new RequestParams();
-        params.addBody("newFileName",photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
-        HttpUtil.getInstance().post(mContext, RequstList.CHANGE_FLOOR_PLAN_NAME + jobId + "/" + photoVideo.getId(), 301, params, new NetCallback() {
-            @Override
-            public void onSuccess(int tag, String result) {
-                LogUtil.loge("changeName",result);
-                photoVideo.setFileName(photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
-            }
+        try{
 
-            @Override
-            public void onError(int tag, String msg) {
-                LogUtil.loge("changeName-onError",msg);
-            }
+            RequestParams params = new RequestParams();
+            params.addBody("newFileName",photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+            HttpUtil.getInstance().post(mContext, RequstList.CHANGE_FLOOR_PLAN_NAME + jobId + "/" + photoVideo.getId(), 301, params, new NetCallback() {
+                @Override
+                public void onSuccess(int tag, String result) {
+                    LogUtil.loge("changeName",result);
+                    photoVideo.setFileName(photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+                }
 
-            @Override
-            public void onComplete(int tag) {
+                @Override
+                public void onError(int tag, String msg) {
+                    LogUtil.loge("changeName-onError",msg);
+                }
 
-            }
-        });
+                @Override
+                public void onComplete(int tag) {
+
+                }
+            });
+
+        }catch (Exception e){
+            LogUtil.loge("changeName",e.getMessage());
+        }
+
     }
 }
