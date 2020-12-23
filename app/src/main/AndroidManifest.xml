@@ -57,7 +57,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.PhotoShowActivity" />
+        <activity android:name=".activity.PhotoShowActivity"/>
         <activity android:name=".activity.LoadImgsOrVideosByWebviewActivity"></activity>
     </application>
 

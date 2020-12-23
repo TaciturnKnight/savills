@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.bamboo.savills.Module.UserBack;
 import com.bamboo.savills.Module.UserInfo;
 import com.bamboo.savills.R;
+import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.LoadingDialog;
@@ -363,8 +364,8 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        }else {
 //            isHaveToken = true;
-            String[] newScopes={"api://15df8d38-ad1a-454f-ae12-edbce9f8f858/access_as_user"};
-            mSingleAccountApp.acquireTokenSilentAsync(newScopes, AUTHORITY, callToken());
+        String[] newScopes={RequstList.SCOPS};
+        mSingleAccountApp.acquireTokenSilentAsync(newScopes, AUTHORITY, callToken());
 //        }
 //        logTextView.setText(graphResponse.toString());
 

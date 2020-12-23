@@ -282,6 +282,7 @@ public class JobFragment extends BaseFragment {
             }
             if (pageNo ==1){
                 mDatas.clear();
+                adapter.notifyDataSetChanged();
                 // 状态手动置为“加载中”，并且会调用加载更多监听
                 // 一般情况下，不需要自己设置'加载中'状态
 //            adapter.getLoadMoreModule().loadMoreToLoading();

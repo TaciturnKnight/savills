@@ -1,5 +1,5 @@
 {
-  "client_id" : "8f38d0a3-3a4c-424d-bb61-a6868b4572a0",
+  "client_id" : "8a2a2af2-95f5-4239-924a-f024ac828c19",
   "authorization_user_agent" : "DEFAULT",
   "redirect_uri" : "msauth://com.bamboo.savills/lLdX%2B0wwJ3t7DlZiZnVKapVxJTc%3D",
   "account_mode" : "SINGLE",
@@ -7,9 +7,9 @@
   "authorities" : [
     {
       "type": "AAD",
-      "authority_url": "https://login.microsoftonline.com/d567c8c4-d4c5-4acd-8ed1-d1995c710ff5",
       "audience": {
-        "type": "AzureADandPersonalMicrosoftAccount"
+        "type": "AzureADMultipleOrgs",
+        "tenant_id": "organizations"
       },
       "default": true
     }

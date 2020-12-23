@@ -14,6 +14,7 @@ import com.bamboo.savills.R;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.fragment.FloorPlanFragment;
 import com.bamboo.savills.fragment.PartAFragment;
+import com.bamboo.savills.fragment.PartAUpdateFragment;
 import com.bamboo.savills.fragment.PartBFragment;
 
 public class InspectionDetailActivity extends BaseActivity {
@@ -59,7 +60,7 @@ public class InspectionDetailActivity extends BaseActivity {
     @InjectView(R.id.v_part_b)
     View vPartB;
 
-    private PartAFragment partAFragment;
+    private PartAUpdateFragment partAFragment;
     private FloorPlanFragment floorPlanFragment;
     private PartBFragment partBFragment;
 
@@ -96,7 +97,7 @@ public class InspectionDetailActivity extends BaseActivity {
         switch (position) {
             case 0:
                 if (partAFragment == null) {
-                    partAFragment = new PartAFragment();
+                    partAFragment = new PartAUpdateFragment();
                     partAFragment.setArguments(bundle);
                     transaction.add(R.id.inspection_fragment, partAFragment, "partAFragment");
                 } else {
