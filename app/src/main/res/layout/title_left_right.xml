@@ -24,7 +24,7 @@
         android:id="@+id/iv_send"
         android:layout_width="40dp"
         android:layout_height="match_parent"
-        android:src="@drawable/send_un"
+        android:src="@drawable/send"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingRight="16dp"/>

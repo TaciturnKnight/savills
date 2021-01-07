@@ -12,7 +12,6 @@
         android:text="3. Composition"
         android:textSize="12sp"
         android:textColor="@color/colorBlack"
-        android:layout_marginLeft="@dimen/spot_weight"
         android:layout_marginTop="8dp"/>
 
     <LinearLayout
@@ -25,10 +24,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textSize="12sp"
+            android:singleLine="true"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -38,15 +37,19 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <EditText
             android:id="@+id/et_q3_f2"
             android:layout_width="110dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -54,6 +57,7 @@
             android:textSize="11sp"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -66,10 +70,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -78,16 +82,21 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <EditText
             android:id="@+id/et_q3_f4"
             android:layout_width="110dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
         <TextView
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="purposes"
@@ -102,13 +111,11 @@
         android:text="4. Facilities Provided"
         android:textSize="12sp"
         android:textColor="@color/colorBlack"
-        android:layout_marginLeft="@dimen/spot_weight"
         android:layout_marginTop="8dp"/>
     <EditText
         android:id="@+id/et_q4"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginLeft="@dimen/spot_weight"
         android:layout_marginRight="18dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_item_type2"
@@ -125,7 +132,6 @@
         android:text="5. Lifts"
         android:textSize="12sp"
         android:textColor="@color/colorBlack"
-        android:layout_marginLeft="@dimen/spot_weight"
         android:layout_marginTop="8dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -137,20 +143,33 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Passenger"
+            android:textSize="11sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <EditText
             android:id="@+id/et_q5_f2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="40dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -159,17 +178,21 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             />
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <EditText
             android:id="@+id/et_q5_f3"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
         <TextView
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Vehicle"
@@ -185,7 +208,6 @@
         android:text="6. Staircase"
         android:textSize="12sp"
         android:textColor="@color/colorBlack"
-        android:layout_marginLeft="@dimen/spot_weight"
         android:layout_marginTop="8dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -197,14 +219,13 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_item_type2"
-            android:layout_marginLeft="@dimen/spot_weight"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
 
     </LinearLayout>
     <TextView
-        android:layout_marginLeft="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -212,7 +233,6 @@
         android:text="7. Car Parking Space with the Property"
         android:textColor="@color/colorBlack"/>
     <LinearLayout
-        android:layout_marginLeft="50dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
@@ -289,7 +309,6 @@
 
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="50dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
@@ -376,7 +395,7 @@
             android:text="Total No."
             android:textSize="11sp"
             android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/spot_weight"/>
+            />
 
         <EditText
             android:id="@+id/et_q7"
@@ -386,7 +405,8 @@
             android:layout_marginLeft="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:singleLine="true"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="20dp"
@@ -401,7 +421,6 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_marginLeft="18dp"
             android:text="Save Only"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
@@ -416,14 +435,14 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="10dp"
             android:text="Next"
             android:textColor="@color/completed"
             android:textSize="12sp"
             android:background="@color/colorYellow"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:layout_marginRight="18dp"
+            android:layout_marginRight="40dp"
             />
 
     </LinearLayout>

@@ -158,6 +158,7 @@ public class JobFragment extends BaseFragment {
             public void onRefresh() {
                 pageNo = 1;
                 getJobData();
+                getJobCount();
 
             }
         });

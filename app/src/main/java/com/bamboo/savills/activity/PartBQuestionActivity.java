@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bamboo.savills.Module.Answers;
 import com.bamboo.savills.Module.FormBList;
 import com.bamboo.savills.Module.PartAQuestion;
+import com.bamboo.savills.Module.PartBAnswer;
 import com.bamboo.savills.Module.PartBQuestion;
 import com.bamboo.savills.R;
 import com.bamboo.savills.adapter.PartBAdapter;
@@ -57,12 +58,12 @@ public class PartBQuestionActivity extends BaseActivity {
     private TextView tvSave,tvComplete;
 
     private List<ImageView> points = new ArrayList<>();
-    private FormBList.DataBean.FormBsBean formBsBean;
+    private PartBAnswer formBsBean;
     private int jobId;
 
     @Override
     public void initView() {
-        formBsBean = new Gson().fromJson(getIntent().getStringExtra("formBsBean"),new TypeToken<FormBList.DataBean.FormBsBean>(){}.getType());
+        formBsBean = new Gson().fromJson(getIntent().getStringExtra("formBsBean"),new TypeToken<PartBAnswer>(){}.getType());
         jobId = getIntent().getIntExtra("jobId",0);
         String title = formBsBean.getJobFileName().split("\\.")[0]+formBsBean.getTitle();
         tvTitle.setText(title);

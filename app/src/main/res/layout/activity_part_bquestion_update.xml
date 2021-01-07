@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activity.PartBQuestionUpdateActivity"
     android:orientation="vertical">
     <include
-        android:id="@+id/v_fa_head"
-        layout="@layout/head_view_floor_plan"/>
-    <TextView
-        android:id="@+id/tv_fg_update_title"
+        android:id="@+id/title_part_b_update"
+        layout="@layout/title_left_right"
+        />
+    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Part A: The Subject Building/Land"
+        android:id="@+id/v_fb_head"
+        layout="@layout/head_view_floor_plan"
+        android:layout_below="@+id/title_part_b_update"/>
+    <TextView
+        android:id="@+id/tv_fb_update_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Part B:The Subject Property"
         android:textSize="14sp"
         android:textColor="@color/colorBlack"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:textStyle="bold"
-        android:layout_below="@+id/v_fa_head"
+        android:layout_below="@+id/v_fb_head"
         />
     <ImageView
-        android:id="@+id/iv_fa_photo"
+        android:id="@+id/iv_fb_photo"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/img_photo"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="18dp"/>
     <ImageView
-        android:id="@+id/iv_fa_show"
+        android:id="@+id/iv_fb_show"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/img_photo_show"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="18dp"/>
     <LinearLayout
-        android:id="@+id/ll_location_fa_out"
+        android:id="@+id/ll_location_fb_out"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/tv_fg_update_title">
+        android:layout_below="@+id/tv_fb_update_title">
         <LinearLayout
-            android:id="@+id/ll_location_fa_page1"
+            android:id="@+id/ll_location_fb_page1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
         <LinearLayout
-            android:id="@+id/ll_location_fa_page2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-        <LinearLayout
-            android:id="@+id/ll_location_fa_page3"
+            android:id="@+id/ll_location_fb_page2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
     </LinearLayout>
     <RelativeLayout
-        android:id="@+id/rl_fa_update_out"
+        android:id="@+id/rl_fb_update_out"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_fg_update_title"
-        android:layout_toRightOf="@+id/ll_location_fa_out"
+        android:layout_below="@+id/tv_fb_update_title"
+        android:layout_toRightOf="@+id/ll_location_fb_out"
         >
         <include
-            android:id="@+id/form_a_page1"
-            layout="@layout/form_a_page1"
+            android:id="@+id/form_b_page1"
+            layout="@layout/form_b_page1"
             />
         <include
-            android:id="@+id/form_a_page2"
-            layout="@layout/form_a_page2"
-            android:visibility="gone"
-            />
-        <include
-            android:id="@+id/form_a_page3"
-            layout="@layout/form_a_page3"
+            android:id="@+id/form_b_page2"
+            layout="@layout/form_b_page2"
             android:visibility="gone"
             />
 
     </RelativeLayout>
-
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.bamboo.savills.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.InjectView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
@@ -55,6 +56,9 @@ public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
     private ImageView bigImage;
     private String url;
     private String path;
+
+    @InjectView(R.id.iv_back_loadfile)
+    ImageView ivBack;
 
     private WebViewClient mWebViewClient = new WebViewClient() {
 
@@ -158,6 +162,7 @@ public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+        ivBack.setOnClickListener(this);
 
     }
 
@@ -226,6 +231,11 @@ public class LoadImgsOrVideosByWebviewActivity extends BaseActivity {
 
     @Override
     public void onClickNext(View v) {
+        switch (v.getId()){
+            case R.id.iv_back_loadfile:
+                finish();
+                break;
+        }
 
     }
 

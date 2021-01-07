@@ -89,6 +89,15 @@ public class PartAAnswer {
     private String createdByUserName;
     private String updatedByUserName;
     private String valuerUserName;
+    private boolean isSubmitted;
+
+    public boolean isSubmitted() {
+        return isSubmitted;
+    }
+
+    public void setSubmitted(boolean submitted) {
+        isSubmitted = submitted;
+    }
 
     public String getId() {
         return id;

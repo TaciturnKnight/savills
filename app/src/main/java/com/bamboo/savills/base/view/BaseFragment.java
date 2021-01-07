@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bamboo.savills.R;
+import com.bamboo.savills.base.utils.SpUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ public abstract class BaseFragment extends Fragment implements FrontShow,View.On
     public Context mContext;
     public LayoutInflater inflater;
     public View rootView;
+    public SpUtils spUtils;
 
     @Override
     public void onAttach(Context context) {
@@ -40,6 +42,7 @@ public abstract class BaseFragment extends Fragment implements FrontShow,View.On
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.inject(this,rootView);
+        spUtils = new SpUtils(mContext);
         try{
             initView();
             initListener();

@@ -18,29 +18,59 @@ public class SpUtils {
 
     public static  final String LANGUAGE = "LANGUAGE";
 
-    public static final String TEXT_SIZE_MODEL = "TEXT_SIZE_MODEL";
 
-//    是否有数据待上传 如果是待上传 应该在哪里提示呢？ 首页 还是FormA 详情页？
-//    暂定为Form A 详情页吧
-    public static final String SAVE_FORM_A = "SAVE_FORM_A";
-//    不能只存一个对象
-//    public void setSaveFormA(SaveForm saveForm){
-//        sp = context.getSharedPreferences(SAVE_FORM_A,Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sp.edit();
-//        editor.putString("",saveForm.);
-//        editor.putFloat("time",time)
-//    }
+//  根据formid判断是否需要存储为Form A 详情页
+    public static final String IS_SAVE_FORM_A = "IS_SAVE_FORM_A";
+    public static final String SAVE_FORM_A_DETAIL = "SAVE_FORM_A_DETAIL";
 
-    public void setTSize(String type){
-        sp =context.getSharedPreferences(TEXT_SIZE_MODEL,Context.MODE_PRIVATE);
+    //  根据formid判断是否需要存储为Form B 详情页
+    public static final String IS_SAVE_FORM_B = "IS_SAVE_FORM_B";
+    public static final String SAVE_FORM_B_DETAIL = "SAVE_FORM_B_DETAIL";
+
+    public void setIsSaveFormA(String formId,boolean isSave){
+        sp = context.getSharedPreferences(IS_SAVE_FORM_A,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("size",type);
+        editor.putBoolean(formId,isSave);
         editor.apply();
     }
-    public String getTSize(){
-        sp = context.getSharedPreferences(TEXT_SIZE_MODEL,Context.MODE_PRIVATE);
-        return sp.getString("size","1");
+    public boolean getIsSaveFormA(String formId){
+        sp = context.getSharedPreferences(IS_SAVE_FORM_A,Context.MODE_PRIVATE);
+        return sp.getBoolean(formId,false);
     }
+
+    public void setSaveFormADetail(String formId,String detail){
+        sp = context.getSharedPreferences(SAVE_FORM_A_DETAIL,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(formId,detail);
+        editor.apply();
+    }
+    public String getSaveFormADetail(String formId){
+        sp = context.getSharedPreferences(SAVE_FORM_A_DETAIL,Context.MODE_PRIVATE);
+        return  sp.getString(formId,"");
+    }
+
+    public void setIsSaveFormB(String formId,boolean isSave){
+        sp = context.getSharedPreferences(IS_SAVE_FORM_B,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(formId,isSave);
+        editor.apply();
+    }
+    public boolean getIsSaveFormB(String formId){
+        sp = context.getSharedPreferences(IS_SAVE_FORM_B,Context.MODE_PRIVATE);
+        return sp.getBoolean(formId,false);
+    }
+
+    public void setSaveFormBDetail(String formId,String detail){
+        sp = context.getSharedPreferences(SAVE_FORM_B_DETAIL,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(formId,detail);
+        editor.apply();
+    }
+    public String getSaveFormBDetail(String formId){
+        sp = context.getSharedPreferences(SAVE_FORM_B_DETAIL,Context.MODE_PRIVATE);
+        return  sp.getString(formId,"");
+    }
+
 
 
     public void setLanguage(String type){

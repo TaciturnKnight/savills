@@ -77,7 +77,7 @@ public class GlideUtil {
 //        skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
 
         GlideUrl path = new GlideUrl(url,new LazyHeaders.Builder().addHeader("Authorization",BaseApplication.token).build());
-        Glide.with(mContext).load(path).fitCenter().placeholder(R.drawable.bg_default).error(R.drawable.bg_default).dontAnimate().into(view);
+        Glide.with(mContext).load(path).fitCenter().placeholder(R.drawable.bg_default).error(R.drawable.bg_default).dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
 
     }
 }

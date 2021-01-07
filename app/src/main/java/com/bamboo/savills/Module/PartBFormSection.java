@@ -4,14 +4,14 @@ import com.chad.library.adapter.base.entity.JSectionEntity;
 
 public class PartBFormSection extends JSectionEntity {
 
-    private FormBList.DataBean.FormBsBean formBsBean;
+    private PartBAnswer formBsBean;
     private boolean isHeader;
 
-    public FormBList.DataBean.FormBsBean getFormBsBean() {
+    public PartBAnswer getFormBsBean() {
         return formBsBean;
     }
 
-    public void setFormBsBean(FormBList.DataBean.FormBsBean formBsBean) {
+    public void setFormBsBean(PartBAnswer formBsBean) {
         this.formBsBean = formBsBean;
     }
 
@@ -23,7 +23,7 @@ public class PartBFormSection extends JSectionEntity {
         isHeader = header;
     }
 
-    public PartBFormSection(FormBList.DataBean.FormBsBean formBsBean, boolean isHeader) {
+    public PartBFormSection(PartBAnswer formBsBean, boolean isHeader) {
         this.formBsBean = formBsBean;
         this.isHeader = isHeader;
     }

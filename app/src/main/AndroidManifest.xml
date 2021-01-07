@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +26,9 @@
             </intent-filter>
         </activity>
         <!-- Intent filter to capture System Browser or Authenticator calling back to our app after sign-in -->
-        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+        <activity
+            android:name="com.microsoft.identity.client.BrowserTabActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -37,15 +41,33 @@
                     android:scheme="msauth" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.InspectionDetailActivity" />
-        <activity android:name=".activity.PhotoActivity" />
-        <activity android:name=".activity.MarkActivity" />
-        <activity android:name=".activity.PartBQuestionActivity" />
-        <activity android:name=".activity.EditPicDrawActivity" />
-        <activity android:name=".activity.EditPicTextActivity" />
-        <activity android:name=".activity.FilePickerActivity" />
-        <activity android:name=".activity.LoadFileByWebViewActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InspectionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MarkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PartBQuestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditPicDrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditPicTextActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FilePickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoadFileByWebViewActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -57,8 +79,14 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.PhotoShowActivity"/>
-        <activity android:name=".activity.LoadImgsOrVideosByWebviewActivity"></activity>
+        <activity
+            android:name=".activity.PhotoShowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoadImgsOrVideosByWebviewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.PartBQuestionUpdateActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

@@ -10,14 +10,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bamboo.savills.Constant;
+import com.bamboo.savills.Module.JobModule;
+import com.bamboo.savills.Module.SimpleResponse;
 import com.bamboo.savills.R;
+import com.bamboo.savills.base.net.HttpUtil;
+import com.bamboo.savills.base.net.NetCallback;
+import com.bamboo.savills.base.net.RequstList;
+import com.bamboo.savills.base.utils.LogUtil;
+import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseActivity;
+import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.fragment.FloorPlanFragment;
 import com.bamboo.savills.fragment.PartAFragment;
 import com.bamboo.savills.fragment.PartAUpdateFragment;
 import com.bamboo.savills.fragment.PartBFragment;
+import com.bamboo.savills.inter.SubmitCallBack;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class InspectionDetailActivity extends BaseActivity {
+public class InspectionDetailActivity extends BaseActivity implements SubmitCallBack {
     @InjectView(R.id.tv_title)
     TextView tvTitle;
 
@@ -66,14 +78,18 @@ public class InspectionDetailActivity extends BaseActivity {
 
     private FragmentManager fragmentManager;
     private String jobModule = "";
+    private JobModule mJobModule ;
 
 
     @Override
     public void initView() {
         jobModule =  getIntent().getStringExtra("JobModule");
+        mJobModule = new Gson().fromJson(jobModule,new TypeToken<JobModule>(){}.getType());
         fragmentManager = getSupportFragmentManager();
         tvTitle.setText(mContext.getResources().getString(R.string.title_part_a));
         setFragmentTag(0);
+        ivPartAOk.setVisibility(View.GONE);
+        ivPartBOk.setVisibility(View.GONE);
     }
 
     @Override
@@ -82,6 +98,7 @@ public class InspectionDetailActivity extends BaseActivity {
         rlFloorPlan.setOnClickListener(this);
         rlPartB.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+        ivSend.setOnClickListener(this);
 
     }
 
@@ -149,18 +166,65 @@ public class InspectionDetailActivity extends BaseActivity {
     }
 
     @Override
+    public void onSubmitCallBack(int type, boolean isShow) {
+        switch (type){
+            case 0:
+                if (isShow){
+                    ivPartAOk.setVisibility(View.VISIBLE);
+                }else {
+                    ivPartAOk.setVisibility(View.GONE);
+                }
+                break;
+            case 1:
+                if (isShow){
+                    ivPartBOk.setVisibility(View.VISIBLE);
+                }else {
+                    ivPartBOk.setVisibility(View.GONE);
+                }
+                break;
+        }
+    }
+
+    private void submitInspection(){
+        showLoading();
+        HttpUtil.getInstance().post(mContext, RequstList.SUBMIT_INSPECTION_FORM + mJobModule.getJobId() + "/" + mJobModule.getId(), 700, null, new NetCallback() {
+            @Override
+            public void onSuccess(int tag, String result) {
+                LogUtil.loge("submitInspection",result);
+                SimpleResponse simple = new Gson().fromJson(result,new TypeToken<SimpleResponse>(){}.getType());
+                if (simple != null && simple.getCode() == 0){
+                    //成功
+                    ToastUtil.showToast(mContext,"Submitted successfully");
+                    Constant.isInspectionRefresh = true;
+                    finish();
+                }else {
+                    ToastUtil.showToast(mContext,StringUtil.isNotEmpty(simple.getCodeDesc())?simple.getCodeDesc():"Network anomaly");
+                }
+            }
+
+            @Override
+            public void onError(int tag, String msg) {
+
+            }
+
+            @Override
+            public void onComplete(int tag) {
+                hideLoading();
+            }
+        });
+    }
+
+    @Override
     public void onClickNext(View v) {
         switch (v.getId()){
             case R.id.rl_part_a_out:
                 ivPartA.setImageResource(R.drawable.icon_q_a);
-                ivPartAOk.setVisibility(View.VISIBLE);
                 vPartA.setVisibility(View.VISIBLE);
 
                 ivFoorPlan.setImageResource(R.drawable.floor_plan_select_un);
                 vFloorPlan.setVisibility(View.GONE);
 
                 ivPartB.setImageResource(R.drawable.icon_q_b_grey);
-                ivPartBOk.setVisibility(View.GONE);
                 vPartB.setVisibility(View.GONE);
 
                 setFragmentTag(0);
@@ -169,14 +233,12 @@ public class InspectionDetailActivity extends BaseActivity {
                 break;
             case R.id.rl_floor_plan_out:
                 ivPartA.setImageResource(R.drawable.icon_q_a_grey);
-                ivPartAOk.setVisibility(View.GONE);
                 vPartA.setVisibility(View.GONE);
 
                 ivFoorPlan.setImageResource(R.drawable.floor_plan_select);
                 vFloorPlan.setVisibility(View.VISIBLE);
 
                 ivPartB.setImageResource(R.drawable.icon_q_b_grey);
-                ivPartBOk.setVisibility(View.GONE);
                 vPartB.setVisibility(View.GONE);
 
                 setFragmentTag(1);
@@ -185,14 +247,12 @@ public class InspectionDetailActivity extends BaseActivity {
                 break;
             case R.id.rl_part_b_out:
                 ivPartA.setImageResource(R.drawable.icon_q_a_grey);
-                ivPartAOk.setVisibility(View.GONE);
                 vPartA.setVisibility(View.GONE);
 
                 ivFoorPlan.setImageResource(R.drawable.floor_plan_select_un);
                 vFloorPlan.setVisibility(View.GONE);
 
                 ivPartB.setImageResource(R.drawable.icon_q_b);
-                ivPartBOk.setVisibility(View.VISIBLE);
                 vPartB.setVisibility(View.VISIBLE);
 
                 setFragmentTag(2);
@@ -201,6 +261,9 @@ public class InspectionDetailActivity extends BaseActivity {
                 break;
             case R.id.iv_back:
                 finish();
+                break;
+            case R.id.iv_send:
+                submitInspection();
                 break;
         }
 

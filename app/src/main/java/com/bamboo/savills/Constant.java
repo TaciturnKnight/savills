@@ -12,4 +12,5 @@ public class Constant {
 
 //    formB list 是否需要更新数据
     public static boolean isFormBListRefresh = false;
+
 }

@@ -37,7 +37,8 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="bottom"
-                    android:src="@drawable/ok" />
+                    android:src="@drawable/ok"
+                    android:visibility="gone"/>
 
             </LinearLayout>
             <View
@@ -96,7 +97,8 @@
                     android:layout_height="12dp"
                     android:layout_gravity="bottom"
                     android:src="@drawable/ok"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
             <View

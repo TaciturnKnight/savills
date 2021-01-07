@@ -276,11 +276,15 @@ public class HttpUtil {
                     @Override
                     public void run() {
                         callback.onComplete(tag);
+
                         //接口失败处理
-                        if (e != null && StringUtil.isNotEmpty(e.getMessage()))
+                        if (e != null && StringUtil.isNotEmpty(e.getMessage())){
                             ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url + "失败原因：" + e.getMessage());
-                        else
+                            callback.onError(tag,e.getMessage());
+                        } else{
                             ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url);
+                            callback.onError(tag,"Network Anomaly");
+                        }
                     }
                 });
             }

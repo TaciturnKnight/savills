@@ -54,6 +54,7 @@ public class PhoteVideoAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolde
             }else {
             holder.setVisible(R.id.iv_item_photo_video,true);
             holder.setGone(R.id.iv_item_photo_video_is,true);
+            LogUtil.loge("-----yyy",RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId());
             GlideUtil.getInstance().showImages(mContext,RequstList.BASE_URL+RequstList. GET_FORM_VIDEO_IMG+jobId+"/"+photoVideo.getId(),imageView);
         }
         RelativeLayout rlDelete = holder.getView(R.id.rl_item_photo_delete);

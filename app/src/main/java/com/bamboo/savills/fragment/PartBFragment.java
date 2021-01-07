@@ -2,8 +2,10 @@ package com.bamboo.savills.fragment;
 
 import android.view.View;
 
+import com.bamboo.savills.Constant;
 import com.bamboo.savills.Module.FormBList;
 import com.bamboo.savills.Module.JobModule;
+import com.bamboo.savills.Module.PartBAnswer;
 import com.bamboo.savills.Module.PartBFormSection;
 import com.bamboo.savills.R;
 import com.bamboo.savills.adapter.PartBAdapter;
@@ -13,6 +15,7 @@ import com.bamboo.savills.base.net.RequstList;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseFragment;
+import com.bamboo.savills.inter.SubmitCallBack;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -33,10 +36,11 @@ public class PartBFragment extends BaseFragment {
     private PartBAdapter adapter ;
     private JobModule mJobModle;
     private List<PartBFormSection> mPartBDatas = new ArrayList<>();
+    private String jobModule;
 
     @Override
     public void initView() {
-        String jobModule = getArguments().getString("JobModule");
+        jobModule = getArguments().getString("JobModule");
         if (StringUtil.isNotEmpty(jobModule)) {
             mJobModle = new Gson().fromJson(jobModule, new TypeToken<JobModule>() {
             }.getType());
@@ -60,9 +64,18 @@ public class PartBFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new PartBAdapter(mContext,mJobModle.getJobId(),mPartBDatas);
+        adapter = new PartBAdapter(mContext,mJobModle.getJobId(),jobModule,mPartBDatas);
         recyclerView.setAdapter(adapter);
         getFormBList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Constant.isFormBListRefresh){
+            getFormBList();
+            Constant.isFormBListRefresh = false;
+        }
     }
 
     private void getFormBList(){
@@ -77,17 +90,29 @@ public class PartBFragment extends BaseFragment {
                     FormBList formBList = new Gson().fromJson(result,new TypeToken<FormBList>(){}.getType());
                     //数据要处理一下
                     if (formBList != null && formBList.getData()!= null && formBList.getData().size()>0){
+                        int isAllSubmit = 0;
                         for (int i = 0;i<formBList.getData().size();i++){
-                            formBList.getData().get(i);
-                            FormBList.DataBean.FormBsBean formBsBean = new FormBList.DataBean.FormBsBean();
+                            PartBAnswer formBsBean = new PartBAnswer();
                             formBsBean.setTitle(formBList.getData().get(i).getFileName());
                             PartBFormSection partBFormSection = new PartBFormSection(formBsBean,true);
                             mPartBDatas.add(partBFormSection);
                             for (int j = 0;j<formBList.getData().get(i).getFormBs().size();j++){
                                 PartBFormSection formSection = new PartBFormSection(formBList.getData().get(i).getFormBs().get(j),false);
                                 mPartBDatas.add(formSection);
+                                if(formBList.getData().get(i).getFormBs().get(j).isSubmitted()){
+                                    //写入不在保存
+                                    spUtils.setIsSaveFormB(formBList.getData().get(i).getFormBs().get(j).getId(),false);
+                                }else {
+                                    isAllSubmit +=1;
+                                }
+//
                             }
-
+                        }
+                        if (isAllSubmit ==0){
+                            //都完成了---》发消息给Activity
+                            ((SubmitCallBack)mContext).onSubmitCallBack(1,true);
+                        }else {
+                            ((SubmitCallBack)mContext).onSubmitCallBack(1,false);
                         }
                     }
                     adapter.notifyDataSetChanged();

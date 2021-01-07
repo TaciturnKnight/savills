@@ -6,7 +6,7 @@ public class JobListParam {
     private String searchValue;
 //    orderByColumnName为propertyName，orderByDirection为ascend或者descend
     private String orderByColumnName;
-    private String orderByDirection;
+    private String orderByDirection = "ascend";
 
     public String getOrderByColumnName() {
         return orderByColumnName;
