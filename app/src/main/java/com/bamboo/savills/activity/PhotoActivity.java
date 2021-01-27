@@ -134,6 +134,7 @@ public class PhotoActivity extends BaseActivity {
                 public void onError(int tag, String msg) {
                     LogUtil.loge("upload", "失败" + msg);
                     ToastUtil.showToast(mContext, "Upload fail:" + msg);
+                    hideLoading();
                 }
 
                 @Override
