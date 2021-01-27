@@ -94,7 +94,7 @@ public class PhotoActivity extends BaseActivity {
             HttpUtil.getInstance().updateFormFile(mContext, uploadUrl, 101, file, file.getName(), new NetWithProgressCallback() {
                 @Override
                 public void onProgress(int progress) {
-                    Log.i("upload", progress + "");
+                    LogUtil.loge("upload", progress + "");
                     showLoading();
                     LoadingDialog progressDialog = (LoadingDialog) loadingDialog;
                     progressDialog.setTipText("Uploading..." + progress + "%(" + currentCount + "/" + totalCount + ")");
@@ -102,18 +102,18 @@ public class PhotoActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(int tag, String result) {
-                    Log.i("upload", "成功" + result);
+                    LogUtil.loge("upload", "成功" + result);
                 }
 
                 @Override
                 public void onError(int tag, String msg) {
-                    Log.i("upload", "失败" + msg);
+                    LogUtil.loge("upload", "失败" + msg);
                     ToastUtil.showToast(mContext, "上传失败" + msg);
                 }
 
                 @Override
                 public void onComplete(int tag) {
-                    Log.i("upload", "完成");
+                    LogUtil.loge("upload", "完成");
                     if (currentCount != totalCount) {
                         currentCount++;
                         uploadFile();

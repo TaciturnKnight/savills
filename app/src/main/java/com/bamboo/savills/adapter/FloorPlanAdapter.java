@@ -35,6 +35,7 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
     private Context mContext;
     private int jobId;
     private int id;
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -48,16 +49,18 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
             }
         }
     };
-    public FloorPlanAdapter(Context mContext,int jobId, int id,@Nullable List<PhotoVideo> data) {
+    public FloorPlanAdapter(Context mContext,int jobId, int id,int viewType,@Nullable List<PhotoVideo> data) {
         super(R.layout.item_floor_plan, data);
         this.mContext = mContext;
         this.jobId = jobId;
         this.id = id;
+        this.viewType = viewType;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder helper, PhotoVideo item) {
         TextView tvMark = helper.getView(R.id.tv_item_floor_plan_mark);
+
         tvMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +77,16 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
         helper.setText(R.id.tv_item_floor_plan_name,item.getFileName().split("\\.")[0]);
         EditText etName = helper.getView(R.id.tv_item_floor_plan_name);
         etName.setTag(item);
+        switch (viewType){
+            case 0:
+                etName.setEnabled(true);
+                tvMark.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                etName.setEnabled(false);
+                tvMark.setVisibility(View.GONE);
+                break;
+        }
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -105,12 +118,18 @@ public class FloorPlanAdapter extends BaseQuickAdapter<PhotoVideo,BaseViewHolder
         try{
 
             RequestParams params = new RequestParams();
-            params.addBody("newFileName",photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+            if (photoVideo.getFileName().split("\\.").length >1)
+                params.addBody("newFileName",photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+            else
+                params.addBody("newFileName",photoVideo.getNewName());
             HttpUtil.getInstance().post(mContext, RequstList.CHANGE_FLOOR_PLAN_NAME + jobId + "/" + photoVideo.getId(), 301, params, new NetCallback() {
                 @Override
                 public void onSuccess(int tag, String result) {
                     LogUtil.loge("changeName",result);
-                    photoVideo.setFileName(photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+                    if (photoVideo.getFileName().split("\\.").length >1)
+                        photoVideo.setFileName(photoVideo.getNewName()+"."+photoVideo.getFileName().split("\\.")[1]);
+                    else
+                        photoVideo.setFileName(photoVideo.getNewName());
                 }
 
                 @Override

@@ -54,7 +54,6 @@ public class JobAdapter extends BaseQuickAdapter<JobModule,BaseViewHolder> imple
     @Override
     protected void convert(BaseViewHolder helper, JobModule item) {
 //        helper.setText(R.id.tv_item_jib_name,item.getName());
-
         setTextContent(helper,R.id.tv_item_job_no,item.getJob().getJobNo());
         setTextContent(helper,R.id.tv_item_job_property_name,item.getPropertyName());
         setTextContent(helper,R.id.tv_item_job_street,item.getStreet1());
@@ -99,9 +98,10 @@ public class JobAdapter extends BaseQuickAdapter<JobModule,BaseViewHolder> imple
             case 4:
 //                complete
 //        都不显示
-                helper.setGone(R.id.tv_item_job_accept,true);
+                helper.setVisible(R.id.tv_item_job_accept,true);
                 helper.setGone(R.id.ll_item_job_assign_to_me,true);
                 helper.setVisible(R.id.ll_item_jib_inspect_date_actual,true);
+                helper.setText(R.id.tv_item_job_accept,"View");
 
                 break;
             case 3:
@@ -164,6 +164,12 @@ public class JobAdapter extends BaseQuickAdapter<JobModule,BaseViewHolder> imple
                 if ("Continue Inspection".equalsIgnoreCase(tvStart.getText().toString())){
                     Intent intent = new Intent(mContext,InspectionDetailActivity.class);
                     intent.putExtra("JobModule",new Gson().toJson(item,new TypeToken<JobModule>(){}.getType()));
+                    mContext.startActivity(intent);
+                }
+                if ("View".equalsIgnoreCase(tvStart.getText().toString())){
+                    Intent intent = new Intent(mContext,InspectionDetailActivity.class);
+                    intent.putExtra("JobModule",new Gson().toJson(item,new TypeToken<JobModule>(){}.getType()));
+                    intent.putExtra("View",1);
                     mContext.startActivity(intent);
                 }
 

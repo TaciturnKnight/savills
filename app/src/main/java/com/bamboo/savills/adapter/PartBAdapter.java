@@ -25,11 +25,13 @@ public class PartBAdapter extends BaseSectionQuickAdapter<PartBFormSection,BaseV
     private Context mContext;
     private int jobId;
     private String josn;
-    public PartBAdapter(Context mContext,int jobId, String json,@Nullable List<PartBFormSection> data) {
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
+    public PartBAdapter(Context mContext,int jobId, String json,int viewType,@Nullable List<PartBFormSection> data) {
         super(R.layout.item_part_b_head, R.layout.item_part_b_content, data);
         this.mContext = mContext;
         this.jobId =jobId;
         this.josn = json;
+        this.viewType = viewType;
     }
 
     @Override
@@ -52,6 +54,7 @@ public class PartBAdapter extends BaseSectionQuickAdapter<PartBFormSection,BaseV
                 intent.putExtra("jobId",jobId);
                 intent.putExtra("formBsBean",new Gson().toJson(partBSection.getFormBsBean(),new TypeToken<PartBAnswer>(){}.getType()));
                 intent.putExtra("JobModule",josn);
+                intent.putExtra("View",viewType);
                 mContext.startActivity(intent);
             }
         });

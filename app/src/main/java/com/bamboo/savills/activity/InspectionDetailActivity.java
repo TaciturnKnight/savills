@@ -79,17 +79,23 @@ public class InspectionDetailActivity extends BaseActivity implements SubmitCall
     private FragmentManager fragmentManager;
     private String jobModule = "";
     private JobModule mJobModule ;
-
+    private int viewType = 0;//默认值0 表示可编辑状态 其他为不可编辑状态
 
     @Override
     public void initView() {
         jobModule =  getIntent().getStringExtra("JobModule");
+        viewType = getIntent().getIntExtra("View",0);
         mJobModule = new Gson().fromJson(jobModule,new TypeToken<JobModule>(){}.getType());
         fragmentManager = getSupportFragmentManager();
         tvTitle.setText(mContext.getResources().getString(R.string.title_part_a));
         setFragmentTag(0);
         ivPartAOk.setVisibility(View.GONE);
         ivPartBOk.setVisibility(View.GONE);
+        if (viewType == 0){
+            ivSend.setVisibility(View.VISIBLE);
+        }else {
+            ivSend.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -111,6 +117,7 @@ public class InspectionDetailActivity extends BaseActivity implements SubmitCall
         hideAllFragment(transaction);
         Bundle bundle = new Bundle();
         bundle.putString("JobModule",jobModule);
+        bundle.putInt("View",viewType);
         switch (position) {
             case 0:
                 if (partAFragment == null) {
@@ -198,7 +205,20 @@ public class InspectionDetailActivity extends BaseActivity implements SubmitCall
                     Constant.isInspectionRefresh = true;
                     finish();
                 }else {
-                    ToastUtil.showToast(mContext,StringUtil.isNotEmpty(simple.getCodeDesc())?simple.getCodeDesc():"Network anomaly");
+                    if (StringUtil.isNotEmpty(simple.getCodeDesc())){
+                        if ("INSPECTION_FORM_A_NOT_SUBMITTED".equalsIgnoreCase(simple.getCodeDesc())){
+
+                            ToastUtil.showToast(mContext,"Please complete the Form A first.");
+
+                        }else if("INSPECTION_FORM_B_NOT_SUBMITTED".equalsIgnoreCase(simple.getCodeDesc())){
+                            ToastUtil.showToast(mContext,"Please complete the Form B first.");
+
+                        }else {
+                            ToastUtil.showToast(mContext,simple.getCodeDesc());
+                        }
+                    }else {
+                        ToastUtil.showToast(mContext,"Network anomaly");
+                    }
                 }
             }
 

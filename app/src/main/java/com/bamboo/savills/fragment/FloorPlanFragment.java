@@ -56,13 +56,14 @@ public class FloorPlanFragment extends BaseFragment {
     private JobModule mJobModle;
 
     private TextView tvJobNo,tvProName,tvStreetName,tvCreateDate;
-
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
 
 
 
     @Override
     public void initView() {
         String jobModule = getArguments().getString("JobModule");
+        viewType = getArguments().getInt("View",0);
         if (StringUtil.isNotEmpty(jobModule)) {
             mJobModle = new Gson().fromJson(jobModule, new TypeToken<JobModule>() {
             }.getType());
@@ -153,7 +154,7 @@ public class FloorPlanFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new FloorPlanAdapter(mContext,mJobModle.getJobId(),mJobModle.getId(),mDatas);
+        adapter = new FloorPlanAdapter(mContext,mJobModle.getJobId(),mJobModle.getId(),viewType,mDatas);
         recyclerView.setAdapter(adapter);
         adapter.addHeaderView(headView);
         getImgOrVideoData();

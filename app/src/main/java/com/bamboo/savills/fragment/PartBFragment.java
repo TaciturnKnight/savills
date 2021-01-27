@@ -37,10 +37,12 @@ public class PartBFragment extends BaseFragment {
     private JobModule mJobModle;
     private List<PartBFormSection> mPartBDatas = new ArrayList<>();
     private String jobModule;
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
 
     @Override
     public void initView() {
         jobModule = getArguments().getString("JobModule");
+        viewType = getArguments().getInt("View",0);
         if (StringUtil.isNotEmpty(jobModule)) {
             mJobModle = new Gson().fromJson(jobModule, new TypeToken<JobModule>() {
             }.getType());
@@ -64,7 +66,7 @@ public class PartBFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new PartBAdapter(mContext,mJobModle.getJobId(),jobModule,mPartBDatas);
+        adapter = new PartBAdapter(mContext,mJobModle.getJobId(),jobModule,viewType,mPartBDatas);
         recyclerView.setAdapter(adapter);
         getFormBList();
     }

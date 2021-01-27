@@ -2,13 +2,17 @@ package com.bamboo.savills.base.net;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
+import com.bamboo.savills.R;
+import com.bamboo.savills.activity.LoginActivity;
 import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
+import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.BaseApplication;
 import com.bamboo.savills.base.view.ToastUtil;
 import com.bamboo.savills.utils.FileRequestBody;
@@ -276,7 +280,6 @@ public class HttpUtil {
                     @Override
                     public void run() {
                         callback.onComplete(tag);
-
                         //接口失败处理
                         if (e != null && StringUtil.isNotEmpty(e.getMessage())){
                             ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url + "失败原因：" + e.getMessage());
@@ -284,6 +287,7 @@ public class HttpUtil {
                         } else{
                             ToastUtil.showToast(mContext, "网络请求失败 请求接口：" + url);
                             callback.onError(tag,"Network Anomaly");
+
                         }
                     }
                 });
@@ -296,23 +300,17 @@ public class HttpUtil {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        LogUtil.loge("onResponse","code:"+response.code());
+                        if (response.code() == 401){
+                            ToastUtil.showToast(mContext,"Login expired, please log in again.");
+                            Intent intent = new Intent(mContext,LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            mContext.startActivity(intent);
+                            ((BaseActivity)mContext).finish();
+                        }
                         callback.onComplete(tag);
                         callback.onSuccess(tag, result);
-//                        LogUtil.e("result--->",result);
-//                        登录失效统一处理
-//                        if (result.contains("\"code\":-10,\"") ||result.contains("\"code\":-10}")){
-//                            ToastUtil.showToast(mContext,mContext.getResources().getString(R.string.login_out_time));
-//                            Intent intent = new Intent(mContext,LoginActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            mContext.startActivity(intent);
-//                            ((BaseActivity)mContext).finish();
-//                        }else {
-//                            try{
-//                                callback.onSuccess(tag, result);
-//                            }catch (Exception e){
-//
-//                            }
-//                        }
+
                     }
                 });
 

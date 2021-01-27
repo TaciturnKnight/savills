@@ -492,17 +492,19 @@ public class PartAUpdateFragment extends BaseFragment {
     private List<RelativeLayout> rlQ12 = new ArrayList<>();
     private List<ImageView> ivQ12 = new ArrayList<>();
 //    当前问卷的 答案对象
-    private PartAAnswer mAnswer;
+    private PartAAnswer mAnswer = new PartAAnswer();
 //    选项单独处理 后期要转成2进制传给后台
     private List<Integer> q1aSelect = new ArrayList<>();
     private List<Integer> q1bSelect = new ArrayList<>();
     private List<Integer> q1cSelect = new ArrayList<>();
 //    8，9题是后台的8a 8b
     private List<Integer> q9Select = new ArrayList<>();
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
 
     @Override
     public void initView() {
         String jobModule = getArguments().getString("JobModule");
+        viewType = getArguments().getInt("View",0);
         if (StringUtil.isNotEmpty(jobModule)) {
             mJobModle = new Gson().fromJson(jobModule, new TypeToken<JobModule>() {
             }.getType());
@@ -525,6 +527,7 @@ public class PartAUpdateFragment extends BaseFragment {
             tvCreateDate.setText(mJobModle.getCreatedOn());
         }
         initChoiceView();
+        setDisEditState();
 
     }
 
@@ -1192,6 +1195,147 @@ public class PartAUpdateFragment extends BaseFragment {
 
     }
 
+    private void setDisEditState(){
+        switch (viewType){
+            case 0:
+//                正常可编辑
+                rlq1as1.setClickable(true);
+                rlq1as2.setClickable(true);
+                rlq1as3.setClickable(true);
+                rlq1as4.setClickable(true);
+                rlq1as5.setClickable(true);
+                rlq1as6.setClickable(true);
+                rlq1as7.setClickable(true);
+                rlq1as8.setClickable(true);
+                etq1a.setEnabled(true);
+                rlq1bs1.setClickable(true);
+                rlq1bs2.setClickable(true);
+                rlq1bs3.setClickable(true);
+                etq1b.setEnabled(true);
+                rlq1cs1.setClickable(true);
+                rlq1cs2.setClickable(true);
+                rlq1cs3.setClickable(true);
+                rlq1cs4.setClickable(true);
+                rlq1cs5.setClickable(true);
+                rlq1cs6.setClickable(true);
+                rlq1cs7.setClickable(true);
+                etq1c.setEnabled(true);
+                rlq2s1.setClickable(true);
+                rlq2s2.setClickable(true);
+                rlq2s3.setClickable(true);
+                rlq2s4.setClickable(true);
+                rlq2s5.setClickable(true);
+                etq2.setEnabled(true);
+                etq3f1.setEnabled(true);
+                etq3f2.setEnabled(true);
+                etq3f3.setEnabled(true);
+                etq3f4.setEnabled(true);
+                etq4.setEnabled(true);
+                etq5f1.setEnabled(true);
+                etq5f2.setEnabled(true);
+                etq5f3.setEnabled(true);
+                etq6.setEnabled(true);
+                rlq7s1.setClickable(true);
+                rlq7s2.setClickable(true);
+                rlq7s3.setClickable(true);
+                rlq7s4.setClickable(true);
+                etq7.setEnabled(true);
+                rlq8s1.setClickable(true);
+                rlq8s2.setClickable(true);
+                rlq8s3.setClickable(true);
+                rlq8s4.setClickable(true);
+                rlq9s1.setClickable(true);
+                rlq9s2.setClickable(true);
+                rlq9s3.setClickable(true);
+                etq10f1.setEnabled(true);
+                etq10f2.setEnabled(true);
+                etq10f3.setEnabled(true);
+                etq11f1.setEnabled(true);
+                etq11f2.setEnabled(true);
+                etq11f3.setEnabled(true);
+                etq11f4.setEnabled(true);
+                rlq12s1.setClickable(true);
+                rlq12s2.setClickable(true);
+                rlq12s3.setClickable(true);
+                rlq12s4.setClickable(true);
+                tvPage1Save.setVisibility(View.VISIBLE);
+                tvPage2Save.setVisibility(View.VISIBLE);
+                tvPage3Save.setVisibility(View.VISIBLE);
+                tvPage3Complete.setVisibility(View.VISIBLE);
+                ivPhoto.setVisibility(View.VISIBLE);
+
+                break;
+            case 1:
+//                不可编辑
+                rlq1as1.setClickable(false);
+                rlq1as2.setClickable(false);
+                rlq1as3.setClickable(false);
+                rlq1as4.setClickable(false);
+                rlq1as5.setClickable(false);
+                rlq1as6.setClickable(false);
+                rlq1as7.setClickable(false);
+                rlq1as8.setClickable(false);
+                etq1a.setEnabled(false);
+                rlq1bs1.setClickable(false);
+                rlq1bs2.setClickable(false);
+                rlq1bs3.setClickable(false);
+                etq1b.setEnabled(false);
+                rlq1cs1.setClickable(false);
+                rlq1cs2.setClickable(false);
+                rlq1cs3.setClickable(false);
+                rlq1cs4.setClickable(false);
+                rlq1cs5.setClickable(false);
+                rlq1cs6.setClickable(false);
+                rlq1cs7.setClickable(false);
+                etq1c.setEnabled(false);
+                rlq2s1.setClickable(false);
+                rlq2s2.setClickable(false);
+                rlq2s3.setClickable(false);
+                rlq2s4.setClickable(false);
+                rlq2s5.setClickable(false);
+                etq2.setEnabled(false);
+                etq3f1.setEnabled(false);
+                etq3f2.setEnabled(false);
+                etq3f3.setEnabled(false);
+                etq3f4.setEnabled(false);
+                etq4.setEnabled(false);
+                etq5f1.setEnabled(false);
+                etq5f2.setEnabled(false);
+                etq5f3.setEnabled(false);
+                etq6.setEnabled(false);
+                rlq7s1.setClickable(false);
+                rlq7s2.setClickable(false);
+                rlq7s3.setClickable(false);
+                rlq7s4.setClickable(false);
+                etq7.setEnabled(false);
+                rlq8s1.setClickable(false);
+                rlq8s2.setClickable(false);
+                rlq8s3.setClickable(false);
+                rlq8s4.setClickable(false);
+                rlq9s1.setClickable(false);
+                rlq9s2.setClickable(false);
+                rlq9s3.setClickable(false);
+                etq10f1.setEnabled(false);
+                etq10f2.setEnabled(false);
+                etq10f3.setEnabled(false);
+                etq11f1.setEnabled(false);
+                etq11f2.setEnabled(false);
+                etq11f3.setEnabled(false);
+                etq11f4.setEnabled(false);
+                rlq12s1.setClickable(false);
+                rlq12s2.setClickable(false);
+                rlq12s3.setClickable(false);
+                rlq12s4.setClickable(false);
+                tvPage1Save.setVisibility(View.GONE);
+                tvPage2Save.setVisibility(View.GONE);
+                tvPage3Save.setVisibility(View.GONE);
+                tvPage3Complete.setVisibility(View.GONE);
+                ivPhoto.setVisibility(View.GONE);
+
+                break;
+        }
+    }
+
     private void getFormAData(){
         showLoading();
         q1aSelect.clear();
@@ -1234,17 +1378,13 @@ public class PartAUpdateFragment extends BaseFragment {
     }
     private void useWhichData(){
         if (mAnswer.isSubmitted()){
-            tvPage1Save.setVisibility(View.GONE);
-            tvPage2Save.setVisibility(View.GONE);
-            tvPage3Save.setVisibility(View.GONE);
-            tvPage3Complete.setVisibility(View.GONE);
+            viewType = 1;
+            setDisEditState();
             spUtils.setIsSaveFormA(mAnswer.getId(),false);
             ((SubmitCallBack)mContext).onSubmitCallBack(0,true);
         }else {
-            tvPage1Save.setVisibility(View.VISIBLE);
-            tvPage2Save.setVisibility(View.VISIBLE);
-            tvPage3Save.setVisibility(View.VISIBLE);
-            tvPage3Complete.setVisibility(View.VISIBLE);
+            viewType = 0;
+            setDisEditState();
             ((SubmitCallBack)mContext).onSubmitCallBack(0,false);
         }
         try {
@@ -1564,10 +1704,8 @@ public class PartAUpdateFragment extends BaseFragment {
                 if (simple.getCode() == 0){
                     ToastUtil.showToast(mContext,"Submitted successfully");
                     //
-                    tvPage1Save.setVisibility(View.GONE);
-                    tvPage2Save.setVisibility(View.GONE);
-                    tvPage3Save.setVisibility(View.GONE);
-                    tvPage3Complete.setVisibility(View.GONE);
+                    viewType = 1;
+                    setDisEditState();
                     spUtils.setIsSaveFormA(mAnswer.getId(),false);
                     ((SubmitCallBack)mContext).onSubmitCallBack(0,true);
                 }else {

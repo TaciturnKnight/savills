@@ -31,6 +31,7 @@ import com.bamboo.savills.base.utils.LogUtil;
 import com.bamboo.savills.base.utils.StringUtil;
 import com.bamboo.savills.base.view.BaseActivity;
 import com.bamboo.savills.base.view.ToastUtil;
+import com.bamboo.savills.inter.SubmitCallBack;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.microsoft.graph.requests.extensions.IIosDeviceFeaturesConfigurationRequest;
@@ -403,6 +404,7 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
     private List<Integer> q7Select = new ArrayList<>();
 
     private PartBAnswer mPartBAnswer;
+    private int viewType = 0;//0 可编辑状态 1为不可编辑状态
 
 
 
@@ -412,6 +414,7 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
         ivSend.setVisibility(View.INVISIBLE);
         formBsBean = new Gson().fromJson(getIntent().getStringExtra("formBsBean"),new TypeToken<PartBAnswer>(){}.getType());
         jobId = getIntent().getIntExtra("jobId",0);
+        viewType = getIntent().getIntExtra("View",0);
         String title = formBsBean.getJobFileName().split("\\.")[0]+formBsBean.getTitle();
         tvTitle.setText(title);
         String jobModule = getIntent().getStringExtra("JobModule");
@@ -433,6 +436,7 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
             tvDate.setText(mJobModle.getCreatedOn());
         }
         initChoiceView();
+        setDisEditState();
     }
     private void initChoiceView(){
         rlQ1a.add(rlq1as1);
@@ -581,6 +585,123 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
         tvPage2Save.setOnClickListener(this);
         tvPage2Save.setOnClickListener(this);
         tvPage2Submit.setOnClickListener(this);
+    }
+
+    private void setDisEditState(){
+        switch (viewType){
+            case 0:
+                rlq1as1.setClickable(true);
+                rlq1as2.setClickable(true);
+                rlq1as3.setClickable(true);
+                rlq1as4.setClickable(true);
+                rlq1as5.setClickable(true);
+                rlq1as6.setClickable(true);
+                rlq1as7.setClickable(true);
+                etq1a.setEnabled(true);
+                rlq1bs1.setClickable(true);
+                rlq1bs2.setClickable(true);
+                rlq1bs3.setClickable(true);
+                rlq1bs4.setClickable(true);
+                rlq1bs5.setClickable(true);
+                etq1b.setEnabled(true);
+                rlq1cs1.setClickable(true);
+                rlq1cs2.setClickable(true);
+                rlq1cs3.setClickable(true);
+                rlq1cs4.setClickable(true);
+                etq1c.setEnabled(true);
+                rlq2s1.setClickable(true);
+                rlq2s2.setClickable(true);
+                rlq2s3.setClickable(true);
+                rlq2s4.setClickable(true);
+                rlq2s5.setClickable(true);
+                etq2.setEnabled(true);
+                etq3.setEnabled(true);
+                etq4.setEnabled(true);
+                rlq4bs1.setClickable(true);
+                rlq4bs2.setClickable(true);
+                rlq4bs3.setClickable(true);
+                rlq4bs4.setClickable(true);
+                rlq4bs5.setClickable(true);
+                rlq4bs6.setClickable(true);
+                rlq4bs7.setClickable(true);
+                rlq4bs8.setClickable(true);
+                etq5.setEnabled(true);
+                rlq6s1.setClickable(true);
+                rlq6s2.setClickable(true);
+                rlq6s3.setClickable(true);
+                rlq6s4.setClickable(true);
+                rlq6s5.setClickable(true);
+                etq6.setEnabled(true);
+                rlq7s1.setClickable(true);
+                rlq7s2.setClickable(true);
+                rlq7s3.setClickable(true);
+                rlq7s4.setClickable(true);
+                rlq7s5.setClickable(true);
+                rlq7s6.setClickable(true);
+                etq7.setEnabled(true);
+                etq8.setEnabled(true);
+                tvPage1Save.setVisibility(View.VISIBLE);
+                tvPage2Save.setVisibility(View.VISIBLE);
+                tvPage2Submit.setVisibility(View.VISIBLE);
+                ivPhoto.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                rlq1as1.setClickable(false);
+                rlq1as2.setClickable(false);
+                rlq1as3.setClickable(false);
+                rlq1as4.setClickable(false);
+                rlq1as5.setClickable(false);
+                rlq1as6.setClickable(false);
+                rlq1as7.setClickable(false);
+                etq1a.setEnabled(false);
+                rlq1bs1.setClickable(false);
+                rlq1bs2.setClickable(false);
+                rlq1bs3.setClickable(false);
+                rlq1bs4.setClickable(false);
+                rlq1bs5.setClickable(false);
+                etq1b.setEnabled(false);
+                rlq1cs1.setClickable(false);
+                rlq1cs2.setClickable(false);
+                rlq1cs3.setClickable(false);
+                rlq1cs4.setClickable(false);
+                etq1c.setEnabled(false);
+                rlq2s1.setClickable(false);
+                rlq2s2.setClickable(false);
+                rlq2s3.setClickable(false);
+                rlq2s4.setClickable(false);
+                rlq2s5.setClickable(false);
+                etq2.setEnabled(false);
+                etq3.setEnabled(false);
+                etq4.setEnabled(false);
+                rlq4bs1.setClickable(false);
+                rlq4bs2.setClickable(false);
+                rlq4bs3.setClickable(false);
+                rlq4bs4.setClickable(false);
+                rlq4bs5.setClickable(false);
+                rlq4bs6.setClickable(false);
+                rlq4bs7.setClickable(false);
+                rlq4bs8.setClickable(false);
+                etq5.setEnabled(false);
+                rlq6s1.setClickable(false);
+                rlq6s2.setClickable(false);
+                rlq6s3.setClickable(false);
+                rlq6s4.setClickable(false);
+                rlq6s5.setClickable(false);
+                etq6.setEnabled(false);
+                rlq7s1.setClickable(false);
+                rlq7s2.setClickable(false);
+                rlq7s3.setClickable(false);
+                rlq7s4.setClickable(false);
+                rlq7s5.setClickable(false);
+                rlq7s6.setClickable(false);
+                etq7.setEnabled(false);
+                etq8.setEnabled(false);
+                tvPage1Save.setVisibility(View.GONE);
+                tvPage2Save.setVisibility(View.GONE);
+                tvPage2Submit.setVisibility(View.GONE);
+                ivPhoto.setVisibility(View.GONE);
+                break;
+        }
     }
 
     private void initChoicesListener(){
@@ -858,6 +979,14 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
     }
 
     private void useWhichData(){
+        if (mPartBAnswer.isSubmitted()){
+            viewType = 1;
+            setDisEditState();
+            spUtils.setIsSaveFormB(mPartBAnswer.getId(),false);
+        }else {
+            viewType = 0;
+            setDisEditState();
+        }
         try {
             boolean isSave = spUtils.getIsSaveFormB(mPartBAnswer.getId());
             if (isSave){
@@ -1161,9 +1290,9 @@ public class PartBQuestionUpdateActivity extends BaseActivity {
                     ToastUtil.showToast(mContext,"Submitted successfully");
 //                    提醒前面刷新数据
                     Constant.isFormBListRefresh = true;
-                    tvPage1Save.setVisibility(View.GONE);
-                    tvPage2Save.setVisibility(View.GONE);
-                    tvPage2Submit.setVisibility(View.GONE);
+                    viewType = 1;
+                    setDisEditState();
+                    spUtils.setIsSaveFormB(mPartBAnswer.getId(),false);
                 }else {
                     ToastUtil.showToast(mContext,StringUtil.isNotEmpty(simple.getCodeDesc())?simple.getCodeDesc():"Network anomaly");
                 }
