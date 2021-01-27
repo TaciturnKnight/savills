@@ -36,6 +36,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,30 +106,44 @@ public class PhotoActivity extends BaseActivity {
                 @Override
                 public void onSuccess(int tag, String result) {
                     LogUtil.loge("upload", "成功" + result);
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        int code = jsonObject.getInt("code");
+                        if (code == 0) {
+                            //上传成功
+                            if (currentCount != totalCount) {
+                                currentCount++;
+                                uploadFile();
+                            } else {
+                                hideLoading();
+                                ToastUtil.showToast(mContext, "Upload Successfully");
+                                finish();
+                            }
+                        } else {
+                            //上传失败
+                            ToastUtil.showToast(mContext, jsonObject.getString("codeDesc"));
+                            hideLoading();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        ToastUtil.showToast(mContext, "Network Anomaly");
+                    }
                 }
 
                 @Override
                 public void onError(int tag, String msg) {
                     LogUtil.loge("upload", "失败" + msg);
-                    ToastUtil.showToast(mContext, "上传失败" + msg);
+                    ToastUtil.showToast(mContext, "Upload fail:" + msg);
                 }
 
                 @Override
                 public void onComplete(int tag) {
                     LogUtil.loge("upload", "完成");
-                    if (currentCount != totalCount) {
-                        currentCount++;
-                        uploadFile();
-                    } else {
-                        hideLoading();
-                        ToastUtil.showToast(mContext, "上传成功");
-                        finish();
-                    }
                 }
             });
 
-        }catch (Exception e){
-            LogUtil.loge("uploadFile",e.getMessage());
+        } catch (Exception e) {
+            LogUtil.loge("uploadFile", e.getMessage());
         }
 
     }
