@@ -19,62 +19,98 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="0"
-                android:text="Job Reference No.:"
-                android:textColor="@color/colorTextSelectUn" />
-            <TextView
-                android:id="@+id/tv_item_job_no"
-                android:layout_width="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="MV/2020/CB2/0001())/"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0"
+                    android:text="Job Reference No.:"
+                    android:textColor="@color/colorTextSelectUn"
+                    android:singleLine="true"
+                    android:includeFontPadding="false"
+                    android:textSize="13dp"/>
+                <TextView
+                    android:id="@+id/tv_item_job_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="MV/2020/CB2/0001())/"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"/>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Create Date/Time:"
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"
+                    android:textSize="13dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_item_job_create_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="10/20/2020"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:singleLine="true"
+                    android:includeFontPadding="false"/>
+
+            </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_item_job_property_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kornhill 康怡花園"
+            android:textColor="@color/colorBlack"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:layout_marginTop="5dp"/>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Property Name:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:id="@+id/tv_item_job_property_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kornhill 康怡花園"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="Street Name:"
-                android:textColor="@color/colorTextSelectUn"/>
+                android:textColor="@color/colorTextSelectUn"
+                android:visibility="gone"
+                android:includeFontPadding="false"
+                />
             <TextView
                 android:id="@+id/tv_item_job_street"
                 android:layout_width="wrap_content"
@@ -83,30 +119,8 @@
                 android:text="10 - 12 Hong On Street, Quarry Bay, HK, HKSAR"
                 android:textColor="@color/colorBlack"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <TextView
                 android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Create Date/Time:"
-                android:textColor="@color/colorTextSelectUn"/>
-            <TextView
-                android:id="@+id/tv_item_job_create_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10/20/2020"
-                android:textColor="@color/colorBlack"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"/>
+                android:includeFontPadding="false"/>
 
         </LinearLayout>
         <LinearLayout
@@ -120,14 +134,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Instruction Date:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_instruction_date"
                     android:layout_width="wrap_content"
@@ -136,7 +151,8 @@
                     android:text="10/20/2020"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -145,14 +161,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Assigned Officer:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_assigned_officer"
                     android:layout_width="wrap_content"
@@ -161,7 +178,8 @@
                     android:text="David Chow, Carmen Ho"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -169,7 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,7 +195,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:text="Building Name:"
-                    android:textColor="@color/colorTextSelectUn" />
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_building_name"
                     android:layout_width="wrap_content"
@@ -186,21 +205,23 @@
                     android:text="Kornhill (Block P) 康怡花園(P座)"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Unit Name:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_unit_name"
                     android:layout_width="wrap_content"
@@ -209,7 +230,8 @@
                     android:text="07/F, 709"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -217,14 +239,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Scheduled Inspect Date:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_jib_inspect_date"
                     android:layout_width="wrap_content"
@@ -233,7 +256,8 @@
                     android:text=""
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
             <LinearLayout
@@ -241,14 +265,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Actual Inspect Date:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_jib_inspect_date_actual"
                     android:layout_width="wrap_content"
@@ -257,7 +282,8 @@
                     android:text="10/14/2020"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -265,14 +291,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Company Name:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_company_name"
                     android:layout_width="wrap_content"
@@ -281,7 +308,8 @@
                     android:text="Bank of China"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -289,14 +317,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Client Name:"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_client_name"
                     android:layout_width="wrap_content"
@@ -305,7 +334,8 @@
                     android:text="Chan Yee Man"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -313,14 +343,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Phone No. :"
-                    android:textColor="@color/colorTextSelectUn"/>
+                    android:textColor="@color/colorTextSelectUn"
+                    android:includeFontPadding="false"/>
                 <TextView
                     android:id="@+id/tv_item_job_phone_no"
                     android:layout_width="wrap_content"
@@ -329,7 +360,8 @@
                     android:text="67891234"
                     android:textColor="@color/colorBlack"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"/>
 
             </LinearLayout>
 
@@ -347,7 +379,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/show_detail"
                 android:textColor="@color/show_detail"
-                android:paddingTop="15dp"
+                android:paddingTop="8dp"
+                android:includeFontPadding="false"
                 />
             <ImageView
                 android:id="@+id/iv_item_job_show_hide"
@@ -355,7 +388,7 @@
                 android:layout_height="13dp"
                 android:src="@drawable/img_arrow_down"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="18dp"/>
+                android:layout_marginTop="11dp"/>
 
         </LinearLayout>
 
@@ -363,7 +396,6 @@
        <FrameLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginTop="15dp"
            android:layout_marginBottom="5dp">
            <TextView
                android:id="@+id/tv_item_job_accept"
