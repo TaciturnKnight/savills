@@ -127,6 +127,7 @@ public class PhotoActivity extends BaseActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                         ToastUtil.showToast(mContext, "Network Anomaly");
+                        hideLoading();
                     }
                 }
 
